@@ -1,6 +1,6 @@
 # fil_rouge
-Création du petit jeux pour le Fil rouge
-projet fil rouge : 
+Création du petit RPG
+
 
 - Muriel
 - Fabrice
