@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_JWmYwE5IEemWEaPMP-Lifw" name="model">
+  <eAnnotations xmi:id="_JWmYwU5IEemWEaPMP-Lifw" source="genmymodel">
+    <details xmi:id="_JWmYwk5IEemWEaPMP-Lifw" key="uuid" value="_js3mEE5BEemWEaPMP-Lifw"/>
+    <details xmi:id="_JWmYw05IEemWEaPMP-Lifw" key="author" value="Chaussettecin"/>
+  </eAnnotations>
+  <ownedComment xmi:id="_JWmYxE5IEemWEaPMP-Lifw" body="Le magasin pourrait permettre&#xA;d'acheter ou de vendre les équipement.">
+    <eAnnotations xmi:id="_JWmYxU5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmYxk5IEemWEaPMP-Lifw" key="uuid" value="_LN3bEDB1EDetLIO7VaK9uQ"/>
+    </eAnnotations>
+  </ownedComment>
+  <packageImport xmi:id="_JWmYx05IEemWEaPMP-Lifw">
+    <eAnnotations xmi:id="_JWmYyE5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmYyU5IEemWEaPMP-Lifw" key="uuid" value="_js3mEU5BEemWEaPMP-Lifw"/>
+    </eAnnotations>
+    <importedPackage href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#/"/>
+  </packageImport>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmYyk5IEemWEaPMP-Lifw" name="personnage">
+    <eAnnotations xmi:id="_JWmYy05IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmYzE5IEemWEaPMP-Lifw" key="uuid" value="_l4IF8DBvEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <ownedAttribute xmi:id="_JWmYzU5IEemWEaPMP-Lifw" name="nom">
+      <eAnnotations xmi:id="_JWmYzk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmYz05IEemWEaPMP-Lifw" key="uuid" value="_LSHbMDBwEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <type xsi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#//String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmY0E5IEemWEaPMP-Lifw" name="Races" type="_JWmY5k5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY0U5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY0k5IEemWEaPMP-Lifw" key="uuid" value="_w7o54DBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmY005IEemWEaPMP-Lifw" name="métiers" type="_JWmY6U5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY1E5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY1U5IEemWEaPMP-Lifw" key="uuid" value="_1dIIEDBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmY1k5IEemWEaPMP-Lifw" name="level" type="_JWmZRk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY105IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY2E5IEemWEaPMP-Lifw" key="uuid" value="_7_fo4DBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmY2U5IEemWEaPMP-Lifw" name="equipement" type="_JWmZTE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY2k5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY205IEemWEaPMP-Lifw" key="uuid" value="_A3vxQDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmY3E5IEemWEaPMP-Lifw" name="race">
+    <eAnnotations xmi:id="_JWmY3U5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmY3k5IEemWEaPMP-Lifw" key="uuid" value="_os56sDBvEDetLIO7VaK9uQ"/>
+      <details xmi:id="_JWmY305IEemWEaPMP-Lifw" key="gmm-documentation" value="&lt;p>Chaque perso doit avoir une race&lt;/p>&#xA;"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmY4E5IEemWEaPMP-Lifw" general="_JWmY6U5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY4U5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY4k5IEemWEaPMP-Lifw" key="uuid" value="_OrDs8DBwEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+    <ownedAttribute xmi:id="_JWmY405IEemWEaPMP-Lifw" name="Type">
+      <eAnnotations xmi:id="_JWmY5E5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY5U5IEemWEaPMP-Lifw" key="uuid" value="__SzwkDBvEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <type xsi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#//String"/>
+    </ownedAttribute>
+    <nestedClassifier xsi:type="uml:Enumeration" xmi:id="_JWmY5k5IEemWEaPMP-Lifw" name="Orc, Elfe, Nain, Humain">
+      <eAnnotations xmi:id="_JWmY505IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY6E5IEemWEaPMP-Lifw" key="uuid" value="_dEa_MDBwEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmY6U5IEemWEaPMP-Lifw" name="metier">
+    <eAnnotations xmi:id="_JWmY6k5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmY605IEemWEaPMP-Lifw" key="uuid" value="_wEiPkDBvEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmY7E5IEemWEaPMP-Lifw" general="_JWmYyk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY7U5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY7k5IEemWEaPMP-Lifw" key="uuid" value="_Q_bjUDBwEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+    <ownedAttribute xmi:id="_JWmY705IEemWEaPMP-Lifw" name="mType">
+      <eAnnotations xmi:id="_JWmY8E5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY8U5IEemWEaPMP-Lifw" key="uuid" value="_FzAHIDBwEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <type xsi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#//String"/>
+    </ownedAttribute>
+    <nestedClassifier xsi:type="uml:Enumeration" xmi:id="_JWmY8k5IEemWEaPMP-Lifw" name="Enumeration">
+      <eAnnotations xmi:id="_JWmY805IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY9E5IEemWEaPMP-Lifw" key="uuid" value="_fJSdIDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmY9U5IEemWEaPMP-Lifw" name="boucliers" isAbstract="true">
+    <eAnnotations xmi:id="_JWmY9k5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmY905IEemWEaPMP-Lifw" key="uuid" value="_oLrAcDBwEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmY-E5IEemWEaPMP-Lifw" general="_JWmZTE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY-U5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmY-k5IEemWEaPMP-Lifw" key="uuid" value="_XW8iMDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmY-05IEemWEaPMP-Lifw" name="armures" isAbstract="true">
+    <eAnnotations xmi:id="_JWmY_E5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmY_U5IEemWEaPMP-Lifw" key="uuid" value="_orrWMTBwEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmY_k5IEemWEaPMP-Lifw" general="_JWmZTE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmY_05IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZAE5IEemWEaPMP-Lifw" key="uuid" value="_Ta48UDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZAU5IEemWEaPMP-Lifw" name="Armes" isAbstract="true">
+    <eAnnotations xmi:id="_JWmZAk5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZA05IEemWEaPMP-Lifw" key="uuid" value="_poaEMDBwEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZBE5IEemWEaPMP-Lifw" general="_JWmZTE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZBU5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZBk5IEemWEaPMP-Lifw" key="uuid" value="_bwJXEDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZB05IEemWEaPMP-Lifw" name="objets divers" isAbstract="true">
+    <eAnnotations xmi:id="_JWmZCE5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZCU5IEemWEaPMP-Lifw" key="uuid" value="_vTFvEDBwEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZCk5IEemWEaPMP-Lifw" general="_JWmZTE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZC05IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZDE5IEemWEaPMP-Lifw" key="uuid" value="_SkwlkDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+    <ownedAttribute xmi:id="_JWmZDU5IEemWEaPMP-Lifw" name="potions">
+      <eAnnotations xmi:id="_JWmZDk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZD05IEemWEaPMP-Lifw" key="uuid" value="_OXfT4DB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmZEE5IEemWEaPMP-Lifw" name="objets magique">
+      <eAnnotations xmi:id="_JWmZEU5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZEk5IEemWEaPMP-Lifw" key="uuid" value="_PqU0wDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZE05IEemWEaPMP-Lifw" name="Vilains">
+    <eAnnotations xmi:id="_JWmZFE5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZFU5IEemWEaPMP-Lifw" key="uuid" value="_h4sxEDBxEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZFk5IEemWEaPMP-Lifw" general="_JWmZH05IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZF05IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZGE5IEemWEaPMP-Lifw" key="uuid" value="_JwvdIDByEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+    <generalization xmi:id="_JWmZGU5IEemWEaPMP-Lifw" general="_JWmZHE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZGk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZG05IEemWEaPMP-Lifw" key="uuid" value="_K983IDByEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZHE5IEemWEaPMP-Lifw" name="Boss">
+    <eAnnotations xmi:id="_JWmZHU5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZHk5IEemWEaPMP-Lifw" key="uuid" value="_jz1BADBxEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZH05IEemWEaPMP-Lifw" name="Minions">
+    <eAnnotations xmi:id="_JWmZIE5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZIU5IEemWEaPMP-Lifw" key="uuid" value="_mONYwDBxEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZIk5IEemWEaPMP-Lifw" name="map">
+    <eAnnotations xmi:id="_JWmZI05IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZJE5IEemWEaPMP-Lifw" key="uuid" value="_1sivADBxEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZJU5IEemWEaPMP-Lifw" general="_JWmZH05IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZJk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZJ05IEemWEaPMP-Lifw" key="uuid" value="_HuHeEDByEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZKE5IEemWEaPMP-Lifw" name="Donjon">
+    <eAnnotations xmi:id="_JWmZKU5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZKk5IEemWEaPMP-Lifw" key="uuid" value="_4kzVkDBxEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZK05IEemWEaPMP-Lifw" general="_JWmZIk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZLE5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZLU5IEemWEaPMP-Lifw" key="uuid" value="_DbOFgDByEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Dependency" xmi:id="_JWmZLk5IEemWEaPMP-Lifw" client="_JWmZKE5IEemWEaPMP-Lifw" supplier="_JWmZHE5IEemWEaPMP-Lifw">
+    <eAnnotations xmi:id="_JWmZL05IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZME5IEemWEaPMP-Lifw" key="uuid" value="_AXSacDByEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZMU5IEemWEaPMP-Lifw" name="Quetes">
+    <eAnnotations xmi:id="_JWmZMk5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZM05IEemWEaPMP-Lifw" key="uuid" value="_Nuu8sDByEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <ownedAttribute xmi:id="_JWmZNE5IEemWEaPMP-Lifw" name="num">
+      <eAnnotations xmi:id="_JWmZNU5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZNk5IEemWEaPMP-Lifw" key="uuid" value="_L2LqMDBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <type xsi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#//Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmZN05IEemWEaPMP-Lifw" name="pnj" type="_JWmY5k5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZOE5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZOU5IEemWEaPMP-Lifw" key="uuid" value="_SAxkMDBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZOk5IEemWEaPMP-Lifw" name="Magasins">
+    <eAnnotations xmi:id="_JWmZO05IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZPE5IEemWEaPMP-Lifw" key="uuid" value="_PLsp8DByEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <ownedAttribute xmi:id="_JWmZPU5IEemWEaPMP-Lifw" name="equipements" type="_JWmZTE5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZPk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZP05IEemWEaPMP-Lifw" key="uuid" value="__l9j0DB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmZQE5IEemWEaPMP-Lifw" name="acheter">
+      <eAnnotations xmi:id="_JWmZQU5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZQk5IEemWEaPMP-Lifw" key="uuid" value="_B_hcMDB1EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmZQ05IEemWEaPMP-Lifw" name="vendre">
+      <eAnnotations xmi:id="_JWmZRE5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZRU5IEemWEaPMP-Lifw" key="uuid" value="_EXO6cDB1EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZRk5IEemWEaPMP-Lifw" name="level">
+    <eAnnotations xmi:id="_JWmZR05IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZSE5IEemWEaPMP-Lifw" key="uuid" value="_bZOWwDByEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZSU5IEemWEaPMP-Lifw" general="_JWmYyk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZSk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZS05IEemWEaPMP-Lifw" key="uuid" value="_vCyh4DBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZTE5IEemWEaPMP-Lifw" name="Equipement">
+    <eAnnotations xmi:id="_JWmZTU5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZTk5IEemWEaPMP-Lifw" key="uuid" value="_iRvtwDByEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <generalization xmi:id="_JWmZT05IEemWEaPMP-Lifw" general="_JWmYyk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZUE5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZUU5IEemWEaPMP-Lifw" key="uuid" value="_Mojs4DB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+    <generalization xmi:id="_JWmZUk5IEemWEaPMP-Lifw" general="_JWmZOk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZU05IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZVE5IEemWEaPMP-Lifw" key="uuid" value="_lgw8kDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </generalization>
+    <ownedAttribute xmi:id="_JWmZVU5IEemWEaPMP-Lifw" name="attribute" type="_JWmZAU5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZVk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZV05IEemWEaPMP-Lifw" key="uuid" value="_y_73cDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmZWE5IEemWEaPMP-Lifw" name="armures" type="_JWmY-05IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZWU5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZWk5IEemWEaPMP-Lifw" key="uuid" value="_1WL9IDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_JWmZW05IEemWEaPMP-Lifw" name="boucliers" type="_JWmY9U5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZXE5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZXU5IEemWEaPMP-Lifw" key="uuid" value="_4HiDYDB0EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Association" xmi:id="_JWmZXk5IEemWEaPMP-Lifw" name="Quetes_map" memberEnd="_JWmZYU5IEemWEaPMP-Lifw _JWmZaE5IEemWEaPMP-Lifw" navigableOwnedEnd="_JWmZYU5IEemWEaPMP-Lifw _JWmZaE5IEemWEaPMP-Lifw">
+    <eAnnotations xmi:id="_JWmZX05IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZYE5IEemWEaPMP-Lifw" key="uuid" value="_ZXJ74DBzEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <ownedEnd xmi:id="_JWmZYU5IEemWEaPMP-Lifw" name="map" type="_JWmZIk5IEemWEaPMP-Lifw" aggregation="shared" association="_JWmZXk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZYk5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZY05IEemWEaPMP-Lifw" key="uuid" value="_ZXHfoDBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <lowerValue xsi:type="uml:LiteralInteger" xmi:id="_JWmZZE5IEemWEaPMP-Lifw" value="1">
+        <eAnnotations xmi:id="_JWmZZU5IEemWEaPMP-Lifw" source="genmymodel">
+          <details xmi:id="_JWmZZk5IEemWEaPMP-Lifw" key="uuid" value="_ZXItwDBzEDetLIO7VaK9uQ"/>
+        </eAnnotations>
+      </lowerValue>
+      <upperValue xsi:type="uml:LiteralUnlimitedNatural" xmi:id="_JWmZZ05IEemWEaPMP-Lifw" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_JWmZaE5IEemWEaPMP-Lifw" name="quetes" type="_JWmZMU5IEemWEaPMP-Lifw" association="_JWmZXk5IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZaU5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZak5IEemWEaPMP-Lifw" key="uuid" value="_ZXCAEDBzEDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <lowerValue xsi:type="uml:LiteralInteger" xmi:id="_JWmZa05IEemWEaPMP-Lifw">
+        <eAnnotations xmi:id="_JWmZbE5IEemWEaPMP-Lifw" source="genmymodel">
+          <details xmi:id="_JWmZbU5IEemWEaPMP-Lifw" key="uuid" value="_ZXD1QDBzEDetLIO7VaK9uQ"/>
+        </eAnnotations>
+      </lowerValue>
+      <upperValue xsi:type="uml:LiteralInteger" xmi:id="_JWmZbk5IEemWEaPMP-Lifw" value="1">
+        <eAnnotations xmi:id="_JWmZb05IEemWEaPMP-Lifw" source="genmymodel">
+          <details xmi:id="_JWmZcE5IEemWEaPMP-Lifw" key="uuid" value="_ZXFDYDBzEDetLIO7VaK9uQ"/>
+        </eAnnotations>
+      </upperValue>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Dependency" xmi:id="_JWmZcU5IEemWEaPMP-Lifw" client="_JWmZNE5IEemWEaPMP-Lifw" supplier="_JWmZN05IEemWEaPMP-Lifw">
+    <eAnnotations xmi:id="_JWmZck5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZc05IEemWEaPMP-Lifw" key="uuid" value="_gRaYQDBzEDetLIO7VaK9uQ"/>
+    </eAnnotations>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Class" xmi:id="_JWmZdE5IEemWEaPMP-Lifw" name="Joueurs">
+    <eAnnotations xmi:id="_JWmZdU5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZdk5IEemWEaPMP-Lifw" key="uuid" value="_sMNg4DB0EDetLIO7VaK9uQ"/>
+    </eAnnotations>
+  </packagedElement>
+  <packagedElement xsi:type="uml:Association" xmi:id="_JWmZd05IEemWEaPMP-Lifw" name="Joueurs_personnage" memberEnd="_JWmZek5IEemWEaPMP-Lifw _JWmZg05IEemWEaPMP-Lifw" navigableOwnedEnd="_JWmZek5IEemWEaPMP-Lifw _JWmZg05IEemWEaPMP-Lifw">
+    <eAnnotations xmi:id="_JWmZeE5IEemWEaPMP-Lifw" source="genmymodel">
+      <details xmi:id="_JWmZeU5IEemWEaPMP-Lifw" key="uuid" value="_haspoDB1EDetLIO7VaK9uQ"/>
+    </eAnnotations>
+    <ownedEnd xmi:id="_JWmZek5IEemWEaPMP-Lifw" name="personnage" type="_JWmYyk5IEemWEaPMP-Lifw" association="_JWmZd05IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZe05IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZfE5IEemWEaPMP-Lifw" key="uuid" value="_haq0cDB1EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <lowerValue xsi:type="uml:LiteralInteger" xmi:id="_JWmZfU5IEemWEaPMP-Lifw">
+        <eAnnotations xmi:id="_JWmZfk5IEemWEaPMP-Lifw" source="genmymodel">
+          <details xmi:id="_JWmZf05IEemWEaPMP-Lifw" key="uuid" value="_harbgDB1EDetLIO7VaK9uQ"/>
+        </eAnnotations>
+      </lowerValue>
+      <upperValue xsi:type="uml:LiteralInteger" xmi:id="_JWmZgE5IEemWEaPMP-Lifw" value="1">
+        <eAnnotations xmi:id="_JWmZgU5IEemWEaPMP-Lifw" source="genmymodel">
+          <details xmi:id="_JWmZgk5IEemWEaPMP-Lifw" key="uuid" value="_hasCkDB1EDetLIO7VaK9uQ"/>
+        </eAnnotations>
+      </upperValue>
+    </ownedEnd>
+    <ownedEnd xmi:id="_JWmZg05IEemWEaPMP-Lifw" name="joueurs" type="_JWmZdE5IEemWEaPMP-Lifw" association="_JWmZd05IEemWEaPMP-Lifw">
+      <eAnnotations xmi:id="_JWmZhE5IEemWEaPMP-Lifw" source="genmymodel">
+        <details xmi:id="_JWmZhU5IEemWEaPMP-Lifw" key="uuid" value="_hanxIDB1EDetLIO7VaK9uQ"/>
+      </eAnnotations>
+      <lowerValue xsi:type="uml:LiteralInteger" xmi:id="_JWmZhk5IEemWEaPMP-Lifw" value="1">
+        <eAnnotations xmi:id="_JWmZh05IEemWEaPMP-Lifw" source="genmymodel">
+          <details xmi:id="_JWmZiE5IEemWEaPMP-Lifw" key="uuid" value="_hao_QDB1EDetLIO7VaK9uQ"/>
+        </eAnnotations>
+      </lowerValue>
+      <upperValue xsi:type="uml:LiteralUnlimitedNatural" xmi:id="_JWmZiU5IEemWEaPMP-Lifw" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
