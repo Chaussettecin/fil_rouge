@@ -1,47 +1,52 @@
 package rpg_filrouge;
 
+import java.util.ArrayList;
+
 public class equipement_armure {
 
 	
-private static ArrayList<equipement_armure> arrayArmures = new ArrayList<>(3);
-private String nom;
-private int prix;
-private int restDegats; // en %
-private int level;
-public boolean possede;
-public boolean equiper;
+	private static ArrayList<equipement_armure> arrayArmures = new ArrayList<>(3);
+	private String nom;
+	private int prix;
+	private int restDegats; // en %
+	private int level;
+	public boolean possede;
+	public boolean equiper;
 
-public equipement_armure(String nom, int prix, int restDegats, int level) {
-	        this.nom = nom;
-	        this.prix = prix;
-	        this.restDegats = restDegats;
-	        this.level = level;
-	        equipement_armure.add(this);
-	      }
+	public equipement_armure(String nom, int prix, int restDegats, int level) {
+	        
+		this.nom = nom;
+	    this.prix = prix;
+	    this.restDegats = restDegats;
+	    this.level = level;
+	    equipement_armure.add(this);
+	}
 
-private static void add(equipement_armure equipement_armure) {
-		
-}
+	
+	private static void add(equipement_armure equipement_armure) {}
 
-public static equipement_armure getEquiper() {
-	   for (equipement_armure i : arrayArmures) {
+
+	public static equipement_armure getEquiper() {
+	   
+		for (equipement_armure i : arrayArmures) {
 	        if (i.estEquiper()) return i;
 	   }
-	   support.error("oupss ! - Pas d'armure sur ton body");
+		game_support.error("oupss ! - Pas d'armure sur ton body");
 	    return null;
- }
+	}
 
-public static ArrayList<equipement_armure> getarmures() {
-	 return arrayArmures;
-}
 
-public static int get() {
+	public static ArrayList<equipement_armure> getarmures() {
+		return arrayArmures;
+	}
+
+	public static int get() {
 	   return arrayArmures.indexOf(getEquiper());
 	}
 
-public static void set(int i) {
-	 arrayArmures.get(i).equiper= true;
-}
+	public static void set(int i) {
+		arrayArmures.get(i).equiper= true;
+	}
 
 	public static void choix() {
 	    
@@ -128,17 +133,17 @@ public static void set(int i) {
 	        return this.equiper;
 	}
 
-//-- Permet à l'utilisateur de savoir s'il est équiper de l'arm
+//-- Permet Ã  l'utilisateur de savoir s'il est Ã©quiper de l'arm
 	public void equiper() {
 	        
 		if (!(this.possede)) {
-	            ui.msg("Vous ne possédez pas cet équipement.");
+	            ui.msg("Vous ne possÃ©dez pas cet Ã©quipement.");
 	    return;
 	    }
 	     	this.equiper = true;
 	        getEquiper().unequip();
 	        this.equiper = true;
-	        ui.msg("Tu es équipé " + this.toString());
+	        ui.msg("Tu es Ã©quipÃ© " + this.toString());
 	}// fin equiper
 
 	public void equipSilent() {
@@ -162,12 +167,12 @@ public static void set(int i) {
 
 // -- Achat de l'armure possible -	
 	public boolean achat() {
-		if (joueurs_xp.getLevel() < this.getLevel()) {
-	            	ui.println("Tu doit être au moins au niveau :" + this.getLevel() + "pour acheter ça!");
+		if (perso_xp.getLevel() < this.getLevel()) {
+	            	ui.println("Tu doit Ãªtre au moins au niveau :" + this.getLevel() + "pour acheter Ã§a!");
 	            	ui.pause();
 	       return false;
 	    } else if (this.esPossede()) {
-	            	ui.println("Tu possédes déjà cette arme.");
+	            	ui.println("Tu possÃ©des dÃ©jÃ  cette arme.");
 	            	ui.pause();
 	       return false;
 	    } else if (this.getPrix() <= gold.get()) {
@@ -178,17 +183,18 @@ public static void set(int i) {
 	            	ui.pause();
 	       return true;
 	   } else {
-	            	ui.println("Oh oh ! la maison ne fait pas crédit.");
+	            	ui.println("Oh oh ! la maison ne fait pas crÃ©dit.");
 	            	ui.pause();
 	       return false;
 	   }
 	}// fin achats
 
 	    
-public void viewApropos() {
-	   final int BORDER_LENGTH = 39;
+	public void viewApropos() {
+	   
+		final int BORDER_LENGTH = 39;
 
-	  //Lancer les information sur l'armure
+	//-- Lancer les information sur l'armure -
 	        ui.cls();
 	        for (int i = 0; i < BORDER_LENGTH; i++) ui.print("-");
 	        	ui.println();
@@ -196,10 +202,10 @@ public void viewApropos() {
 	            ui.print(" ");
 	        	ui.println(this.toString());
 	        	ui.println("Prix : " + this.prix + "Gold");
-	        	ui.println("Resistance aux dégats (%): " + this.restDegats + "%");
+	        	ui.println("Resistance aux dÃ©gats (%): " + this.restDegats + "%");
 	        	ui.println("Level requis : " + this.level);
 	        for (int i = 0; i < BORDER_LENGTH; i++) ui.print("-");
 	        	ui.pause();
-	        //ui.cls();
-	    }//Fin des infos de l'armure
+	        ui.cls();
+	 }//Fin des infos de l'armure
 }
