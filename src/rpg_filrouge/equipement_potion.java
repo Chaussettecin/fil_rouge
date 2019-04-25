@@ -6,16 +6,15 @@ public class equipement_potion {
     public static int svNiveau;
     public static int svPrix;
  //-- ajoute des potion pour soigner les statuts 
- //-- ajouter une potion qui donne au perso un coup de pouce temp (avec + de dÈg‚ts)
+ //-- ajouter une potion qui donne au perso un coup de pouce temp (avec + de d√©g√¢ts)
 
     public static int 	restoUtiliser = 0;
     public static int 	restNiveau;
     public static int 	restPrix;
     private static int 	potionSuvie; //potion + 25% sante
-    private static int 	potionRestau; //potion + 75% santÈ
+    private static int 	potionRestau; //potion + 75% sant√©
 	
-private equipement_potion() {
-}
+private equipement_potion() {}
     
 public static int get(String trouver) {
      switch (trouver.toLowerCase()) {
@@ -47,7 +46,7 @@ public static void set(String trouver,int montant, boolean add) {
             }
             break;
        default:
-           support.error("Cette potion n'existe pas." + trouver);
+           game_support.error("Cette potion n'existe pas." + trouver);
      }//fin switch
   }
 
@@ -63,12 +62,12 @@ public static void set(String trouver,int montant, boolean add) {
          ui.println("--------------------------------------------------------");            
          ui.pause();
 
-     } else if (joueurs_sante.get() == 100) {
+     } else if (perso_sante.get() == 100) {
     	 ui.println("-------------------------------------------------------");
-         ui.println("Tu es dÈj‡ en pleine forme ! Tu n'est pas un chat");
+         ui.println("Tu es d√©j√† en pleine forme ! Tu n'est pas un chat");
          ui.println("Donc tu n'as pas besoin d'utiliser " + trouver + " potion!");
          ui.println("-------------------------------------------------------");
-         ui.println("Ta santÈ actuelle :  " + joueurs_sante.getStr());
+         ui.println("Ta sant√© actuelle :  " + perso_sante.getStr());
          ui.println(trouver + "Potions : " + get(trouver));
          ui.println("-------------------------------------------------------");
          ui.pause();
@@ -76,33 +75,34 @@ public static void set(String trouver,int montant, boolean add) {
      } else {
     	 set(trouver, -1, true);
          int soin = (int) Math.round(soinPar(trouver));
-         joueurs_sante.gains(soin);
+         perso_sante.gains(soin);
          aUtiliser(trouver);
 
          ui.println("----------------------------------------------------");
          ui.println("Tu viens de consommer : " + trouver + " potion.");
-         ui.println("Te voil‡ en pleine forme avec : " + soin + " sante.	");
+         ui.println("Te voil√† en pleine forme avec : " + soin + " sante.	");
          ui.println("----------------------------------------------------");
-         ui.println("Ta santÈ est de: " + joueurs_sante.getStr());
+         ui.println("Ta sant√© est de: " + perso_sante.getStr());
          ui.println(trouver + " Potions: " + get(trouver));
          ui.println("----------------------------------------------------");
          ui.pause();
      }
   }//fin use
 
- //soin
+//-- soin -- 
   public static double soinPar(String trouver) {
-      switch (trouver.toLowerCase()) {
+      
+	  switch (trouver.toLowerCase()) {
          case "Survie":
-              return joueurs_sante.getOutOf() * .25;
+              return perso_sante.getOutOf() * .25;
          case "Restauration":
-              return joueurs_sante.getOutOf() * .75;
+              return perso_sante.getOutOf() * .75;
          default:
               return 0;
       }
   }// soinPAr
 
- //utiliser les potions
+//-- utiliser les potions --
   public static void aUtiliser(String trouver) {
       switch (trouver.toLowerCase()) {
          case "Survie":
@@ -112,20 +112,20 @@ public static void set(String trouver,int montant, boolean add) {
       }
    }//fin aUtiliser()
 
-//achats  
+//--- achats potions --
   public static void achat(String trouver) {
 
       int level = getLevel(trouver);
       int prix = getPrix(trouver);
 
-     if (joueurs_xp.getLevel() < level) {
-         ui.println("Tu n'est pas encore prÍt pour Áa :" + level + " pour acheter Áa!");
+     if (perso_xp.getLevel() < level) {
+         ui.println("Tu n'est pas encore pr√™t pour √ßa :" + level + "pour acheter √ßa!");
          ui.pause();
      } else if (prix <= gold.get()) {
     	 gold.set(-prix, true);
-         stats.totalGoldepenserprSante += prix;
+         perso_stats.totalGoldepenserprSante += prix;
          set(trouver, 1, true);
-         ui.println("Merci pour ton achat. A bientÙt! ");
+         ui.println("Merci pour ton achat. A bient√¥t! ");
          ui.pause();
      } else {
          ui.println("Tu n'as pas assez d'argent et ce n'est pas Noel!");
@@ -134,27 +134,31 @@ public static void set(String trouver,int montant, boolean add) {
  } // classe Trouver
 
  
- //recup les niveau des potions
- public static int getLevel(String trouver) {
-    switch (trouver.toLowerCase()) {
-       case "Survie":
-            return svNiveau;
-       case "Restauration":
-            return restNiveau;
-       default:
-            return 0; 
+//-- recup les niveau des potions -
+  	public static int getLevel(String trouver) {
+    
+  		switch (trouver.toLowerCase()) {
+  			case "Survie":
+  				return svNiveau;
+  			case "Restauration":
+  				return restNiveau;
+  			default:
+  				return 0; 
      }
   }
     
- //Recup les Prix des potions
- public static int getPrix(String trouver) {
-    switch (trouver.toLowerCase()) {
-       case "Survie":
-            return svPrix;
-       case "restauration":
-            return restPrix;
-       default:
-            return 0; 
-    }
+
+//-- Recup les Prix des potions -
+  	public static int getPrix(String trouver) {
+    
+  		switch (trouver.toLowerCase()) {
+  			case "Survie":
+  				return svPrix;
+  			case "restauration":
+  				return restPrix;
+  			default:
+  				return 0; 
+  		}
   }//recup prix
+  	
 }
