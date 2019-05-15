@@ -1,58 +1,51 @@
-package com.unlucky.save;
+package save;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Base64Coder;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
-import com.unlucky.battle.SpecialMoveset;
-import com.unlucky.entity.Player;
-import com.unlucky.inventory.Equipment;
-import com.unlucky.inventory.Inventory;
-import com.unlucky.inventory.Item;
-import com.unlucky.inventory.ShopItem;
-import com.unlucky.resource.ResourceManager;
 
-/**
- * Handles the reading and writing of save data to json files.
- *
- * @author Ming Li
- */
+import Battle.SpecialMoveset;
+import perso.Player;
+import inventory.Equipment;
+import inventory.Inventory;
+import inventory.Item;
+import inventory.ShopItem;
+import resource.ResourceManager;
+
+//--- A regler en fonction de Json et SQL 
+
+	//--- PErmet de lire et d'ecrire les données dans le fichier json
+
 public class Save {
 
     // for saving and loading
     private Player player;
     public PlayerAccessor psave;
-    private Json json;
-    private FileHandle file;
+    //private Json json;
+    //private FileHandle file;
 
     public Save(Player player, String path) {
         this.player = player;
         psave = new PlayerAccessor();
-        json = new Json();
-        json.setOutputType(JsonWriter.OutputType.json);
-        json.setUsePrototypes(false);
-        file = Gdx.files.local(path);
+        //json = new Json();
+        //json.setOutputType(JsonWriter.OutputType.json);
+        //json.setUsePrototypes(false);
+        //file = Gdx.files.local(path);
     }
 
-    /**
-     * Loads the player data into the PlayerAccessor then
-     * writes the player save data to the json file
-     */
+
+//--- Loads the player data into the PlayerAccessor then
+    //writes the player save data to the json file
     public void save() {
         // load player data
         psave.load(player);
         // write data to save json
-        file.writeString(Base64Coder.encodeString(json.prettyPrint(psave)), false);
+        //file.writeString(Base64Coder.encodeString(json.prettyPrint(psave)), false);
     }
 
-    /**
-     * Reads the player data from the save json file and then
-     * loads the data into the game through the player
-     */
+
+//-- Reads the player data from the save json file and then
+    //--loads the data into the game through the player
     public void load(ResourceManager rm) {
         if (!file.exists()) save();
-        psave = json.fromJson(PlayerAccessor.class, Base64Coder.decodeString(file.readString()));
+        /psave = json.fromJson(PlayerAccessor.class, Base64Coder.decodeString(file.readString()));
 
         // load atomic fields
         player.setHp(psave.hp);
