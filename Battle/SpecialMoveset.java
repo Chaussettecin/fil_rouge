@@ -14,8 +14,8 @@ public class SpecialMoveset {
     	smoveset = new ArrayList<SpecialMove>();
     }
 
-//--- Ajoute un coup spécial basé sur l'id à l'ensemble
-   //--si les contraintes sont respectées
+//--- Ajoute un coup spÃ©cial basÃ© sur l'id Ã  l'ensemble
+   //--si les contraintes sont respectÃ©es
     public void addSMove(int id) {
         
     	if (canAdd(id)) {
@@ -36,7 +36,7 @@ public class SpecialMoveset {
         return smoveset.size() == MAX_MOVES;
     }
 
-//-- Supprime un smove d'un index donné --
+//-- Supprime un smove d'un index donnÃ© --
     public void remove(int index) {
         smoveset.remove(index);
     }
@@ -52,9 +52,9 @@ public class SpecialMoveset {
         return ret;
     }
 
-//-- Retourne s'il est possible d'ajouter un certain smove à l'ensemble
-    	//--Contrainte 1: doit être assez d'espace
-    	//--Contrainte 2: le déplacement ne doit pas déjà apparaître deux fois
+//-- Retourne s'il est possible d'ajouter un certain smove Ã  l'ensemble
+    	//--Contrainte 1: doit Ãªtre assez d'espace
+    	//--Contrainte 2: le dÃ©placement ne doit pas dÃ©jÃ  apparaÃ®tre deux fois
     public boolean canAdd(int id) {
     	
         if (smoveset.size() == MAX_MOVES) return false;
@@ -66,11 +66,12 @@ public class SpecialMoveset {
         return count < 2;
     }
 
-//--Renvoie le smove associé à un identifiant --
+//--Renvoie le smove associÃ© Ã  un identifiant --
     private SpecialMove getMove(int id) {
         
     	switch (id) {
-            case Util.DISTRACT: return Util.S_DISTRACT;
+            
+    		case Util.DISTRACT: return Util.S_DISTRACT;
             case Util.FOCUS: return Util.S_FOCUS;
             case Util.INTIMIDATE: return Util.S_INTIMIDATE;
             case Util.REFLECT: return Util.S_REFLECT;
