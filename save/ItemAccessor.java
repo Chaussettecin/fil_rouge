@@ -1,16 +1,11 @@
 package save;
 
-
-
-
-
-
 // Provides a serializable object that represents the data of items
  // that are considered important for save files.
  
 public class ItemAccessor {
 
-    // descriptors
+     // descriptors
     public String name;
     public String labelName;
     public String desc;
@@ -40,7 +35,8 @@ public class ItemAccessor {
      * @param item
      */
     public void load(Item item) {
-        this.name = item.name;
+        
+    	this.name = item.name;
         this.desc = item.desc;
         this.labelName = item.labelName;
 
