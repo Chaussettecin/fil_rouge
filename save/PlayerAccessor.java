@@ -1,18 +1,15 @@
-package com.unlucky.save;
+package save;
 
-import com.unlucky.battle.SpecialMoveset;
-import com.unlucky.entity.Player;
-import com.unlucky.inventory.*;
-import com.unlucky.resource.Statistics;
-
+import perso.Player;
+import inventory.*;
+import resource.Statistics;
 import java.util.Arrays;
 
 /**
  * Provides a serializable object that represents the data of the player
  * that is considered important for save files.
  *
- * @author Ming Li
- */
+*/
 public class PlayerAccessor  {
 
     // status fields
@@ -58,8 +55,8 @@ public class PlayerAccessor  {
      */
     public void load(Player player) {
         // load atomic fields
-        this.hp = player.getHp();
-        this.maxHp = player.getMaxHp();
+        this.hp = player.getExp();
+        this.maxHp = player.getMaxExp();
         this.level = player.getLevel();
         this.exp = player.getExp();
         this.maxExp = player.getMaxExp();
@@ -111,7 +108,7 @@ public class PlayerAccessor  {
 
         Arrays.fill(smoveset, -1);
         // load smoveset
-        for (int i = 0; i < player.smoveset.smoveset.size; i++) {
+        for (int i = 0; i < player.smoveset.smoveset.size(); i++) {
             smoveset[i] = player.smoveset.getMoveAt(i).id;
         }
 
