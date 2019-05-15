@@ -2,12 +2,14 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Label;
 
+import ui.UI;
+
 import event.EventState;
 import resource.ResourceManager;
 import screen.GameScreen;
 
-//-- Place une boîte de dialogue qui gère les événements à partir de l'état de l'événement.
-//-- Fondamentalement identique à BattleEventHandler mais pour les événements de carte
+//-- Place une boÃ®te de dialogue qui gÃ¨re les Ã©vÃ©nements Ã  partir de l'Ã©tat de l'Ã©vÃ©nement.
+//-- Fondamentalement identique Ã  BattleEventHandler mais pour les Ã©vÃ©nements de carte
  
 public class DialogScreen extends UI {
 
@@ -34,7 +36,7 @@ public class DialogScreen extends UI {
     private EventState prevEvent = EventState.NONE;
     private EventState nextEvent = EventState.NONE;
 
-//// crée l'effet triangle clignotant lorsque le texte est animé
+//// crÃ©e l'effet triangle clignotant lorsque le texte est animÃ©
     private boolean posSwitch = false;
     private float posTime = 0;
 
@@ -98,8 +100,8 @@ public class DialogScreen extends UI {
         stage.addActor(clickLabel);
     }
 
-//--  Démarre le processus d'animation de texte avec un tableau de chaînes
-   //Prend également un BattleEvent appelé une fois la boîte de dialogue terminée.
+//--  DÃ©marre le processus d'animation de texte avec un tableau de chaÃ®nes
+   //Prend Ã©galement un BattleEvent appelÃ© une fois la boÃ®te de dialogue terminÃ©e.
     public void startDialog(String[] dialog, EventState prev, EventState next) {
         
     	ui.setVisible(true);
