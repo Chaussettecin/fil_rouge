@@ -1,12 +1,10 @@
-package com.unlucky.save;
+package save;
 
-import com.unlucky.inventory.ShopItem;
+import inventory.ShopItem;
 
 /**
  * Provides a serializable object that represents the data of shop items
  * that are considered important for save files.
- *
- * @author Ming Li
  */
 public class ShopItemAccessor extends ItemAccessor {
 
