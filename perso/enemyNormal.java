@@ -15,14 +15,14 @@ public class enemyNormal extends enemy {
 	        //super(id, position, tileMap, rm);
 	 	//}
 
-	 public enemyNormal(String id, TileMap tileMap, ResourceManager rm,
-	                  	int worldIndex, int startIndex, int numFrames, float delay) {
+	 public enemyNormal(boolean isElite) {
 	        
-		 this(id, tileMap, rm);
+		 super(id, nom, taille, agilité, level, santeActuelle, SanteMax, manaActuel,
+				maxMana, intelligence);
 
-	        // determine if elite
+	        // determine si l'enemi est un boss ou pas
 	        isElite = Util.isSuccess(Util.ELITE_CHANCE);
-	        if (isElite) this.id = "[ELITE] " + id;
+	        if (isElite) this.nom = "[ELITE] " + nom;
 	}
 
 	 @Override
@@ -61,8 +61,8 @@ public class enemyNormal extends enemy {
 	     this.setAccuracy(MathUtils.random(Util.ENEMY_MIN_ACCURACY, Util.ENEMY_MAX_ACCURACY));
 
 	        // finalize stats
-	        this.setMaxHp(isElite ? (int) (eliteMultiplier * mhp) : mhp);
-	        this.setMinDamage(isElite ? (int) (eliteMultiplier * minDmg) : minDmg);
-	        this.setMaxDamage(isElite ? (int) (eliteMultiplier * maxDmg) : maxDmg);
+	       // this.setMaxHp(isElite ? (int) (eliteMultiplier * mhp) : mhp);
+	        //this.setMinDamage(isElite ? (int) (eliteMultiplier * minDmg) : minDmg);
+	        //this.setMaxDamage(isElite ? (int) (eliteMultiplier * maxDmg) : maxDmg);
 	    }
 }
