@@ -15,9 +15,10 @@ public class enemyNormal extends enemy {
 	        //super(id, position, tileMap, rm);
 	 	//}
 
-	 public enemyNormal(String id, Vector2 position, TileMap tileMap, ResourceManager rm,
+	 public enemyNormal(String id, TileMap tileMap, ResourceManager rm,
 	                  	int worldIndex, int startIndex, int numFrames, float delay) {
-	        this(id, position, tileMap, rm);
+	        
+		 this(id, tileMap, rm);
 
 	        // determine if elite
 	        isElite = Util.isSuccess(Util.ELITE_CHANCE);
