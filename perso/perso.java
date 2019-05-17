@@ -2,6 +2,7 @@ package perso;
 
 import java.util.ArrayList;
 import Battle.moveSet;
+import inventory.liste_Armes;
 import map.TileMap;
 import resource.ResourceManager;
 
@@ -10,9 +11,8 @@ public abstract class perso {
 
     protected String id;
 	private String nom ;
-	
-	private Job metier ;    
-  	
+	private job metier ;
+	protected int level;
 	private Race race ;
   	private int ptv ;           // pts de vie de base
     protected boolean dead = false; // Verif s'il est est vivant ou pas
@@ -23,47 +23,42 @@ public abstract class perso {
     private int bonusDefense ; // addition des differents bonus d'equipement
     
     protected ResourceManager rm;
-    // level up information
-    protected int level;
     protected moveSet moveset;
   
-    protected int hp;
-    protected int maxHp;
-    // for animation to keep track of hp difference between attacks
-    protected int previousHp;
-
-// position (x,y) in map coordinates (tile * tileSize)
-    //protected static Vector2 position;
+    protected int XP;
+    protected int maxXP;
+    protected int previousXP;
     
-    // move type used default -1
-    protected int prevMoveUsed = -1;
-    protected int moveUsed = -1;
-
-//---- map ---
-    	// protected TileMap tileMap;
-
     // for applying the hp change after the dialogue is finished
-    protected int damage = 0;
-    protected int healing = 0;
+    int degat= 0;
+    protected int soint = 0;
     // 0-100 in % points
     protected int accuracy;
     // damage range
     protected int minDamage;
     protected int maxDamage;
 
+// position (x,y) in map coordinates (tile * tileSize)
+    //protected static Vector2 position;
+    
+//-- Mouvement type utilise  -1
+    protected int prevMoveUsed = -1;
+    protected int moveUsed = -1;
+
+//---- map ---
+    // protected TileMap tileMap;
+
+  //--- VAR Equipements ---- 
     // Defence
     protected boolean hasShield = false;
     protected int shield;
     protected int maxShield;
     protected int prevShield;
-
-//--- VAR Equipements ---- 
-    	//-- armes portée par le perso
-    		//private ArrayList<Arme> dansLesMains = new ArrayList<>();  
-    private int mains ;                  //si mains dispo
-    	//--- private Armure corps ;               // armure portee                                           
+    
+    private ArrayList<liste_Armes> dansLesMains = new ArrayList<>();  
     private boolean presenceArmure;           
-                                       
+    private int mains ;
+
 //-- Constructor --- 
     public perso(String id, ResourceManager rm) {
         this.id = id;
@@ -72,32 +67,24 @@ public abstract class perso {
         //position = new Vector2();
     }
 
-    public perso(String id, Vector2 position, TileMap tileMap, ResourceManager rm) {
+    public perso(String id,  TileMap tileMap, ResourceManager rm) {
         this(id, rm);
-        //this.position = position;
-        //this.tileMap = tileMap;
+        
     }
 
     public void update(float dt) {
-        // handle RPG elements
-        if (hp > maxHp) hp = maxHp;
-        if (hp <= 0) {
-            hp = 0;
+       
+        if (XP > maxXP) XP = maxXP;
+        if (XP <= 0) {
+            XP = 0;
         }
 
-        // animation
-        //if (!pauseAnim) am.update(dt);
     }
 
-    /*public void render(SpriteBatch batch, boolean looping) {
-        // draw shadow
-        batch.draw(rm.shadow11x6, position.x + 3, position.y - 3);
-        batch.draw(am.getKeyFrame(looping), position.x, position.y);
-    }*/
-
+ 
 //-- An entity's hp is decreased by damage taken -
     public void hit(int damage) {
-        this.damage = damage;
+        this.degat = damage;
     }
 
 //--An entity's hp is increased by healing -
@@ -105,24 +92,25 @@ public abstract class perso {
         this.healing = healing;
     }
 
-// -- Add un bouclier dans l'entité santé bar -
+// -- Add un bouclier dans l'entitÃ© santÃ© bar -
     public void setShield(int mshield) {
         
     	hasShield = true;
         this.shield = this.maxShield = this.prevShield = mshield;
     }
 
-//-- Reset le bouclier du joueur à 0
+//-- Reset le bouclier du joueur Ã  0
     public void resetShield() {
         hasShield = false;
         this.shield = this.maxShield = this.prevShield = 0;
     }
 
-//--- Application des degats en fonction des attaques précédentes -
+//--- Application des degats en fonction des attaques prÃ©cÃ©dentes -
     public void applyDamage() {
-    	//-- Avec un bouclier (defene) les degats sont appliqués d'abord pour diminuer la def
+    	
+    	//-- Avec un bouclier (defene) les degats sont appliquÃ©s d'abord pour diminuer la def
         if (hasShield) {
-            if (damage == 0) {
+            if (degat == 0) {
                 hasShield = false;
                 return;
             }
@@ -131,19 +119,19 @@ public abstract class perso {
             prevMoveUsed = -1;
 
             //-- Si les degats casse le shield (bouclier) le joueur connait des degats
-            if (shield - damage < 0) {
-                damage = Math.abs(shield - damage);
+            if (shield - degat < 0) {
+                degat = Math.abs(shield - degat);
                 shield = 0;
                 damageHp();
             }
             // damage breaks through the entire shield but does not damage hp bar
-            else if (shield - damage == 0) {
+            else if (shield - degat == 0) {
                 shield = 0;
             }
             // damage damages the shield
             else {
-                shield -= damage;
-                damage = 0;
+                shield -= degat;
+                degat = 0;
             }
 
         }
@@ -155,30 +143,28 @@ public abstract class perso {
     }
 
     private void damageHp() {
-        previousHp = hp;
-        hp -= damage;
-        damage = 0;
-        if (hp <= 0) {
-            hp = 0;
+        
+    	previousXP = XP;
+        XP -= degat;
+        degat = 0;
+        if (XP <= 0) {
+            XP = 0;
             dead = true;
         }
     }
 
 // --- Application - Soin --- 
     public void applyHeal() {
-        previousHp = hp;
+        
+    	previousXP = XP;
         moveUsed = prevMoveUsed;
         prevMoveUsed = -1;
-        hp += healing;
+        XP += healing;
         healing = 0;
-        if (hp > maxHp) hp = maxHp;
+        if (XP > maxXP) XP = maxXP;
     }
 
-   public void setMap(TileMap map) {
-        //this.tileMap = map;
-        //this.position.set(map.toMapCoords(map.playerSpawn));
-    }
-
+//--- Justesse de l'attaqye -- 
     public void setAccuracy(int accuracy) {
         this.accuracy = accuracy;
     }
@@ -187,39 +173,31 @@ public abstract class perso {
         return getTileMap();
    }
 
-   //public void setPosition(Vector2 position) {
-       // this.position = position;
-    //}
-
     public String getId() {
         return id;
     }
-
-   // public Vector2 getPosition() {
-      //  return position;
-    //}
-
+    
     public moveSet getMoveset() { return moveset; }
 
     public int getHp() {
-        return hp;
+        return XP;
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        this.XP = hp;
     }
 
     public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
+        this.maxXP = maxHp;
     }
 
     public int getMaxHp() {
-        return maxHp;
+        return maxXP;
     }
 
-    public int getPreviousHp() { return previousHp; }
+    public int getPreviousHp() { return previousXP; }
 
-    public void setPreviousHp(int previousHp) { this.previousHp = previousHp; }
+    public void setPreviousHp(int previousHp) { this.previousXP = previousHp; }
 
     public void setLevel(int level) { this.level = level; }
 
@@ -244,27 +222,8 @@ public abstract class perso {
     public boolean isDead() { return dead; }
 
     public void setDead(boolean dead) { this.dead = dead; }
-
-    public int getMoveUsed() { return moveUsed; }
-
-    public void useMove(int move) {
-        this.prevMoveUsed = move;
-    }
-
-    public int getPrevMoveUsed() { return prevMoveUsed; }
-
-    public void setMoveUsed(int moveUsed) {
-        this.moveUsed = moveUsed;
-    }
-
-    public void setPrevMoveUsed(int prevMoveUsed) { this.prevMoveUsed = prevMoveUsed; }
-
-
-//--- Returns the tile the Entity is currently standing on -- 
-    //public Tile getCurrentTile() {
-        //return tileMap.getTile(tileMap.toTileCoords(position));
-    //}
-
+   
+// Equipement  --- 
     public boolean isHasShield() {
         return hasShield;
     }
@@ -293,9 +252,80 @@ public abstract class perso {
         this.prevShield = prevShield;
     }
 
-//-- Returns if the entity's hp is below or equal to a certain threshold -
     public boolean healthBelow(int percentage) {
-        return hp <= (int) ((percentage / 100f) * (float) maxHp);
+        return XP <= (int) ((percentage / 100f) * (float) maxXP);
     }
+
+	public job getMetier() {
+		return metier;
+	}
+
+	public void setMetier(job metier) {
+		this.metier = metier;
+	}
+
+	public boolean isPresenceArmure() {
+		return presenceArmure;
+	}
+
+	public void setPresenceArmure(boolean presenceArmure) {
+		this.presenceArmure = presenceArmure;
+	}
+
+	public int getMains() {
+		return mains;
+	}
+
+	public void setMains(int mains) {
+		this.mains = mains;
+	}
+
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
+	}
+
+	public int getPtv() {
+		return ptv;
+	}
+
+	public void setPtv(int ptv) {
+		this.ptv = ptv;
+	}
+
+	public int getAttaque() {
+		return attaque;
+	}
+
+	public void setAttaque(int attaque) {
+		this.attaque = attaque;
+	}
+
+	public int getBonusAttaque() {
+		return bonusAttaque;
+	}
+
+	public void setBonusAttaque(int bonusAttaque) {
+		this.bonusAttaque = bonusAttaque;
+	}
+
+	public int getBonusDefense() {
+		return bonusDefense;
+	}
+
+	public void setBonusDefense(int bonusDefense) {
+		this.bonusDefense = bonusDefense;
+	}
+
+	public int getDefense() {
+		return defense;
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
 
 }
