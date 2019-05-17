@@ -16,11 +16,11 @@ public class enemyBoss extends enemy {
     }
 
     
-    public enemyBoss(String id, int bossId, T
+    public enemyBoss(String id, int bossId,
                 int worldIndex, int startIndex, int numFrames, float delay) {
         
-    		this(id,tileMap, rm);
-    		this.bossId = bossId;
+    		this(id);
+    		enemyBoss.bossId = bossId;
 
     }
     
