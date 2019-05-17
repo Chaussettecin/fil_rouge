@@ -7,8 +7,6 @@ import inventory.Equipment;
 import inventory.Inventory;
 import inventory.armes_bouclier;
 import inventory.liste_Armes;
-import map.TileMap;
-import resource.ResourceManager;
 import resource.Statistics;
 
 
@@ -26,13 +24,13 @@ public abstract class perso  extends Player{
 	protected int level;
 	private Race race ;
   	private int ptv ;           // pts de vie de base
-    protected boolean dead = false; // Verif s'il est est vivant ou pas
+    	protected boolean dead = false; // Verif s'il est est vivant ou pas
     
-    private int gold = 0;
+   	private int gold = 0;
   	private int attaque ;     
   	private int bonusAttaque ; // addition des differents bonus d'equipement
-    private int defense ;      
-    private int bonusDefense ; // addition des differents bonus d'equipement
+    	private int defense ;      
+    	private int bonusDefense ; // addition des differents bonus d'equipement
     
     // Battle
     private enemy opponent;
