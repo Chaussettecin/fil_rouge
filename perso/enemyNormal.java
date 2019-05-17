@@ -1,14 +1,13 @@
 package perso;
 
-import map.TileMap;
-import resource.ResourceManager;
+
 import resource.Util;
 
 // --- Cultiste --- 
 
 public class enemyNormal extends enemy {
 	
-	public boolean isElite = false; // Ce nest pas un bosse 
+	public boolean isElite = false; // Ce nest pas un boss 
 
 	//--- Constructor -
 		// public enemyNormal(String id, Vector position, TileMap tileMap, ResourceManager rm) {
@@ -35,6 +34,7 @@ public class enemyNormal extends enemy {
 	   return false;
 	}
 
+	
 	@Override
 	public void setStats() {
 	  //- if the enemy is an elite then its stats are multiplied by an elite multiplier

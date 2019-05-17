@@ -1,7 +1,5 @@
 package perso;
 
-import map.TileMap;
-import resource.ResourceManager;
 import resource.Util;
 
 //--- Dans notre jeux 4/5 Boss
@@ -11,18 +9,18 @@ public class enemyBoss extends enemy {
     public static int bossId;
     
 //-- Constructor -- 
-    public enemyBoss(String id, TileMap tileMap, ResourceManager rm) {
+    public enemyBoss(String id) {
        
     	super(id, nom,taille, agilité, level, santeActuelle,
-    			SanteMax, manaActuel,maxMana, tileMap,rm, bossId);
+    			SanteMax, manaActuel,maxMana, bossId);
     }
 
     
-    public enemyBoss(String id, int bossId, TileMap tileMap, ResourceManager rm,
+    public enemyBoss(String id, int bossId,
                 int worldIndex, int startIndex, int numFrames, float delay) {
         
-    		this(id,tileMap, rm);
-    		this.bossId = bossId;
+    		this(id);
+    		enemyBoss.bossId = bossId;
 
     }
     

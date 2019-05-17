@@ -12,10 +12,7 @@ import inventory.Equipment;
 import inventory.Inventory;
 import inventory.Item;
 import inventory.arme;
-import map.GameMap;
-import map.Tile;
-import map.TileMap;
-import resource.ResourceManager;
+
 import resource.Statistics;
 import resource.Util;
 import ui.UI;
@@ -82,7 +79,8 @@ public class Player  {
     	    ArrayList<inventory.armes_melees> ArmesMelees = new ArrayList<inventory.armes_melees>();
     	    ArrayList<inventory.armes_sorts> Sorts = new ArrayList<inventory.armes_sorts>();
     	    ArrayList<inventory.armures> Armures = new ArrayList<inventory.armures>();
-    	    ArrayList<String> classes = new ArrayList<String>(Arrays.asList(new String[]{"Rogue", "Guerrier", "Magie", "Bourrin"}));
+    	    
+	    ArrayList<String> classes = new ArrayList<String>(Arrays.asList(new String[]{"Rogue", "Guerrier", "Magie", "Bourrin"}));
     	    
     	    int classeChoix = ui.UI.menu("Choisis ta classe", classes);
 
