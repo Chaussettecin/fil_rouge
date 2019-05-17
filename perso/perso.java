@@ -2,13 +2,18 @@ package perso;
 
 import java.util.ArrayList;
 import Battle.moveSet;
+import Battle.statusSet;
+import inventory.Equipment;
+import inventory.Inventory;
+import inventory.armes_bouclier;
 import inventory.liste_Armes;
 import map.TileMap;
 import resource.ResourceManager;
+import resource.Statistics;
 
 
-public abstract class perso {
-
+public abstract class perso  extends Player{
+	
     protected String id;
 	private String nom ;
 	private job metier ;
@@ -17,60 +22,74 @@ public abstract class perso {
   	private int ptv ;           // pts de vie de base
     protected boolean dead = false; // Verif s'il est est vivant ou pas
     
+    private int gold = 0;
   	private int attaque ;     
   	private int bonusAttaque ; // addition des differents bonus d'equipement
     private int defense ;      
     private int bonusDefense ; // addition des differents bonus d'equipement
     
-    protected ResourceManager rm;
+    // Battle
+    private enemy opponent;
+    private boolean battling = false;
+    
+    protected static ResourceManager rm;
     protected moveSet moveset;
   
     protected int XP;
     protected int maxXP;
     protected int previousXP;
-    
-    // for applying the hp change after the dialogue is finished
     int degat= 0;
-    protected int soint = 0;
+    protected int soin = 0;
     // 0-100 in % points
     protected int accuracy;
     // damage range
     protected int minDamage;
     protected int maxDamage;
 
-// position (x,y) in map coordinates (tile * tileSize)
-    //protected static Vector2 position;
+//-- Inventaire - Sac à dos  - 
+    public Inventory inventory;
+    public static Equipment equips;
     
+// Battle status effets 
+    public statusSet statusEffects;
+    
+	//--- Mouvement a voir avec Fabrice 
+    public int moving = -1;
+    private float speed;
+
+//--- Dialogue avec un PNJ 
+    private boolean tileInteraction = false;
+// -- Monde fini
+    public boolean completedMap = false;
+    // player's level progress stored as a (world, level) key
+    public int maxWorld = 0;
+    public int maxLevel = 0;
+
+
+// special moveset
+    public moveSet smoveset;
 //-- Mouvement type utilise  -1
     protected int prevMoveUsed = -1;
     protected int moveUsed = -1;
-
-//---- map ---
-    // protected TileMap tileMap;
-
   //--- VAR Equipements ---- 
-    // Defence
-    protected boolean hasShield = false;
-    protected int shield;
-    protected int maxShield;
-    protected int prevShield;
+  
+   // Defence
+    //protected boolean hasShield = false;
+    //protected int shield;
+    //protected int maxShield;
+    //protected int prevShield;
     
     private ArrayList<liste_Armes> dansLesMains = new ArrayList<>();  
     private boolean presenceArmure;           
     private int mains ;
 
 //-- Constructor --- 
-    public perso(String id, ResourceManager rm) {
+    public perso() {
         this.id = id;
         this.rm = rm;
 
-        //position = new Vector2();
     }
 
-    public perso(String id,  TileMap tileMap, ResourceManager rm) {
-        this(id, rm);
-        
-    }
 
     public void update(float dt) {
        
@@ -81,32 +100,33 @@ public abstract class perso {
 
     }
 
- 
-//-- An entity's hp is decreased by damage taken -
+
+//-- Perso se prend une attaque
     public void hit(int damage) {
         this.degat = damage;
     }
-
-//--An entity's hp is increased by healing -
-    public void heal(int healing) {
-        this.healing = healing;
+    
+    //-- Soin -- 
+    public void heal(int Soin) {
+        this.soin = Soin;
     }
 
-// -- Add un bouclier dans l'entité santé bar -
-    public void setShield(int mshield) {
-        
+//--- Paramètre bouclier -- 
+    
+    // -- Add un bouclier dans l'entité santé bar -
+    public void isShield(armes_bouclier tempName, boolean hasShield) {
     	hasShield = true;
-        this.shield = this.maxShield = this.prevShield = mshield;
+       
     }
 
-//-- Reset le bouclier du joueur à 0
-    public void resetShield() {
+    //-- Reset le bouclier du joueur à 0
+    public void resetShield(armes_bouclier tempName, boolean hasShield) {
         hasShield = false;
-        this.shield = this.maxShield = this.prevShield = 0;
+  
     }
 
-//--- Application des degats en fonction des attaques précédentes -
-    public void applyDamage() {
+    //--Application des degats en fonction des attaques précédentes -
+    public void applyDamage(armes_bouclier tempName, boolean hasShield) {
     	
     	//-- Avec un bouclier (defene) les degats sont appliqués d'abord pour diminuer la def
         if (hasShield) {
@@ -114,23 +134,23 @@ public abstract class perso {
                 hasShield = false;
                 return;
             }
-            prevShield = shield;
+  
             moveUsed = prevMoveUsed;
             prevMoveUsed = -1;
 
             //-- Si les degats casse le shield (bouclier) le joueur connait des degats
-            if (shield - degat < 0) {
-                degat = Math.abs(shield - degat);
-                shield = 0;
+            if (hasShield = true) {
+               degat - ptv = ;
+                hasShield = true;
                 damageHp();
             }
             // damage breaks through the entire shield but does not damage hp bar
-            else if (shield - degat == 0) {
-                shield = 0;
+            else if (hasShield - degat == 0) {
+                hasShield = 0;
             }
             // damage damages the shield
             else {
-                shield -= degat;
+                hasShield -= degat;
                 degat = 0;
             }
 
@@ -222,36 +242,7 @@ public abstract class perso {
     public boolean isDead() { return dead; }
 
     public void setDead(boolean dead) { this.dead = dead; }
-   
-// Equipement  --- 
-    public boolean isHasShield() {
-        return hasShield;
-    }
-
-    public void setHasShield(boolean hasShield) {
-        this.hasShield = hasShield;
-    }
-
-    public int getShield() {
-        return shield;
-    }
-
-    public int getMaxShield() {
-        return maxShield;
-    }
-
-    public void setMaxShield(int maxShield) {
-        this.maxShield = maxShield;
-    }
-
-    public int getPrevShield() {
-        return prevShield;
-    }
-
-    public void setPrevShield(int prevShield) {
-        this.prevShield = prevShield;
-    }
-
+  
     public boolean healthBelow(int percentage) {
         return XP <= (int) ((percentage / 100f) * (float) maxXP);
     }
