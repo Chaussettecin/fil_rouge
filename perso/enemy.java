@@ -13,12 +13,13 @@ import inventory.armes_sorts;
 import map.TileMap;
 
 
-public abstract class enemy extends perso {
+public abstract class enemy {
 
 //---Battle / Status Effect -
 		public statusEffect statusEffects;
    		
 		protected static String nom;
+		
 		protected static int taille;
 		protected static int agilité;
 		protected static int intelligence;
@@ -27,26 +28,24 @@ public abstract class enemy extends perso {
 		protected static int SanteMax;
 		protected static int manaActuel;
 		protected static int maxMana;
-		protected static int xpGagner;
-		protected static int goldgagner;
+	
 
 //-- Constructor -
     public enemy(String id, String nom,int taille, int agilité, int level, 
-    			int santeActuelle, int SanteMax, int manaActuel,int maxMana, int xpGagner,
-    			int goldgagner, TileMap tileMap, resource.ResourceManager rm, int intelligence) {
+    			int santeActuelle, int SanteMax, int manaActuel,int maxMana,
+    			 TileMap tileMap, resource.ResourceManager rm, int intelligence) {
     	
-    			super();
+    		
     
     		this.nom = nom;
     		this.setTaille(taille);
     		this.setAgilité(agilité);
     		this.intelligence = intelligence;
     		this.level = 1;
-    		this.setXpGagner(xpGagner);
-    		this.setGoldgagner(goldgagner);
-    		this.setSanteMax(this.setSanteActuelle(this.setMaxMana(this.setManaActuel(intelligence * 15))));
     	
-    		moveset = new moveSet(rm);
+    		//this.setSanteMax(this.setSanteActuelle(this.setMaxMana(this.setManaActuel(intelligence * 15))));
+    	
+    		//moveset = new moveSet(rm);
     		statusEffects = new statusEffect(false, rm);
     	
     
@@ -62,14 +61,14 @@ public abstract class enemy extends perso {
     public abstract void setStats();
 
   //attaque mélee basique
-  	public void attaque(perso perso, String nom){
+  	public void attaque( String nom){
   		
   		int variance = ((int) (Math.random() * 10)) - 5;
   		int attaqueDegats = (taille * 2) + (agilité * 2);
   		attaqueDegats+= variance;
-  		(perso).setsanteActuelle(perso.getsanteActuelle() - attaqueDegats);
+  		//nom.setsanteActuelle(nom - attaqueDegats);
   		
-  		System.out.println(perso.id + " frappe " + nom + "pour "
+  		System.out.println(nom + " frappe " + nom + "pour "
   				+ attaqueDegats + " dégats.");
   	}
   	
@@ -133,24 +132,10 @@ public abstract class enemy extends perso {
 		return manaActuel;
 	}
 
-	public int getXpGagner() {
-		return xpGagner;
-	}
-
-	public void setXpGagner(int xpGagner) {
-		this.xpGagner = xpGagner;
-	}
 
 	public int getMaxMana() {
 		return maxMana;
 	}
 
-	public int getGoldgagner() {
-		return goldgagner;
-	}
-
-	public void setGoldgagner(int goldgagner) {
-		this.goldgagner = goldgagner;
-	}
 
 }
