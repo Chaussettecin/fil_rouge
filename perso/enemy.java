@@ -1,8 +1,10 @@
 package perso;
+
 import java.util.Vector;
 
 import Battle.moveSet;
 import Battle.statusEffect;
+import inventory.armes_sorts;
 ///import perso.enemy.entity;
 //import perso.enemy.Moveset;
 ///import perso.ResourceManager;
@@ -18,8 +20,8 @@ public abstract class enemy extends perso {
    		
 		protected static String nom;
 		protected static int taille;
-		protected static int agilité;
-		private int intelligence;
+		protected static int agilitÃ©;
+		protected static int intelligence;
 		protected static int level;
 		protected static int santeActuelle;
 		protected static int SanteMax;
@@ -28,23 +30,16 @@ public abstract class enemy extends perso {
 		protected static int xpGagner;
 		protected static int goldgagner;
 
-    // battle sprite size
-    // (used for making sprites bigger or smaller for effect)
-    public int battleSize;
-    // num of times the enemy respawned
-    // (used for enemies that have special respawn capabilities)
-    public int numRespawn;
-
 //-- Constructor -
-    public enemy(String id, Vector2 position, String nom,int taille, int agilité, int level, 
+    public enemy(String id, String nom,int taille, int agilitÃ©, int level, 
     			int santeActuelle, int SanteMax, int manaActuel,int maxMana, int xpGagner,
-    			int goldgagner, TileMap tileMap, resource.ResourceManager rm) {
+    			int goldgagner, TileMap tileMap, resource.ResourceManager rm, int intelligence) {
     	
-    			super(id, position, tileMap, rm);
+    			super();
     
     		this.nom = nom;
     		this.setTaille(taille);
-    		this.setAgilité(agilité);
+    		this.setAgilitÃ©(agilitÃ©);
     		this.intelligence = intelligence;
     		this.level = 1;
     		this.setXpGagner(xpGagner);
@@ -53,8 +48,7 @@ public abstract class enemy extends perso {
     	
     		moveset = new moveSet(rm);
     		statusEffects = new statusEffect(false, rm);
-    		battleSize = 48;
-    		numRespawn = 0;
+    	
     
     }
   
@@ -63,37 +57,37 @@ public abstract class enemy extends perso {
 // -- Verifie si c'est un boss iy oas
     public abstract boolean isBoss();
 
-//--Définit et met à l'échelle les statistiques de l'ennemi en fonction de son type 
+//--DÃ©finit et met Ã  l'Ã©chelle les statistiques de l'ennemi en fonction de son type 
     //et de son niveau
     public abstract void setStats();
 
-  //attaque mélee basique
-  	public void attaque(Player j){
+  //attaque mÃ©lee basique
+  	public void attaque(perso perso, String nom){
   		
   		int variance = ((int) (Math.random() * 10)) - 5;
-  		int attaqueDegats = (taille * 2) + (agilité * 2);
+  		int attaqueDegats = (taille * 2) + (agilitÃ© * 2);
   		attaqueDegats+= variance;
-  		(j).setsanteActuelle(j.getsanteActuelle() - attaqueDegats);
+  		(perso).setsanteActuelle(perso.getsanteActuelle() - attaqueDegats);
   		
-  		System.out.println(nom + " frappe " + j.getNom() + "pour "
-  				+ attaqueDegats + " dégats.");
+  		System.out.println(perso.id + " frappe " + nom + "pour "
+  				+ attaqueDegats + " dÃ©gats.");
   	}
   	
-  	//Gere les sors utilisés par l'adversaire pendant le combat
-  	public void utiliseSort(Player j, sorts s){
+  	//Gere les sors utilisÃ©s par l'adversaire pendant le combat
+  	public void utiliseSort(Player j, armes_sorts Sort){
   		
-  		int sortDegats = s.getDegats();
-  		this.manaActuel -= s.getManaCost();
+  		//int sortDegats = Sort.getDegats();
+  		//this.manaActuel -= Sort.getManaCost();
   		
-  		sortDegats += (intelligence * 2);
-  		j.setsanteActuelle(j.getsanteActuelle() - sortDegats);
+  		//sortDegats += (intelligence * 2);
+  		//j.setsanteActuelle(j.getsanteActuelle() - sortDegats);
   	}
     
     
-//--Set : utilise pour changer la santé et les mana de l'enemis -- 
+//--Set : utilise pour changer la santÃ© et les mana de l'enemis -- 
 	public void setMaxSante(int SanteMax){ this.SanteMax = SanteMax; }
 	public void setActuelleSante(int santeActuelle){ this.santeActuelle= santeActuelle; }
-	public void setMaxMana(int maxMana){ this.maxMana = maxMana; }
+	public void setMaxMana(Object object){ this.maxMana = (int) object; }
 	public void setManaActuel(int manaActuel){ this.manaActuel = manaActuel; }
    
   
@@ -110,12 +104,12 @@ public abstract class enemy extends perso {
 		this.taille = taille;
 	}
 
-	public int getAgilité() {
-		return agilité;
+	public int getAgilitÃ©() {
+		return agilitÃ©;
 	}
 
-	public void setAgilité(int agilité) {
-		this.agilité = agilité;
+	public void setAgilitÃ©(int agilitÃ©) {
+		this.agilitÃ© = agilitÃ©;
 	}
 
 	public int getSanteActuelle() {
