@@ -14,7 +14,13 @@ import resource.Statistics;
 
 public abstract class perso  extends Player{
 	
-    protected String id;
+    public perso(String id) {
+		super(id);
+		// TODO Auto-generated constructor stub
+	}
+
+	protected String id;
+    
 	private String nom ;
 	private job metier ;
 	protected int level;
@@ -84,11 +90,7 @@ public abstract class perso  extends Player{
     private int mains ;
 
 //-- Constructor --- 
-    public perso() {
-        this.id = id;
-        this.rm = rm;
-
-    }
+  
 
 
     public void update(float dt) {
@@ -126,7 +128,7 @@ public abstract class perso  extends Player{
     }
 
     //--Application des degats en fonction des attaques précédentes -
-    public void applyDamage(armes_bouclier tempName, boolean hasShield) {
+   /* public void applyDamage(armes_bouclier tempName, boolean hasShield) {
     	
     	//-- Avec un bouclier (defene) les degats sont appliqués d'abord pour diminuer la def
         if (hasShield) {
@@ -160,9 +162,9 @@ public abstract class perso  extends Player{
             prevMoveUsed = -1;
             damageHp();
         }
-    }
+    }*/
 
-    private void damageHp() {
+    private void degatsXP() {
         
     	previousXP = XP;
         XP -= degat;
@@ -179,8 +181,8 @@ public abstract class perso  extends Player{
     	previousXP = XP;
         moveUsed = prevMoveUsed;
         prevMoveUsed = -1;
-        XP += healing;
-        healing = 0;
+        XP += soin;
+        soin = 0;
         if (XP > maxXP) XP = maxXP;
     }
 
