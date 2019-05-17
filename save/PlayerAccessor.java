@@ -5,6 +5,8 @@ import inventory.*;
 import resource.Statistics;
 import java.util.Arrays;
 
+import Battle.SpecialMoveset;
+
 /**
  * Provides a serializable object that represents the data of the player
  * that is considered important for save files.
@@ -43,19 +45,19 @@ public class PlayerAccessor  {
     public Settings settings;
 
     public PlayerAccessor() {
-        inventory = new ItemAccessor[Inventory.NUM_SLOTS];
+        
+    	inventory = new ItemAccessor[Inventory.NUM_SLOTS];
         equips = new ItemAccessor[Equipment.NUM_SLOTS];
         smoveset = new int[SpecialMoveset.MAX_MOVES];
         Arrays.fill(smoveset, -1);
     }
 
-    /**
-     * Updates the fields of this accessor with data from the player
-     * @param player
-     */
+ 
+// Update les datat du joueur -- 
     public void load(Player player) {
         // load atomic fields
-        this.hp = player.getExp();
+       
+    	this.hp = player.getExp();
         this.maxHp = player.getMaxExp();
         this.level = player.getLevel();
         this.exp = player.getExp();
