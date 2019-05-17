@@ -8,26 +8,22 @@ import resource.Util;
 public class enemyBoss extends enemy {
 
 //-- Permet d'identifier le boss ---
-    public int bossId;
+    public static int bossId;
     
 //-- Constructor -- 
-    public enemyBoss(String id, Vector2 position, TileMap tileMap, ResourceManager rm) {
+    public enemyBoss(String id, TileMap tileMap, ResourceManager rm) {
        
-    	super(id,position, nom,taille, agilitÈ, level, santeActuelle,
-    			SanteMax, manaActuel,maxMana, xpGagner, goldgagner,tileMap,rm);
+    	super(id, nom,taille, agilit√©, level, santeActuelle,
+    			SanteMax, manaActuel,maxMana, tileMap,rm, bossId);
     }
 
     
-    public enemyBoss(String id, int bossId, Vector position, TileMap tileMap, ResourceManager rm,
+    public enemyBoss(String id, int bossId, TileMap tileMap, ResourceManager rm,
                 int worldIndex, int startIndex, int numFrames, float delay) {
         
-    		this(id, position, tileMap, rm);
+    		this(id,tileMap, rm);
     		this.bossId = bossId;
 
-        // create tilemap animation
-        //am = new AnimationManager(rm.sprites16x16, worldIndex, startIndex, numFrames, delay);
-        // create battle scene animation
-        //bam = new AnimationManager(rm.battleSprites96x96, worldIndex, startIndex, 2, delay);
     }
     
 
@@ -39,7 +35,7 @@ public class enemyBoss extends enemy {
         return true;
     }
 
-//-- DÈfinit les statistiques du boss en fonction du niveau et de l'index du boss - -
+//-- D√©finit les statistiques du boss en fonction du niveau et de l'index du boss - -
     public void setStats() {
         
     	int mhp = 0;
@@ -88,8 +84,8 @@ public class enemyBoss extends enemy {
             		break;
             case 3: // NAAGGROTH - boss 4  - Boss ORC / BOSS final
                 
-        			int mhpSeed2 = (int) (Math.pow(level, 2.3) + 25);
-        			mhp = Util.getDeviatedRandomValue(mhpSeed2, 150);
+        			int mhpSeed3 = (int) (Math.pow(level, 3.4) + 50);
+        			mhp = Util.getDeviatedRandomValue(mhpSeed3, 150);
         			minDmg = MathUtils.random(1, 4);
         			maxDmg = MathUtils.random(5, 8);
             
@@ -106,16 +102,16 @@ public class enemyBoss extends enemy {
         this.setAccuracy(MathUtils.random(Util.ENEMY_MIN_ACCURACY, Util.ENEMY_MAX_ACCURACY));
     }
 
- //--Renvoie une description du passif d'un boss basÈ sur bossId.
+ //--Renvoie une description du passif d'un boss bas√© sur bossId.
     public String getPassiveDescription() {
         
     	switch (bossId) {
             // king slime
-            case 0: return "Slime Revival (Respawns aprËs la mort avec la moitiÈ des points de santÈ jusqu'‡ 4 fois).";
+            case 0: return "Slime Revival (Respawns apr√®s la mort avec la moiti√© des points de sant√© jusqu'√† 4 fois).";
             // red reaper
-            case 1: return "Phantom Presence (Fait en sorte que la prÈcision du joueur soit rÈduite de 40% pour toutes les attaques.).";
+            case 1: return "Phantom Presence (Fait en sorte que la pr√©cision du joueur soit r√©duite de 40% pour toutes les attaques.).";
             // ice golem
-            case 2: return "Lifesteal (Soigne 20% des dÈg‚ts de chaque attaque).";
+            case 2: return "Lifesteal (Soigne 20% des d√©g√¢ts de chaque attaque).";
         }
         return "";
     }
