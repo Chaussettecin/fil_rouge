@@ -1,168 +1,126 @@
-package save;
+package ui;
 
-
-import Battle.SpecialMoveset;
 import perso.Player;
-import inventory.Equipment;
-import inventory.Inventory;
-import inventory.Item;
-import inventory.ShopItem;
-import resource.ResourceManager;
+import perso.enemy;
+import perso.perso;
+import Battle.battleAttaque;
 
-//--- A regler en fonction de Json et SQL 
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-	//--- PErmet de lire et d'ecrire les données dans le fichier json
 
-public class Save {
 
-    // for saving and loading
-    private Player player;
-    public PlayerAccessor psave;
-    //private Json json;
-    //private FileHandle file;
 
-    public Save(Player player, String path) {
+
+//--- UI - 
+public abstract class UI {
+
+    protected Player player;
+ 
+    public static PrintStream out = System.out;
+	public static Scanner in = new Scanner(System.in);
+   
+
+    public UI( Player player) {
+        
         this.player = player;
-        psave = new PlayerAccessor();
-        //json = new Json();
-        //json.setOutputType(JsonWriter.OutputType.json);
-        //json.setUsePrototypes(false);
-        //file = Gdx.files.local(path);
+      
     }
 
+ 
+	public static void afficheCreature(ArrayList<perso> vilains){
+	    
+    	ArrayList<String[]> creatureNom = new ArrayList<String[]>();
+	    
+	    for (int i = 0; i < vilains.size(); i++){
+	    	creatureNom.add(new String[]{vilains.get(i).toString(), vilains.get(i).toString()});
+	    }
+	    
+	    
+	    ArrayList<String[]> noms = new ArrayList<String[]>();
+	    ArrayList<Integer> num = new ArrayList<Integer>();
+	    
+	    while(creatureNom.size() > 0) {
+	      
+	    	String[] actuel = creatureNom.remove(0);
+	    	boolean existe = false;
+	      
+	    	for(int i = 0; i < noms.size(); i++) {
+	        
+	    	  if(noms.get(i)[0].equals(actuel[0])) {
+	          num.set(i, num.get(i) + 1);
+	          existe = true;
+	    	  }
+	    	  
+	    	}
+	      
+	    	if(!existe) {
+	    		noms.add(actuel);
+	    		num.add(1);
+	    	}
+	    }
 
-//--- Loads the player data into the PlayerAccessor then
-    //writes the player save data to the json file
-    public void save() {
-        // load player data
-        psave.load(player);
-        // write data to save json
-        //file.writeString(Base64Coder.encodeString(json.prettyPrint(psave)), false);
-    }
+	    for(int j = 0; j < noms.size(); j++) {
+	      
+	    	if(num.get(j) == 1) {
+	        System.out.println("1 " + noms.get(j)[0]);
+	      } else {
+	    	  System.out.println(Integer.toString(num.get(j)) + " " + noms.get(j)[1]);
+	      }
+	    }
+	}//fin affiche creature
+    
+    public static void afficheCreatureetArme(ArrayList<enemy> attaques, ArrayList<battleAttaque> armes){
+		
+    	ArrayList<String[]> creaturesNom = new ArrayList<String[]>();
+	    ArrayList<String[]> armesNom = new ArrayList<String[]>();
+	    
+	    for (int i = 0; i < attaques.size(); i++){
+	    	creaturesNom.add(new String[]{attaques.get(i).toString(), attaques.get(i).toString()});
+	    	armesNom.add(new String[]{armes.get(i).toString(), armes.get(i).toString()});
+	    }
+	    
+	    ArrayList<String[]> uniqueCreatures = new ArrayList<String[]>();
+	    ArrayList<String[]> uniqueArmes = new ArrayList<String[]>();
+	    ArrayList<Integer> num = new ArrayList<Integer>();
+	    
+	    while(creaturesNom.size() > 0) {
+	      
+	    	String[] actuelCreature = creaturesNom.remove(0);
+	    	String[] actuelArmes = uniqueArmes.remove(0);
+	    	boolean existe = false;
+	      
+	      for(int i = 0; i < uniqueCreatures.size(); i++) {
+	        if(uniqueCreatures.get(i)[0].equals(actuelCreature[0])) {
+	          num.set(i, num.get(i) + 1);
+	          existe = true;
+	        }
+	      }
+	      
+	      if(!existe) {
+	    	  uniqueCreatures.add(actuelCreature);
+	    	  uniqueArmes.add(actuelArmes);
+	        num.add(1);
+	      }
+	    }
 
+	    for(int j = 0; j < num.size(); j++) {
+	      if(num.get(j) == 1) {
+	        System.out.println("1 " + uniqueCreatures.get(j)[0] + " avec " + uniqueArmes.get(j)[0]);
+	      }
+	      else {
+	        System.out.println(Integer.toString(num.get(j)) + " " + uniqueCreatures.get(j)[1] + " avec " + uniqueArmes.get(j)[1]);
+	      }
+	    }
+	}
+    
+    public abstract void update(float dt);
 
-//-- Reads the player data from the save json file and then
-    //--loads the data into the game through the player
-    public void load(ResourceManager rm) {
-        if (!file.exists()) save();
-        /psave = json.fromJson(PlayerAccessor.class, Base64Coder.decodeString(file.readString()));
+    public abstract void render(float dt);
 
-        // load atomic fields
-        player.setHp(psave.hp);
-        player.setMaxHp(psave.maxHp);
-        player.setLevel(psave.level);
-        player.setExp(psave.exp);
-        player.setMaxExp(psave.maxExp);
-        player.setGold(psave.gold);
-        player.setMinDamage(psave.minDamage);
-        player.setMaxDamage(psave.maxDamage);
-        player.setAccuracy(psave.accuracy);
-        player.smoveCd = psave.smoveCd;
-        player.maxWorld = psave.maxWorld;
-        player.maxLevel = psave.maxLevel;
+    public static void printMonsters(ArrayList<perso> cultiste) {}
+    
 
-        // load inventory and equips
-        loadInventory(rm);
-        loadEquips(rm);
-
-        // load smoveset
-        for (int i = 0; i < SpecialMoveset.MAX_MOVES; i++) {
-            if (psave.smoveset[i] != -1) {
-                player.smoveset.addSMove(psave.smoveset[i]);
-            }
-        }
-
-        // load statistics
-        player.stats = psave.stats;
-
-        // load and apply settings
-        player.settings = psave.settings;
-        if (player.settings.muteMusic) rm.setMusicVolume(0f);
-        else rm.setMusicVolume(player.settings.musicVolume);
-    }
-
-    /**
-     * Helper method for loading and converting ItemAccessors to Items in the inventory
-     */
-    private void loadInventory(ResourceManager rm) {
-        for (int i = 0; i < Inventory.NUM_SLOTS; i++) {
-            ItemAccessor ia = psave.inventory[i];
-            if (ia != null) {
-                // shop items
-                if (ia instanceof ShopItemAccessor) {
-                    ShopItem sitem = null;
-                    if (ia.type == 0)
-                        sitem = new ShopItem(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0,
-                            ia.hp, ia.exp, ia.sell, ((ShopItemAccessor) ia).price);
-                    else if (ia.type >= 2 && ia.type <= 9) {
-                        sitem = new ShopItem(rm, ia.name, ia.desc, ia.type, ia.rarity, ia.imgIndex, 0,
-                            ia.mhp, ia.dmg, ia.acc, ia.sell, ((ShopItemAccessor) ia).price);
-                        sitem.enchantCost = ia.enchantCost;
-                    }
-                    else if (ia.type == 10)
-                        sitem = new ShopItem(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0,
-                            ia.eChance, ia.sell, ((ShopItemAccessor) ia).price);
-                    player.inventory.addItemAtIndex(sitem, ia.index);
-                }
-                else {
-                    Item item = null;
-                    if (ia.type == 0)
-                        item = new Item(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0, 0,
-                            ia.hp, ia.exp, ia.sell);
-                    else if (ia.type == 1)
-                        item = new Item(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0, 0, ia.sell);
-                    else if (ia.type >= 2 && ia.type <= 9) {
-                        item = new Item(rm, ia.name, ia.desc, ia.type, ia.rarity, ia.imgIndex, 0, 0,
-                            ia.mhp, ia.dmg, ia.acc, ia.sell);
-                        item.enchantCost = ia.enchantCost;
-                    }
-                    else if (ia.type == 10)
-                        item = new Item(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0, 0,
-                            ia.eChance, ia.sell);
-                    player.inventory.addItemAtIndex(item, ia.index);
-                }
-            }
-        }
-    }
-
-    /**
-     * Helper method for loading and converting ItemAccessors to Items in the inventory
-     */
-    private void loadEquips(ResourceManager rm) {
-        for (int i = 0; i < Equipment.NUM_SLOTS; i++) {
-            ItemAccessor ia = psave.equips[i];
-            if (ia != null) {
-                // shop items
-                if (ia instanceof ShopItemAccessor) {
-                    ShopItem sitem = null;
-                    if (ia.type == 0)
-                        sitem = new ShopItem(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0,
-                            ia.hp, ia.exp, ia.sell, ((ShopItemAccessor) ia).price);
-                    else if (ia.type >= 2 && ia.type <= 9)
-                        sitem = new ShopItem(rm, ia.name, ia.desc, ia.type, ia.rarity, ia.imgIndex, 0,
-                            ia.mhp, ia.dmg, ia.acc, ia.sell, ((ShopItemAccessor) ia).price);
-                    else if (ia.type == 10)
-                        sitem = new ShopItem(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0,
-                            ia.eChance, ia.sell, ((ShopItemAccessor) ia).price);
-                    player.equips.addEquip(sitem);
-                }
-                else {
-                    Item item = null;
-                    if (ia.type == 0)
-                        item = new Item(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0, 0,
-                            ia.hp, ia.exp, ia.sell);
-                    else if (ia.type == 1)
-                        item = new Item(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0, 0, ia.sell);
-                    else if (ia.type >= 2 && ia.type <= 9)
-                        item = new Item(rm, ia.name, ia.desc, ia.type, ia.rarity, ia.imgIndex, 0, 0,
-                            ia.mhp, ia.dmg, ia.acc, ia.sell);
-                    else if (ia.type == 10)
-                        item = new Item(rm, ia.name, ia.desc, ia.rarity, ia.imgIndex, 0, 0,
-                            ia.eChance, ia.sell);
-                    player.equips.addEquip(item);
-                }
-            }
-        }
-    }
 
 }
