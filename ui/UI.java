@@ -1,75 +1,61 @@
 package ui;
 
 import perso.Player;
+import perso.enemy;
 import perso.perso;
+import Battle.battleAttaque;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Battle.battleAttaque;
-import main.RPG;
-import map.TileMap;
-import resource.ResourceManager;
-import rpg.combat_attaque;
-import rpg.perso_Mons;
-import screen.GameScreen;
 
-/**
- * Superclass for all UI
- * Contains useful variables and references
- *
- * @author Ming Li
- */
-public abstract class UI implements Disposable {
+//--- UI - 
+public abstract class UI {
 
-    ///protected Stage stage;
-    //protected Viewport viewport;
-
-    protected ResourceManager rm;
-    protected TileMap tileMap;
     protected Player player;
-    protected GameScreen gameScreen;
-    protected RPG game;
-
+ 
     public static PrintStream out = System.out;
 	public static Scanner in = new Scanner(System.in);
-    // graphics
-    //protected ShapeRenderer shapeRenderer;
-
-    public UI(final RPG game, Player player, ResourceManager rm) {
+   
+    public UI( Player player) {
         
-    	this.game = game;
         this.player = player;
-        this.rm = rm;
-
-        //viewport = new StretchViewport(RPG.V_WIDTH, RPG.V_HEIGHT, new OrthographicCamera());
-        //stage = new Stage(viewport, game.batch);
-
-        //shapeRenderer = new ShapeRenderer();
+      
     }
 
-    public UI(GameScreen gameScreen, TileMap tileMap, Player player, ResourceManager rm) {
-        
-    	this.game = gameScreen.getGame();
-        this.gameScreen = gameScreen;
-        this.tileMap = tileMap;
-        this.player = player;
-        this.rm = rm;
-
-        //viewport = new StretchViewport(RPG.V_WIDTH, RPG.V_HEIGHT, new OrthographicCamera());
-        //stage = new Stage(viewport, gameScreen.getBatch());
-
-        //shapeRenderer = new ShapeRenderer();
-    }
-
-    public static void afficheCreature(ArrayList<perso> vilains){
+ 
+    public static int menu(String question, ArrayList<String> menu){
+	    
+		if(menu.size() <= 0) {
+	      return -1;
+	    }
+	    else if(menu.size() == 1) {
+	      return 0;
+	    }
+	    out.println(question);
+	    
+	    for(int i = 0; i < menu.size(); i++){
+	      out.println((i + 1) + ": " + menu.get(i));
+	    }
+	    
+	    int choix = in.nextInt();
+	    while(choix < 1 || choix > menu.size()) {
+	      out.println("Entres un nombre correct !");
+	      choix = in.nextInt();
+	    }
+	    return choix - 1;
+	 }
+    
+    
+	public static void afficheCreature(ArrayList<perso> vilains){
 	    
     	ArrayList<String[]> creatureNom = new ArrayList<String[]>();
 	    
 	    for (int i = 0; i < vilains.size(); i++){
-	    	creatureNom.add(new String[]{vilains.get(i).toString(), vilains.get(i).DuoString()});
+	    	creatureNom.add(new String[]{vilains.get(i).toString(), vilains.get(i).toString()});
 	    }
+	    
 	    
 	    ArrayList<String[]> noms = new ArrayList<String[]>();
 	    ArrayList<Integer> num = new ArrayList<Integer>();
@@ -104,14 +90,14 @@ public abstract class UI implements Disposable {
 	    }
 	}//fin affiche creature
     
-    public static void afficheCreatureetArme(ArrayList<perso> vilains, ArrayList<battleAttaque> armes){
+    public static void afficheCreatureetArme(ArrayList<enemy> attaques, ArrayList<battleAttaque> armes){
 		
     	ArrayList<String[]> creaturesNom = new ArrayList<String[]>();
 	    ArrayList<String[]> armesNom = new ArrayList<String[]>();
 	    
-	    for (int i = 0; i < vilains.size(); i++){
-	    	creaturesNom.add(new String[]{vilains.get(i).toString(), vilains.get(i).DuoString()});
-	    	armesNom.add(new String[]{armes.get(i).toString(), armes.get(i).toPluralString()});
+	    for (int i = 0; i < attaques.size(); i++){
+	    	creaturesNom.add(new String[]{attaques.get(i).toString(), attaques.get(i).toString()});
+	    	armesNom.add(new String[]{armes.get(i).toString(), armes.get(i).toString()});
 	    }
 	    
 	    ArrayList<String[]> uniqueCreatures = new ArrayList<String[]>();
@@ -152,20 +138,8 @@ public abstract class UI implements Disposable {
 
     public abstract void render(float dt);
 
-   // public Stage getStage() {
-        //return stage;
-   // }
+    public static void printMonsters(ArrayList<perso> cultiste) {}
+    
 
-   // @Override
-    //public void dispose() {
-        //stage.dispose();
-        //shapeRenderer.dispose();
-    //}
-   
-    public static void printMonsters(ArrayList<perso> cultiste) {
-		
-		
-	}
-    public void setTileMap(TileMap tileMap) { this.tileMap = tileMap; }
 
 }
