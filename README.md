@@ -2,7 +2,4 @@
 Création du petit jeux pour le Fil rouge
 
 
-
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Gestion de la monnaie dans le jeu
