@@ -1,8 +1,12 @@
 # fil_rouge
 Création du petit jeux pour le Fil rouge
 
+Equipements : 
 
+- Armes
+- Armures 
 
-Master 
+------  
 
-Pour l'instant vide car rien n'est fonctionnel. 
+-  Potions
+-  Food / Item
