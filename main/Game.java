@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.Scanner;
 
-import maps.Dungeon;
+
 import maps.Room;
 import perso.perso;
 import save.Save;
@@ -66,14 +66,14 @@ public class Game implements ActionListener {
 	  public static void newGame() {
 		  perso.creaPerso();
 
-	      currDungeon = Dungeon.newRandomDungeon(currPlayer);
+	      //currDungeon = Dungeon.newRandomDungeon(currPlayer);
 	        
 	    
 
 	    }
 
 	    public static void loadGame() {
-	    	//--- Démarer la partie à partir d'une sauvegarde -- 
+	    	//--- DÃ©marer la partie Ã  partir d'une sauvegarde -- 
 	    	
 	    	Save.read();
 	    }
