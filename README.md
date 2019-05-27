@@ -2,7 +2,5 @@
 Création du petit jeux pour le Fil rouge
 
 
-
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Enemy => Classe principale 
+Qui a deux filles EnemyBoss et EnemyNormal
