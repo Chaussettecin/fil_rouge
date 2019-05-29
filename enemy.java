@@ -71,19 +71,16 @@ public abstract class enemy {
   		attaqueDegats+= variance;
   		
   		System.out.println(nom + " frappe " + nom + "pour "
-  				+ attaqueDegats + " dégats.");
+  				+ attaqueDegats + " dÃ©gats.");
 		return;
   	}
   	
-  	
+//--- Tour de combat  	
   	protected void takeTurn(battleAction chosenAction){
         
   		if(ptv > 0){
             setBattleAction(chosenAction);              
-        }
-        else{
-            //setBattleAction(new FaintedAction);
-        }
+  		}
         performAction();
     }
   	
@@ -92,11 +89,12 @@ public abstract class enemy {
         BattleAction = chosenAction;
     }
 
-	private void performAction(){
-         //battleAction.execute(enemyBoss());
-     };
+	
+  	private void performAction(){
+        battleAction.execute(null, enemyBoss());
+    };
 
-//-- Sante dans le combat
+//-- Sante dans le combat --
     public void santePerdu(int amount){
          if(ptv - amount < 0){
         	 ptv = 0;
@@ -118,7 +116,7 @@ public abstract class enemy {
      }       
 
 
-//--- Gere les sors utilisés par l'adversaire pendant le combat
+//--- Gere les sors utilisÃ©s par l'adversaire pendant le combat
   	public void utiliseSort(perso Perso, armes_sorts Sort){
   		
   		int sortDegats = 0;
@@ -128,7 +126,7 @@ public abstract class enemy {
   	
   	}
   
-//--- Méthode Ennemi randam. 
+//--- MÃ©thode Ennemi random. 
   	 public void newRandomEnemy() {
          int random = rand.nextInt(4) + 1;
          
@@ -154,15 +152,19 @@ public abstract class enemy {
   	 }
 
 
-//-- GETTERS & Setter  Santé --- 
+//-- GETTERS & Setter  SantÃ© --- 
   	 
-//--Set : utilise pour changer la santé et les mana de l'enemis -- 
+//--Set : utilise pour changer la santÃ© et les mana de l'enemis -- 
   	 public void setMaxSante(int SanteMax){ enemy.ptv = SanteMax; }
 	
   	 public static void setActuelleSante(int santeActuelle){ enemy.ptv= santeActuelle; }
 	
 
-//--Définit et met à l'échelle les statistiques de l'ennemi en fonction de son type 
+  	 public static int getActuelleSante() {
+  		 return ptv;
+  	 }
+  	 
+//--DÃ©finit et met Ã  l'Ã©chelle les statistiques de l'ennemi en fonction de son type 
     //-- et de son niveau
     public abstract void setStats();
 	
@@ -191,11 +193,7 @@ public abstract class enemy {
 		return nom;
 	}
 
-	public Object getSante() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 
 
 }
