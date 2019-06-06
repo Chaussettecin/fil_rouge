@@ -1,7 +1,6 @@
 package enemys;
 
 import Effect.statusEffect;
-import resource.Util;
 import Utils.utilsGame;
 import perso.Race;
 
@@ -24,7 +23,6 @@ public abstract class enemyBoss extends enemy {
 //-- Permet d'identifier le boss ---
 	   public void boss(String id, int bossId) {
     		enemyBoss.bossId = bossId;
-
 	   }
     
 
