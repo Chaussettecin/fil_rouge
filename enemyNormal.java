@@ -1,7 +1,7 @@
 package enemys;
 
 import Effect.statusEffect;
-import resource.Util;
+//import resource.Util;
 import Utils.utilsGame;
 
 // --- Cultiste --- 
@@ -18,7 +18,7 @@ public abstract class enemyNormal extends enemy {
 
 	        
 		// -- Verifie si c'est un boss ou un simple cultiste - 
-	        Boss = Util.isSuccess(Util.ELITE_CHANCE);
+	        //Boss = Util.isSuccess(Util.ELITE_CHANCE);
 	        
 	        if (Boss) enemy.nom = "[boss] " + nom;
 	}
