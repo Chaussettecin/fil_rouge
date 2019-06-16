@@ -1,13 +1,8 @@
-# fil_rouge
-Création du petit jeux pour le Fil rouge
+Perso : 
 
-Combat :) 
+Il y a nos personnages qui vont jouer par equipe. 
 
-Tour à part tout.... 
+Ils ont 4 races differentes. 
+Et 4 Perso differents. 
 
-Les cultistes sont les ennemis de bases, il pop dans la map... 
-
-Les boss plus dur à combratre sont dans des donjons
-----
-
-Combats tour par tout. 
+Reste à faire personnalisé un peu plus les classes perso.
