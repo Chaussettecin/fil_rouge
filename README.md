@@ -1,13 +1,8 @@
 # fil_rouge
 Création du petit jeux pour le Fil rouge
 
-Combat :) 
+Shop ---- 
 
-Tour à part tout.... 
+Boutique.
 
-Les cultistes sont les ennemis de bases, il pop dans la map... 
-
-Les boss plus dur à combratre sont dans des donjons
-----
-
-Combats tour par tout. 
+Permet d'acheter et de vendre les items :) pour les personnages du joueur.
