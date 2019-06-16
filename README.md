@@ -2,7 +2,10 @@
 Création du petit jeux pour le Fil rouge
 
 
+--- Inventory --- 
 
-Master 
+-Armes =>  Armes melees : armes distance
 
-Pour l'instant vide car rien n'est fonctionnel. 
+Potions (à modifier) 
+
+Item 
