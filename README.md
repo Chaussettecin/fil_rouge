@@ -1,8 +1,6 @@
-# fil_rouge
-Création du petit jeux pour le Fil rouge
+Enemy 
 
+Ennemis de base => cultiste 
 
-
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Ennemis boss =>  Un boss dans chaque monde 
+Reste à finir les classes personnalisés pour nos boss
