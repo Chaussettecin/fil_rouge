@@ -1,8 +1,8 @@
-# fil_rouge
-Création du petit jeux pour le Fil rouge
+Classe Quête
 
+A revoir en fonction du Background de l'histoire du jeu... 
 
+Une quête obligatoire pour l'équipe ? 
+Pour finir la partie comme il faut. 
 
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Et mettre plusieurs petites quêtes donner par les PNJ dans les mondes. Pour avoir des objets ou XP en plus.
