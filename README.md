@@ -1,8 +1,5 @@
-# fil_rouge
-Création du petit jeux pour le Fil rouge
+Money money !!! 
 
+Gold ! Gold ! 
 
-
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Capitaine abandonné
