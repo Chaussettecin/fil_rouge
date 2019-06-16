@@ -1,8 +1,8 @@
 # fil_rouge
 Création du petit jeux pour le Fil rouge
 
+Shop ---- 
 
+Boutique.
 
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Permet d'acheter et de vendre les items :) pour les personnages du joueur.
