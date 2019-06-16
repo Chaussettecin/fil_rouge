@@ -1,8 +1,6 @@
 # fil_rouge
 Création du petit jeux pour le Fil rouge
 
-
-
-Master 
-
-Pour l'instant vide car rien n'est fonctionnel. 
+Action des perso.... 
+A revoir en fonction des UI (Display)... 
+En cours de finition
