@@ -1,13 +1,8 @@
-# fil_rouge
-Création du petit jeux pour le Fil rouge
+Classe Quête
 
-Combat :) 
+A revoir en fonction du Background de l'histoire du jeu... 
 
-Tour à part tout.... 
+Une quête obligatoire pour l'équipe ? 
+Pour finir la partie comme il faut. 
 
-Les cultistes sont les ennemis de bases, il pop dans la map... 
-
-Les boss plus dur à combratre sont dans des donjons
-----
-
-Combats tour par tout. 
+Et mettre plusieurs petites quêtes donner par les PNJ dans les mondes. Pour avoir des objets ou XP en plus.
