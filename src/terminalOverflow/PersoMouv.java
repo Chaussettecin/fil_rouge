@@ -48,6 +48,44 @@ public class PersoMouv {
 	
 	public void afficherPlayer() {
 		terminal.write(tile, posMapX, posMapY, color);
+		terminal.write((char)36,terminal.getWidthInCharacters()/2,0);
+		terminal.write((char)37,terminal.getWidthInCharacters()-5,0);
+		String vie="";
+		Color color = Color.WHITE;
+		if(ptVie>90) {
+			vie="||||||||||";
+			color=Color.green;
+		}else if(ptVie>=80 && ptVie<90) {
+			vie="|||||||||";
+			color=Color.green;
+		}else if(ptVie>=70 && ptVie<80) {
+			vie="||||||||";
+			color=Color.green;
+		}else if(ptVie>=60 && ptVie<70) {
+			vie="|||||||";
+			color=Color.green;
+		}else if(ptVie>=50 && ptVie<60) {
+			vie="||||||";
+			color=Color.green;
+		}else if(ptVie>=40 && ptVie<50) {
+			vie="|||||";
+			color=Color.green;
+		}else if(ptVie>=30 && ptVie<40) {
+			color=Color.yellow;
+			vie="||||";
+		}else if(ptVie>=20 && ptVie<30) {
+			vie="|||";
+		    color=Color.yellow;
+		}else if(ptVie>=10 && ptVie<20) {
+			vie="||";
+			color=Color.red;
+		}else if(ptVie>=0 && ptVie<10) {
+			vie="|";
+			color=Color.red;
+		}
+		terminal.write((char) 03,5,0,color);
+		terminal.write(vie,1,1);
+	
 	}
 	
 	
