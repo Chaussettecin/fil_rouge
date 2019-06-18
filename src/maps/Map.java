@@ -54,7 +54,7 @@ public class Map {
 	}
 	
 	public void lireMap() throws IOException {
-		//Première lecture du fichier pour déterminer la hauteur et la largeur de la MAP
+		//PremiÃ¨re lecture du fichier pour dÃ©terminer la hauteur et la largeur de la MAP
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader("./src/maps/map2.txt"));
@@ -91,7 +91,15 @@ public class Map {
 		}
 	
 	
-	
+	public void enleverElement(char c) {
+		for (int i=0; i<hauteur; i++) {
+			for (int j=0; j<largeur;j++) {
+				if(map[i][j]==c) {
+					map[i][j]= ' ';
+				}
+			}
+		}
+	}
 	
 	
 	
