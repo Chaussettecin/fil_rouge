@@ -1,13 +1,4 @@
-# fil_rouge
-Création du petit jeux pour le Fil rouge
+Partie Android Studio de l'application web du jeux 
 
-Combat :) 
-
-Tour à part tout.... 
-
-Les cultistes sont les ennemis de bases, il pop dans la map... 
-
-Les boss plus dur à combratre sont dans des donjons
-----
-
-Combats tour par tout. 
+- Spring boot pour l'API 
+- Android Studio pour le reste
