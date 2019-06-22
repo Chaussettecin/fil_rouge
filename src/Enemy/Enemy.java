@@ -5,16 +5,14 @@ import java.util.Random;
 import Battle.battleAction;
 import Effect.statusEffect;
 import Enemy.Enemy;
-import Inventory.Sort;
-import Perso.Perso;
-import Perso.Race;
 
-public abstract class Enemy {
+
+public class Enemy  {
 	
-	private String Nom;
-    private static int ptv;
+	protected static String Nom;
+    protected static int ptv;
     private int Level;
-    private int Degat;
+    protected static int Degat;
     private int XpRecup;
     private int GoldRecup;
     public static boolean dead = false; //----Verif s'il est est vivant ou pas
@@ -29,7 +27,7 @@ public abstract class Enemy {
 	public Enemy  (String Nom, int ptv, int Degat){
 
 	        this.Nom = Nom;
-	        this.ptv = ptv;
+	        Enemy.ptv = ptv;
 	        this.Degat = Degat;
 	        this.XpRecup = (Degat + ptv)*2;
 	        this.GoldRecup = XpRecup * 2;
@@ -40,7 +38,9 @@ public abstract class Enemy {
 // a faire 
 
 // -- Verifie si c'est un boss ou pas --
-    public abstract boolean isBoss();
+    public boolean isBoss() {
+	return false;
+}
 
     public void receiveDamage(int amount){
         ptv -= amount;
@@ -74,11 +74,21 @@ public abstract class Enemy {
         return GoldRecup;
     }
 
-    @Override
+ 
     public String toString(){
-        return "Ennemi : " + getNom() + ", Niveau de vie : "+ getPtv()+ ", Degats: "+ getDegat();
+        return "Ennemi : " + getNom() + ", Niveau de vie : "+ getPtv()+ ", Degats: "+ getDegat(Degat);
     }
 
+	public int getLevel() {
+		return Level;
+	}
 
-		
+	public void setLevel(int level) {
+		Level = level;
+	}
+
+	public static Random getRand() {
+		return rand;
+	}
+
  }
