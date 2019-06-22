@@ -13,28 +13,26 @@ import Inventory.ArmeItem;
 import Inventory.ArmesMelees;
 import Inventory.Item;
 import Inventory.ItemType;
-import Main.Game;
 import Perso.Perso;
 import Perso.PersoItems;
 import Perso.PersoStats;
-import Player.Player;
-import UI.UI;
+
 
 public class Perso {
 	
 	//private static Player CurrentCharacter = null;
 	protected static Race ClassesPerso; // Liste des races des perso -- 
-	private PersoStats Stats;
-    private static PersoItems Items;
-    private Enemy meetEnemy;
-    private static File deleteFile; // Sauvegarde
+	protected static PersoStats Stats;
+	protected static PersoItems Items;
+	protected Enemy meetEnemy;
+	protected static File deleteFile; // Sauvegarde
     
-	private final String Nom;
-	private int Level; 
-	private int XP;
-	private static int Gold;
-  	private static int ptv;// ------pts de vie de base
-  	private int ptvMin; 
+	protected static String Nom;
+	protected static int Level; 
+	protected static int XP;
+	protected static int Gold;
+	protected static int ptv;// ------pts de vie de base
+	protected static int ptvMin; 
   	
   	protected static boolean dead = false; //----Verif s'il est est vivant ou pas
 
@@ -46,15 +44,15 @@ public class Perso {
    
   	protected static int attaque ;     
   	protected static int bonusAttaque ; //addition des differents bonus d'equipement
-    private int defense; 
-    protected int accuracy; // Justesse de l'attaque
+    protected static int defense; 
+    protected static int accuracy; // Justesse de l'attaque
     protected static int bonusDefense; //addition des differents bonus d'equipement
 
     protected Map<Character, Integer> capacites;
    
-//-- Si le joueur à une armure --
-    protected boolean presenceArmure;          
-    protected static boolean  mainslivre; // savoir si le perso à les mains libres ou pas
+//-- Si le joueur Ã  une armure --
+    protected static boolean presenceArmure;          
+    protected static boolean  mainlibre; // savoir si le perso Ã  les mains libres ou pas
 
 //-- Battle status effets --
     public static statusEffect statusEffects;
@@ -67,6 +65,26 @@ public class Perso {
     
 
 //-- Constructor --- 
+    public Perso (String nom, Race ClassesPerso) {
+        
+    	Nom = nom;
+    	Perso.ClassesPerso = ClassesPerso;
+        Level = 1; // niv de base
+        XP = 5; // niv xp Ã  modifier peut Ãªtre
+        Gold = 30; // pareil pour les golds
+        ptv = 10;
+        ptvMin = 5;
+        minDegat = 5;
+        maxDegat = 10; 
+        degat = 0; 
+        presenceArmure = false; //-- Pas d'armure au debut jeu ?
+        mainlibre = true;
+
+        Stats = new PersoStats();
+        Items = new PersoItems();
+    
+    }
+    
     public Perso (String nom, Race ClassesPerso, PersoStats Stats,
     		PersoItems Items,int Level, int XP, int Gold,int ptv, int ptvMin,
     		int minDegat,int maxDegat,int degat,int attaque, int bonusAttaque,
@@ -76,7 +94,7 @@ public class Perso {
     	Nom = nom;
     	Perso.ClassesPerso = ClassesPerso;
         Level = 1; // niv de base
-        XP = 5; // niv xp à modifier peut être
+        XP = 5; // niv xp Ã  modifier peut Ãªtre
         Gold = 30; // pareil pour les golds
         ptv = 10;
         ptvMin = 5;
@@ -85,7 +103,6 @@ public class Perso {
         degat = 0; 
         presenceArmure = false; //-- Pas d'armure au debut jeu ?
         mainslibre = true;
-
         Stats = new PersoStats();
         Items = new PersoItems();
     
@@ -100,9 +117,9 @@ public class Perso {
        return getCurrentCharacter();
    }
 
-   public static Perso setCurrentCharacter(Object character) {
-       CurrentCharacter = character;
-   }
+   //public static Perso setCurrentCharacter(Object character) {
+       //CurrentCharacter = character;
+   //}
 
    public String getNom() {
        return Nom;
@@ -128,7 +145,7 @@ public class Perso {
 	   if (montant < 0)
            return false;
 
-       if (!verifSiMoney(montant)) // verif si le perso à des sousous
+       if (!verifSiMoney(montant)) // verif si le perso Ã  des sousous
            return false;
 
        Gold -= montant;
@@ -210,19 +227,21 @@ public class Perso {
        return Items; 
    }
 
-//-- Return vrai si les achats ont réussis, sinon Faux
+//-- Return vrai si les achats ont rÃ©ussis, sinon Faux
    public boolean buyItem(Item newItem) {
       
    	if (!verifSiMoney(newItem.getPrix()))
            return false;
   // Armure // Armes Distances // Armes melees // Sorts --     
-   	if (newItem.getType() == ItemType.ARME_DISTANCE || newItem.getType() == ItemType.ARME_MELEE
-   		|| newItem.getType() == ItemType.ARMURE || newItem.getType() == ItemType.SORT) {
+   	if (newItem.getType() == ItemType.ARME_DISTANCE || 
+   		newItem.getType() == ItemType.ARME_MELEE ||
+   		newItem.getType() == ItemType.ARMURE || 
+   		newItem.getType() == ItemType.SORT) {
            
    		ArmeItem itemAsWeapon = (ArmeItem) newItem;
    		
-        if (itemAsWeapon.getRequiredDexterity() > getStats().getDexterity() ||
-            itemAsWeapon.getRequiredStrength() > getStats().getStrength())
+        if (itemAsWeapon.getNivDexterite() > getStats().getDexterity() ||
+            itemAsWeapon.getNivBonusAttaque() > getStats().getStrength())
                
         	return false;
        }
@@ -284,11 +303,11 @@ public class Perso {
     }
     
 
-//--- Paramètre bouclier -- 
-//--Application des degats en fonction des attaques précédentes -
+//--- ParamÃ¨tre bouclier -- 
+//--Application des degats en fonction des attaques prÃ©cÃ©dentes -
    /* public void applyDamage(armes_bouclier tempName, boolean hasShield) {
     	
-    	//-- Avec un bouclier (defene) les degats sont appliqués d'abord pour diminuer la def
+    	//-- Avec un bouclier (defene) les degats sont appliquÃ©s d'abord pour diminuer la def
         if (hasShield) {
             if (degat == 0) {
                 hasShield = false;
@@ -431,7 +450,8 @@ public class Perso {
 		this.meetEnemy = meetEnemy;
 	}
 
-	public abstract void takeTurn(battleAction playerAction, Enemy enemie);
+	public void takeTurn(battleAction playerAction, Enemy enemie) {
+	}
 	
 	
 //--- GETTER ET SETTER interaction PNJ	
@@ -452,13 +472,13 @@ public class Perso {
 		this.presenceArmure = presenceArmure;
 	}
 
-	public boolean siMainslivre() {
+	/*public boolean siMainslivre() {
 		return mainslivre;
-	}
+	}*/
 
-	public void setMainslivre(boolean mainslivre) {
+	/*public void setMainslivre(boolean mainslivre) {
 		this.mainslivre = mainslivre;
-	}
+	}*/
 
 	
 }
