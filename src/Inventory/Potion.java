@@ -10,7 +10,7 @@ public class Potion extends Item {
 	
 //-- ajoute des potion pour soigner les statuts 
 //-- ajouter une potion qui donne au perso un 
-	//coup de pouce temp (avec + de dÈg‚ts)
+	//coup de pouce temp (avec + de d√©g√¢ts)
 
 	public static int 	svUtiliser = 0;
 	public static int 	svNiveau;
@@ -19,7 +19,7 @@ public class Potion extends Item {
 	public static int 	restNiveau;
 	public static int 	restPrix;
 	private static int 	potionSuvie; //potion + 25% sante
-	private static int 	potionRestau; //potion + 75% santÈ
+	private static int 	potionRestau; //potion + 75% sant√©
 
 	
 //-- Constructor --- 
@@ -36,8 +36,9 @@ public class Potion extends Item {
 	  * @return a potion object randomly chosen
 	  */
 	 public static Item generateRandomPotion() {
-	    int random = Game.RAND.nextInt(possiblePotions.size()); 
-	    return possiblePotions.get(possiblePotions.keySet().toArray()[random]);
+		return null;
+	    //int random = Game.RAND.nextInt(possiblePotions.size()); 
+	    //return possiblePotions.get(possiblePotions.keySet().toArray()[random]);
 	}
 	 
 	 private static Map<String,Potion> possiblePotions = new HashMap<String,Potion>();
@@ -52,8 +53,8 @@ public class Potion extends Item {
 		                + " flacon rempli d'un liquide bleu bouillonnant. Augmente les chances de critique"
 		                + "par 10%" ));
 			
-			possiblePotions.put("potTel", new Potion(0, "Potion", 50, "Potion utilisÈe"
-	                	+ "tÈlÈporter au dÈbut du donjon."));
+			possiblePotions.put("potTel", new Potion(0, "Potion", 50, "Potion utilis√©e"
+	                	+ "t√©l√©porter au d√©but du donjon."));
 	 }
 
 	 
@@ -134,7 +135,7 @@ public class Potion extends Item {
 */
 	 /*
 
-//-- potions qui ont ÈtÈ utilsÈes --
+//-- potions qui ont √©t√© utils√©es --
 	 public static void aUtiliser(String trouver) {
 	      
 		switch (trouver.toLowerCase()) {
@@ -155,14 +156,14 @@ public class Potion extends Item {
 	    int prix = getPrix(trouver);
 
 	    if (perso.getLevel() < level) {
-	         System.out.println("Tu n'est pas encore prÍt pour Áa :" + level + "pour acheter Áa!");
+	         System.out.println("Tu n'est pas encore pr√™t pour √ßa :" + level + "pour acheter √ßa!");
 	         
 	     } else if (prix <= gold.get()) {
 	    	 
 	    	 gold.set(-prix, true);
 	         Statistics.totalGoldepenserprSante += prix;
 	         setFound(trouver, 1, true);
-	         System.out.println("Merci pour ton achat. A bientÙt! ");
+	         System.out.println("Merci pour ton achat. A bient√¥t! ");
 	        
 	     } else {
 	    	 System.out.println("Tu n'as pas assez d'argent et ce n'est pas Noel!");
