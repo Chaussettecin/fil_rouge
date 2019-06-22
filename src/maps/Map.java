@@ -11,7 +11,7 @@ import asciiPanel.AsciiPanel;
 public class Map {
 	
 	public char[][] map; 
-    public int iX,jY=0;
+    	public int iX,jY=0;
 	
 	AsciiPanel terminal;
 	public int hauteur;
