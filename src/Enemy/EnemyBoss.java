@@ -10,7 +10,7 @@ public abstract class EnemyBoss extends Enemy {
 //-- Constructor -- 
 	public EnemyBoss(String Nom, int ptv, int Degat) {
 		super(Nom, ptv, Degat);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 
