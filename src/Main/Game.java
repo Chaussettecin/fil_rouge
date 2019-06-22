@@ -27,24 +27,17 @@ import asciiPanel.AsciiPanel;
 
 public class Game extends JFrame  implements KeyListener {
 
-	  public static Scanner USERINPUT = new Scanner(System.in);
-	  public static final Random RAND = new Random();
-	  public static Perso currPlayer;
+//public static Scanner USERINPUT = new Scanner(System.in);
+//public static final Random RAND = new Random(); 
+//public static Perso currPlayer;
 	  
-	  private AsciiPanel terminal;
-	  private Screen screen;
-	  //Inventory inventory = new Inventory();
-	  
-	  //Map map = new Map();
-	  //ItemMap itemMap = new ItemMap();
-
+	private AsciiPanel terminal;
+	private Screen screen;
 		
 	public static void main(String[] args) throws IOException {
-		
-	      // Game.mainMenu(); // Lance le menu principal
 		Game app = new Game();
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setVisible(true);
+       		 app.setVisible(true);
 	 }
 	 
 	/* private static void displayPDF(String chemin) throws IOException {
@@ -86,76 +79,9 @@ public class Game extends JFrame  implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	  
-//-- Menu principal -- 
-	public static void mainMenu() {
-	     
-		boolean status = false;
-	        
-		do {
-			 UI.welcome();
-	         String selection = USERINPUT.nextLine();
-	            
-	         switch (selection) {
-	               
-	         	
-	         	case "1":
-	                 newGame(selection); // Nouvelle partie
-	                 status = true;
-	                 break;
-	                
-	            case "2":
-	                 loadGame(); // d'après la sauvegarde
-	                 status = true;
-	                 break;
-	                
-	            case "3":
-	                 Settings(); // Réglage du jeux -- 
-	                 status = true;
-	                 break;
-	                 
-	            case "4":
-	                 helpGame(); // -- Aide du jeux --
-	                 status = true;
-	                 break;
-	                
-	            case "5":
-	                 UI.credits();
-	                 status = true;
-	                 break;
-	                
-	            case "6":
-	                 System.exit(0);
-	          }
+	public void keyReleased(KeyEvent e) {}
 
-	        } while (status == false);
-
-	    }
-
-	
-//-- Nouvelle partie - 
-	public static void newGame(String selection2) {
-	
-		  UI.newGameIntroduction();
-	      
-		  String selection = USERINPUT.nextLine();
-	            
-	      switch (selection) {
-	                
-	          case "1":
-			break;
-			
-	         
-	      }
-	    
-	}
-
-
-//--- Démarer la partie à partir d'une sauvegarde existente -- 	    
+//--- DÃ©marer la partie Ã  partir d'une sauvegarde existente -- 	    
 	public static void loadGame() {
 	   SaveSlot.load();
 	   //-- A faire en fonction du system de sauvegarde SQL
@@ -170,20 +96,9 @@ public class Game extends JFrame  implements KeyListener {
 	public static void Settings() {
 		Settings();
 	}
-	
-	
-	public Perso getPlayer() {
-				
-		if (Game.currPlayer != null) {
-			return Game.currPlayer;
-		}
-		return null;
-	}
 
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-		
+
+	public void actionPerformed(ActionEvent e) {	}
+
 
 }
