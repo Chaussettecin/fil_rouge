@@ -1,21 +1,21 @@
 package Menu;
 
-public class MainMenu extends Menu {
-
-    public CharacterCreationMenu chcMenu = new CharacterCreationMenu();
-    public TownMenu townMenu = new TownMenu();
+import Adventure.Adventure;
 
 
-    public MainMenu(){
-        setTitle("Menu principal");
-    }
+public class AdventureMenu extends Menu {
+   
+	AdventureMenu(){
+        setTitle("Adventure");
+   }
 
-    public boolean toExit=false;
+    private boolean adventureIsOver = false;
+    private Adventure adventure;
 
     @Override
     public int runMenu() {
         
-    	while (!toExit) {
+    	while (!adventureIsOver) {
             
     		super.runMenu();
             printMenu();
@@ -24,13 +24,6 @@ public class MainMenu extends Menu {
         
     	}
         return 0;
-    }
-    
-    @Override
-    public void printMenu() {
-        System.out.println("1 Create New Character");
-        System.out.println("2 Load Character");
-        System.out.println("3 Exit Game");
     }
 
 
@@ -43,46 +36,17 @@ public class MainMenu extends Menu {
         
         } else {
             isValid=false;
-            System.out.println("Choix du type est 1, 2 ou 3");
+            System.out.println("rentre un chiffre 1, 2 ou 3");
         
         }
         return isValid;
     }
 
-    @Override
-    public void goToMenu(int chosenMenu) {
-        
-    	switch (chosenMenu){
-            
-        	case 1:
-                if (!createCharacter())
-                    break;
+	public Adventure getAdventure() {
+		return adventure;
+	}
 
-                goToTown();
-                townMenu = new TownMenu();
-                break;
-            
-        	case 2:
-                //if (!loadCharacter())
-                    break;
-
-                //goToTown();
-                //townMenu = new TownMenu();
-                //break;
-            
-        	case 3:
-                toExit = true;
-                break;
-            default:
-                break;
-        }
-    }
-
-   // private boolean loadCharacter() { return loadMenu.runMenu() == 0; }
-        
-    private void goToTown() { townMenu.runMenu(); }
-       
-    private boolean createCharacter() {  return chcMenu.runMenu() == 0; }
-       
-    
+	public void setAdventure(Adventure adventure) {
+		this.adventure = adventure;
+	}
 }
