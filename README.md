@@ -1,4 +1,5 @@
-Partie Android Studio de l'application web du jeux 
+Partie Web (Admin et Joueurs)
 
-- Spring boot pour l'API 
-- Android Studio pour le reste
+  - Angular 
+    - Tom Cat 
+    
