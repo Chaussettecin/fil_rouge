@@ -1,19 +1,16 @@
 package UI;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import asciiPanel.AsciiPanel;
-import Serialization.Deserialiser;
+
 
 public class StartScreen implements Screen {
 
-	
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		terminal.writeCenter("Bienvenue",10);
-		terminal.writeCenter("Pour commencer la partie, appuyer sur entrée",15);
-		terminal.writeCenter("Pour charger la dernière partie, appuyer sur L",19);
+		terminal.writeCenter("Pour commencer la partie, appuyer sur entrÃ©e",15);
+		terminal.writeCenter("Pour charger la derniÃ¨re partie, appuyer sur L",19);
 		
 	}
 
