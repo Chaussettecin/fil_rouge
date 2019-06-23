@@ -1,18 +1,15 @@
 package UI;
 
 import java.awt.event.KeyEvent;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import asciiPanel.AsciiPanel;
 
+//-- Screen 2 du jeu... Demande au joueur de taper son nom 
 public class getNomScreen implements Screen {
-	
-	
+
 	private String nom="";
 	
-	
 	public Screen respondToUserInput(KeyEvent key) {
+		
 		if(nom.length()<10) {
 			char c = key.getKeyChar();
 			if(Character.isLetter(c)) {
@@ -21,6 +18,7 @@ public class getNomScreen implements Screen {
 		}
 		
 		switch(key.getKeyCode()) {
+			
 			case KeyEvent.VK_ENTER :
 				return new PlayScreen(nom);
 				
