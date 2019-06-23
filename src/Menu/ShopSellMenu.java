@@ -1,10 +1,8 @@
 package Menu;
 
-import Player.Player;
-import Shop.Shop;
-
 import java.util.ArrayList;
 
+import Shop.Shop;
 import Inventory.Item;
 import Perso.Perso;
 
@@ -38,7 +36,7 @@ public class ShopSellMenu extends Menu {
         } 
         
         System.out.println("Choisis un article dans la liste ci-dessus.(Entrer le numero)");
-        System.out.println("tu posséde " + Perso.getMoney() + " Gold.");
+        System.out.println("tu possÃ©de " + Perso.getMoney() + " Gold.");
     }
     
     @Override
