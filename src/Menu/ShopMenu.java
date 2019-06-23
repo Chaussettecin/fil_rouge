@@ -1,13 +1,16 @@
 package Menu;
 
 import Perso.Perso;
-import Player.Player;
 import Shop.Shop;
 
+/*
+ * MEnu de la boutique -- 
+ */
 
 public class ShopMenu extends Menu {
 
     private boolean toExitShop = false;
+    
     private Shop shop = new Shop();
     private ShopBuyMenu shopBuyMenu = new ShopBuyMenu();
     private ShopSellMenu shopSellMenu = new ShopSellMenu(); 
@@ -86,8 +89,16 @@ public class ShopMenu extends Menu {
             }   
          
         }
-//        character.saveToFile(false);
+
         return 0;
     }
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
        
 }
