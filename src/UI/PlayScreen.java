@@ -50,7 +50,7 @@ public class PlayScreen implements Screen {
         			check=checkCollision();
         	
     		if(check<100) {
-    			return new rencontreScreen(this,check);
+    			return new RencontreScreen(this,check);
     		}
         	break;
         
@@ -64,7 +64,7 @@ public class PlayScreen implements Screen {
         			check=checkCollision();
     		
         			if(check<100) {
-        				return new rencontreScreen(this,check);
+        				return new RencontreScreen(this,check);
         			}
         	
         		break;
@@ -76,7 +76,7 @@ public class PlayScreen implements Screen {
         			check=checkCollision();
     		
         			if(check<100) {
-        				return new rencontreScreen(this,check);
+        				return new RencontreScreen(this,check);
         			}
     		
         		break;
@@ -88,7 +88,7 @@ public class PlayScreen implements Screen {
         			check=checkCollision();
     		
         			if(check<100) {
-        				return new rencontreScreen(this,check);
+        				return new RencontreScreen(this,check);
         			}
         		
         		break;
@@ -104,7 +104,7 @@ public class PlayScreen implements Screen {
         } // En Switch 
 		
 		if(key.getKeyChar()=='p')
-		return new pauseScreen(this);
+		return new PauseScreen(this);
 		return this;
 	}
 
@@ -193,7 +193,7 @@ public class PlayScreen implements Screen {
 		terminal.clear();
 		terminal.repaint();
 		persDeux=!persDeux;
-			
+
 	}
 	
 	private void seDeplacerA(int x, int y) {
