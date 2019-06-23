@@ -23,10 +23,10 @@ public class Shop {
 
 	private static final String descArmMel = null;
 	private static final String Description = null;
-	//   POTIONS / ARMES / ARMURES // SORTS
-	   
 	private List<Item> shopItems;
 	private String descArmDist;
+	
+//   POTIONS / ARMES / ARMURES // SORTS
 	private static List<ArmesDistance> armeDistItems = new ArrayList<>();
 	private static List<ArmesMelees> armeMelItems = new ArrayList<>();
 	private static List<Sort> armeSortsItems = new ArrayList<>();
