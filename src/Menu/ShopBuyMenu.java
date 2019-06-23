@@ -2,8 +2,9 @@ package Menu;
 
 import Inventory.Item;
 import Perso.Perso;
-import Player.Player;
 import Shop.Shop;
+
+// Menu achat objet
 
 public class ShopBuyMenu extends Menu {
     
@@ -25,10 +26,11 @@ public class ShopBuyMenu extends Menu {
 
     @Override
     public void printMenu() {
-        System.out.println("0 Quitter la boutique et revenir dans la ville");
+    	
+        System.out.println("0 Quitter la boutique et revenir dans la map");
         Shop.showItemList();
-        System.out.println("Choisis un item dnas la lite.(Entre le numero)");
-        System.out.println("Tu posséde " + Perso.getCurrentCharacter().getMoney() + " gold.");
+        System.out.println("Choisis un objet dansla lite.(Entre le numero)");
+        System.out.println("Tu possÃ©de " + Perso.getMoney() + " gold.");
     }
 
     @Override
@@ -42,10 +44,10 @@ public class ShopBuyMenu extends Menu {
              
             if(Perso.getCurrentCharacter().buyItem(item)){
                 Shop.sellItem(item);
-                System.out.println("Achat effectué.");
+                System.out.println("Achat effectuÃ©.");
             
             }else{
-                System.out.println("Achat impossible. La maison ne fait pas crédit!");
+                System.out.println("Achat impossible. La maison ne fait pas crÃ©dit!");
             } 
         }
     }
@@ -53,7 +55,7 @@ public class ShopBuyMenu extends Menu {
     @Override
     public int runMenu() {
         
-    	Perso character = Perso.getCurrentCharacter();
+    	Perso perso;
         
     	while (!toExitShopBuyMenu) {
             
@@ -65,7 +67,7 @@ public class ShopBuyMenu extends Menu {
                 goToMenu(chosenMenu4);
             } 
         }
-    //        character.saveToFile(false);
+    
         return 0;
     }
     
