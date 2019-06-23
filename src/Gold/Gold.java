@@ -1,7 +1,5 @@
 package Gold;
 
-
-
 public class Gold {
 
 //--- golds est la monnaie de notre univers
