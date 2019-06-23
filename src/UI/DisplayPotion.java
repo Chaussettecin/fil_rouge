@@ -1,51 +1,47 @@
 package UI;
 
+import Inventory.Potion;
 import Perso.Perso;
 
+/*
+ * Affichage de consommation des potions
+ */
 public class DisplayPotion {
 	
-	 public static void usePotion(String t, Perso perso) {
+	// Display affichage conso Potion
+	 public static void usePotion(Potion potion, Perso perso, String use) {
 	     
-		 	
-		/* String trouver = t.trim().substring(0, 1).toUpperCase()
-		                	+ t.substring(1).toLowerCase();
-		     
-		 if (get(trouver) <= 0) {
+		 if (potion.getNom() != null) {
 		 			
-		 		System.out.println("--------------------------------------------------------");
-		 		System.out.println("Tu n'as pas " + trouver + " potions!");
-		 		System.out.println("Va faire un tour dans la boutique pou en avoir plus !   ");
-		 		System.out.println("--------------------------------------------------------");            
+		 	System.out.println("--------------------------------------------------------");
+		 	System.out.println("Tu n'as pas " + use + " potions!");
+		 	System.out.println("Va faire un tour dans la boutique pou en avoir plus !   ");
+		 	System.out.println("--------------------------------------------------------");            
 		 		
-
-		 } else if (perso.getPtv() == 100) {
+		 } else if (perso.getPtv() == perso.getPtvMin()) {
 		 			
 		 		System.out.println("-------------------------------------------------------");
-		    	System.out.println("Tu es déjà en pleine forme ! Tu n'est pas un chat");
-		    	System.out.println("Donc tu n'as pas besoin d'utiliser " + trouver + " potion!");
+		    	System.out.println("Tu es dÃ©jÃ  en pleine forme ! Tu n'est pas un chat");
+		    	System.out.println("Donc tu n'as pas besoin d'utiliser " + use + " potion!");
 		    	System.out.println("-------------------------------------------------------");
-		    	System.out.println("Ta santé actuelle :  " + perso.getPtv());
-		    	System.out.println(trouver + "Potions : " + get(trouver));
-		    	System.out.println("-------------------------------------------------------");
+		    	System.out.println("Ta santÃ© actuelle :  " + perso.getPtv());
+		    	System.out.println( use + "Potions : " + potion.getNom());
 
 		 } else {
-		    	
-		    	//setFound(trouver, -1, true);
+		    
 		        int soin = 0;
-		         //Perso(soin);
-		         //aUtiliser(trouver);
-
+		       
 		         System.out.println("----------------------------------------------------");
-		         System.out.println("Tu viens de consommer : " + trouver + " potion.");
-		         System.out.println("Te voilà en pleine forme avec : " + soin + " sante.	");
+		         System.out.println("Tu viens de consommer : " + potion.getNom() + " potion.");
+		         System.out.println("Te voilÃ  en pleine forme avec : " + soin + " sante.	");
 		         System.out.println("----------------------------------------------------");
-		         System.out.println("Ta santé est de: " + perso.getPtv());
-		         System.out.println(trouver + " Potions: " + get(trouver));
+		         System.out.println("Ta santÃ© est de: " + perso.getPtv());
+		         System.out.println(use + " Potions: " + potion.getNom());
 		         System.out.println("----------------------------------------------------");
 		        
 		     }
 		  }//fin */
 
-	 }
+	 
 }
 
