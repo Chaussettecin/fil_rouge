@@ -1,21 +1,20 @@
 package Menu;
 
-import Adventure.Adventure;
+public class MainMenu extends Menu {
+
+    public TownMenu townMenu = new TownMenu();
 
 
-public class AdventureMenu extends Menu {
-   
-	AdventureMenu(){
-        setTitle("Adventure");
-   }
+    public MainMenu(){
+        setTitle("Menu principal");
+    }
 
-    private boolean adventureIsOver = false;
-    private Adventure adventure;
+    public boolean toExit=false;
 
     @Override
     public int runMenu() {
         
-    	while (!adventureIsOver) {
+    	while (!toExit) {
             
     		super.runMenu();
             printMenu();
@@ -24,6 +23,13 @@ public class AdventureMenu extends Menu {
         
     	}
         return 0;
+    }
+    
+    @Override
+    public void printMenu() {
+       
+        System.out.println("2 Load Character");
+        System.out.println("3 Exit Game");
     }
 
 
@@ -36,17 +42,42 @@ public class AdventureMenu extends Menu {
         
         } else {
             isValid=false;
-            System.out.println("rentre un chiffre 1, 2 ou 3");
+            System.out.println("Choix du type est 1, 2 ou 3");
         
         }
         return isValid;
     }
 
-	public Adventure getAdventure() {
-		return adventure;
-	}
+    @Override
+    public void goToMenu(int chosenMenu) {
+        
+    	switch (chosenMenu){
+            
+        	case 1:
+               
 
-	public void setAdventure(Adventure adventure) {
-		this.adventure = adventure;
-	}
+                goToTown();
+                townMenu = new TownMenu();
+                break;
+            
+        	case 2:
+                //if (!loadCharacter())
+                    break;
+
+                //goToTown();
+                //townMenu = new TownMenu();
+                //break;
+            
+        	case 3:
+                toExit = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+      
+    private void goToTown() { townMenu.runMenu(); }
+       
+    
 }
