@@ -191,7 +191,6 @@ public class PlayScreen implements Screen {
 	public void interAction() {
 		
 		terminal.clear();
-		///terminal.writeCenter("Vous avez rencontrer un Elf, Que voulez vous faire", 5);
 		terminal.repaint();
 		persDeux=!persDeux;
 			
