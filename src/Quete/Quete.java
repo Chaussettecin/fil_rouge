@@ -6,12 +6,13 @@ import Inventory.ArmesDistance;
 import Inventory.ArmesMelees;
 import Inventory.Sort;
 import Inventory.Potion;
+import Adventure.Npc;
 import Perso.Perso;
 
 
 public class Quete {
 
-//-- arrayList des quêtes  --- 
+//-- arrayList des quÃªtes  --- 
 	private static final ArrayList<Quete> QuetesList = new ArrayList<>();
    
 //-- ArrayList  = Armes et Armures ---
@@ -22,8 +23,9 @@ public class Quete {
   //-- ArrayList  = Potion ---
     private final ArrayList<Potion> recompensesPotions = new ArrayList<>();
     
-    private String hote;
-    //Recompenses
+    Npc npc;
+    
+    //-- Recompenses --
     private int goldRecompenseMin;
     private int goldRecompenseMax;
     private int xpRecompenseMin;
@@ -35,38 +37,39 @@ public class Quete {
     private boolean complete;
     private boolean disponible;
 
-    public Quete(String hôte, int goldMin, int goldMax, int xpMin, int xpMax,
-                 int santeMin, int santeMax, int minLevel, boolean complete, boolean dispo) {
+    public Quete(Npc npc, int goldMin, int goldMax, int xpMin,
+    			 int xpMax, int santeMin, int santeMax, 
+    			 int minLevel, boolean complete, boolean dispo ) {
+                 
 
-        this.hote = hôte;
-        this.setGoldRecompenseMin(goldMin);
-        this.setGoldRecompenseMax(goldMax);
-        this.setXpRecompenseMin(xpMin);
-        this.setXpRecompenseMax(xpMax);
-        this.setSanteRecompenseMin(santeMin);
-        this.setSanteRecompenseMax(santeMax);
-        this.minLevelReq = minLevel;
-        this.complete = complete;
-        this.disponible = dispo;
-        QuetesList.add(this);
+        	this.npc = npc;
+        	this.setGoldRecompenseMin(goldMin);
+        	this.setGoldRecompenseMax(goldMax);
+        	this.setXpRecompenseMin(xpMin);
+        	this.setXpRecompenseMax(xpMax);
+        	this.setSanteRecompenseMin(santeMin);
+        	this.setSanteRecompenseMax(santeMax);
+        	this.minLevelReq = minLevel;
+        	this.complete = complete;
+        	this.disponible = dispo;
+        	QuetesList.add(this);
     }
     
     
-//--- Quêtes des PNJ --     
-    public static boolean checkQuetePrNPC(String npcNom, Perso level) {
+//--- QuÃªtes des PNJ --     
+    public static boolean checkQuetePrNPC(Npc npc, Perso level) {
         
     	boolean check = false;
         int i = 0;
         
         do {
             
-        	if (QuetesList.get(i).hote.equalsIgnoreCase(npcNom)) {
+        	if (QuetesList.get(i)) {
                 
         		if (QuetesList.get(i).getMinLevelReq() <= level.getLevel()) {
                     
         			if (QuetesList.get(i).getDisponible())
                         check = !QuetesList.get(i).getComplete();
-                
         		}
             
         	}
@@ -170,4 +173,5 @@ public class Quete {
 	public void setSanteRecompenseMax(int santeRecompenseMax) {
 		this.santeRecompenseMax = santeRecompenseMax;
 	}
+	
 }
