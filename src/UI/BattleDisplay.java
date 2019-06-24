@@ -8,98 +8,61 @@ public class BattleDisplay {
 /*
  * BLA BLA de combat -- 
  */
+	public static String inputPrompt(Perso perso) {
+	        
+		return (perso + "'s tour \n Choix de l'action : \n1. "
+	        				+ "Attaquer | 2. Ne rien faire");
+	}
+
+	
+	public static String attackAction(Perso perso, int damage) {
+	    return (perso + " attaque, en faisant" + damage + "\n");
+	}
+
+	
+	public static String noAction(Perso perso) {
+	    return perso + "ne fait rien...";
+	}
 	
 //--- Introduction d'un combat --
 	public static void battleIntro(Perso perso, Enemy enemy) {
 		        
 		System.out.println("L'enemi  [" + enemy + "apparait");
-		System.out.println("J'espère que ton équipe est prête !");
+		System.out.println("J'espÃ¨re que ton Ã©quipe est prÃªte !");
 		System.out.println();
 		System.out.println("");
 		System.out.println("Ton combat avec" + enemy + " commence.\n");
 	}
 		
-/* 
-	public static void battle(Perso Perso, Enemy Enemy) {
-		        
-	  List<Item> inventaire = Perso.getInventaire(null);
-		    	
-		while (Perso.isKO() && Enemy.dead) {
-		            
-		   System.out.println("\nEnnemi points de vie : " + Enemy.getPtv()
-		        				+ "    " + "Perso points de vie : " + Perso.getPtv());
-		   System.out.println("");
-		   System.out.println("----------------------------------");
-		   System.out.println("");
-		   System.out.print("\nAttaquer (a)   Soigner (h)");
-		            
-		            String action = Game.USERINPUT.nextLine();
-		            
-		            if (action.equals("a")) {
-		                
-		            	Enemy.attaqueBase(Perso);
-		                
-		            	if (Enemy.dead) {
-		            		Perso.defend(Enemy);
-		                }
-		            
-		            } else if (action.equals("h")) {
-		                
-		            	boolean potionExists = false;
-		                
-		            	if (!inventaire.isEmpty()) {
-		                    
-		            		for (int i = 0; i < inventaire.size(); i++) {
-		                        potionExists = false;
-		                        
-		                        if (inventaire.get(i).getNom().equals("Potion")) {
-		                        	Perso.setPtv(inventaire.get(i));
-		                            potionExists = true;
-		                            break;
-		                        }
-		                    
-		            		}
-		                }
-		            	
-		                if (potionExists == false) {
-		                    System.out.println("Tu est fatigué... une sieste ou une potion ? "
-		                            + "potions!");
-		                    battle(Perso, Enemy);
-		                
-		                }
-		                
-		                if (Enemy.dead) {
-		                	Perso.getAttaque(Enemy);
-		                }
-		            }
-		        }
-		    
-		        if (!Perso.isKO()) {
-		            System.out.println(" GAME OVER !!");
-		        
-		        } else if (!Enemy.dead) {
-		            System.out.println("L'ennemi à été vaincu!");
-		            System.out.println("");
-		            System.out.println("-------------------------\n");
-		        }
-
-		    }*/
-	public static void playerCrit() {
-        System.out.println("Bravo ! Tu viens de fiare un coup critique ! (x2 Degat)");
+//-- Coup critique perso
+	public static void persoCrit() {
+        System.out.println("Bravo ! Tu viens de faire un coup critique ! (x2 Degat)");
 	}
 
+//-- Coup critique ennemi 
 	public static void monsterCrit() {
       	System.out.println("Ouch! L'enemi vient de te donner un coup critique " + "(x2 Ddegat)");
 	}
 
-
- public static void persoAttaqueMsg(int degat, Enemy Enemy) {
+//-- msg attaque -
+	public static void persoAttaqueMsg(int degat, Enemy Enemy) {
         System.out.println("Oupss... " +  Enemy.getNom() + 
-        		" vient de te frapper en te faisant " + degat + " dégats.");       
- }
+        " vient de te frapper en te faisant " + degat + " dÃ©gats.");       
+	}
 
- public static void enemyAttaqueMsg(Enemy Enemy) {
-        System.out.println("Tu viens de toucher " + Enemy.getNom());
- }
+//-- msg ennemi attaque	
+	public static void enemyAttaqueMsg(Enemy Enemy) {
+        System.out.println("Tu viens de toucher" + Enemy.getNom());
+	}
+	
+//-- msg Game Over -
+	public static String gameOver(Perso perso, Enemy Enemy) {
+	
+		return 	perso.getNom() + "de ton Ã©quipe " + "a Ã©tÃ© abattu par" + 
+				Enemy.getNom() + "Oupss.... pas de chance" + 
+				"pour ce personnage"
+		    	+ "il lui faudra consommer une potion de restauration";
+
+	}
     
 }
