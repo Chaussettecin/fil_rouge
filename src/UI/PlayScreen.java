@@ -4,13 +4,16 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
+import maps.MapPosition;
+import Enemy.Cultiste;
+import Adventure.Npc;
 import Perso.Perso;
 import Perso.Race;
-import asciiPanel.AsciiPanel;
 import maps.Map;
-import maps.MapPosition;
 
+import asciiPanel.AsciiPanel;
 import Serialization.Donnees;
 import terminalOverflow.EnemyMouv;
 import terminalOverflow.PersoMouv;
@@ -19,32 +22,33 @@ import terminalOverflow.Vector2d;
 public class PlayScreen implements Screen {
 	
 	public String nom;
-	public boolean persDeux=true;
 	private Donnees d ;
 	public Map map;
 	public PersoMouv persD;
 	public AsciiPanel terminal;
+	public boolean persDeux=true; 
 	
+	public ArrayList<EnemyMouv> botOther;
 	private ArrayList<Perso> persoArray = new ArrayList<Perso>();
-	public ArrayList<EnemyMouv> bot;
+
 	
-	public PlayScreen(String nomJ) {
-		this.nom=nomJ;
-	}
-	
-	public PlayScreen(Donnees donnees) {
-		this.d=donnees;
-	}
-	
+	public PlayScreen(String nomJ) {this.nom=nomJ; }
+		
+	public PlayScreen(Donnees donnees) { this.d=donnees; }
+		
+		
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		
 		int check;	
 		
-		switch (key.getKeyCode()) { // Les valeurs sont contenue dans KeyEvent. Elles commencent par VK_ et finissent par le nom de la touche
+		switch (key.getKeyCode()) { 
         
-        	case KeyEvent.VK_UP: // si la touche enfoncée est celle du haut
-        	
+		// Les valeurs contenue dans KeyEvent. 
+		//Elles commencent par VK_ et finissent par le nom de la touche
+        	case KeyEvent.VK_UP: 
+        		
+        		// si la touche enfoncée est celle du haut
         		if (map.map[persD.position.dy-1][persD.position.dx]== ' '||map.map[persD.position.dy-1][persD.position.dx]== 'w'||map.map[persD.position.dy-1][persD.position.dx]== '#')
         			persD.DeplacerY(-1);
         			check=checkCollision();
@@ -54,8 +58,9 @@ public class PlayScreen implements Screen {
     		}
         	break;
         
-        	case KeyEvent.VK_LEFT: // si la touche enfoncée est celle de gauche
-        	
+        	case KeyEvent.VK_LEFT: 
+        		//-- si la touche enfoncée est celle de gauche
+        		
         		if (map.map[persD.position.dy][persD.position.dx-1]== ' '||
         			map.map[persD.position.dy][persD.position.dx-1]== 'w'||
         			map.map[persD.position.dy][persD.position.dx-1]== '#')
@@ -69,23 +74,35 @@ public class PlayScreen implements Screen {
         	
         		break;
         		
-        	case KeyEvent.VK_RIGHT: // si la touche enfoncée est celle de droite
-        	
-        		if (map.map[persD.position.dy][persD.position.dx+1]== ' '||map.map[persD.position.dy][persD.position.dx+1]== 'w'||map.map[persD.position.dy][persD.position.dx+1]== '#')
-        			persD.DeplacerX(1);
-        			check=checkCollision();
+        	case KeyEvent.VK_RIGHT: 
+        		// si la touche enfoncée est celle de droite -
+        		if (map.map [persD.position.dy]
+        					[persD.position.dx+1]== ' '||map.map
+        					[persD.position.dy]
+        					[persD.position.dx+1]== 'w'||map.map
+        					[persD.position.dy][persD.position.dx+1]== '#')
+        			
+        					persD.DeplacerX(1);
+        					check=checkCollision();
     		
-        			if(check<100) {
-        				return new RencontreScreen(this,check);
-        			}
+        					if(check<100) {
+        						return new RencontreScreen(this,check);
+        					}
     		
-        		break;
+        					break;
         
-        	case KeyEvent.VK_DOWN: // si la touche enfoncée est celle du bas
+        	case KeyEvent.VK_DOWN: 
         	
-        		if (map.map[persD.position.dy+1][persD.position.dx]== ' '||map.map[persD.position.dy+1][persD.position.dx]== 'w'||map.map[persD.position.dy+1][persD.position.dx]== '#')
-        			persD.DeplacerY(1);
-        			check=checkCollision();
+        		//-- si la touche enfoncée est celle du bas
+        		if (map.map [persD.position.dy+1]
+        					[persD.position.dx]== ' '||map.map
+        					[persD.position.dy+1]
+        					[persD.position.dx]== 'w'||map.map
+        					[persD.position.dy+1]
+        					[persD.position.dx]== '#')
+        			
+        					persD.DeplacerY(1);
+        					check=checkCollision();
     		
         			if(check<100) {
         				return new RencontreScreen(this,check);
@@ -123,30 +140,41 @@ public class PlayScreen implements Screen {
 			
 			persD = new PersoMouv(terminal,map,15,10,'@',Color.BLUE);
 	        createBot(terminal);
-	}
-        
-			if(d!=null) {
-				seDeplacerA(d.getPos());
-				persD.setPerso(d.getNom());
-				d=null;
-			}
-			terminal.clear();
-			for(int i=0;i<bot.size();i++) {
-				((EnemyMouv) bot.get(i)).deplacementAlea();
-				((EnemyMouv) bot.get(i)).afficher();
-			}
-			map.afficherMap();
-			
-			persD.afficherPlayer();
-			
-			
-			testDonnees();
-			terminal.repaint();
 		}
+        
+		if(d!=null) {
+				
+			seDeplacerA(d.getPos());
+			persD.setPerso(d.getNom());
+			d=null;
+			
+		}
+		
+		terminal.clear();
+			
+		for(int i=0;i<botOther.size();i++) {
+				
+			((EnemyMouv) botOther.get(i)).deplacementAlea();
+			((EnemyMouv) botOther.get(i)).afficher();
+			
+		}
+			
+		map.afficherMap();
+			
+		persD.afficherPlayer();
+		
+		testDonnees();
+		terminal.repaint();
+	
+	}
+	
 	
 	public void testDonnees() {
-		System.out.println("Perso X : " + persD.position.dx+", Perso Y : "+persD.position.dy);
-		System.out.println("Bot X "+bot.get(0).position.dx+" Y"+bot.get(3).position.dy);
+		
+		System.out.println("Perso X : " + persD.position.dx+
+							", Perso Y : "+persD.position.dy);
+		System.out.println("BotOther X "+ botOther.get(0).position.dx+
+							" Y"+ botOther.get(3).position.dy);
 	}
 
 	
@@ -165,26 +193,29 @@ public class PlayScreen implements Screen {
 	public void createBot(AsciiPanel terminal) {
 		
 		MapPosition ennemie = new MapPosition();
-		bot = new ArrayList<EnemyMouv>();
+		botOther = new ArrayList<EnemyMouv>();
 		
 		for(int i=0;i<9;i++) {
-			bot.add(new EnemyMouv(terminal, map, (Vector2d) ennemie.getEnnemiesMonde1().get(i), '#', Color.YELLOW ));
+			botOther.add(new EnemyMouv(terminal, map, 
+			(Vector2d) ennemie.getEnnemiesMonde1().get(i), '#', Color.YELLOW ));
 	    }
+		
 	}
 	
 	
 //--- Verifie si notre equipe de personnage touche un "bot"
 	public int checkCollision() {
 		
-		for(int i=0;i<bot.size();i++) {
+		for(int i=0;i<botOther.size();i++) {
 			
-			if(persD.position.Compare(bot.get(i).position)) {
+			if(persD.position.Compare(botOther.get(i).position)) {
 				persDeux=!persDeux;
 				return i;	
 			}
 			
 		}
-		return 100;
+		
+		return 100; // si c'est sup 100 il ne fait rien
 	}
 	
 //---  Interaction avec les "bot" enemy ou pnj
@@ -193,9 +224,27 @@ public class PlayScreen implements Screen {
 		terminal.clear();
 		terminal.repaint();
 		persDeux=!persDeux;
-
+		meetPeople(); //-- Methode random / cultiste ou PNJ
+		
 	}
 	
+//-- Mets les rencontres des enemis et PNJ de façon alea	 
+	Object meetPeople() {
+		       
+		switch (new Random().nextInt(7)){
+		            
+			case 0:
+		           return new Cultiste();
+		            
+			case 1:
+		         	return new Npc();
+		            
+		}
+		return null;
+		
+	}
+
+
 	private void seDeplacerA(int x, int y) {
 		
 		while (persD.position.dx != x || persD.position.dy != y) {
