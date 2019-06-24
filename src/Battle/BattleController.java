@@ -1,120 +1,131 @@
 package Battle;
 
-import java.util.Random;
+
+import java.awt.event.InputMethodListener;
 
 import Enemy.Enemy;
 import Perso.Perso;
+import Utils.SingleTonRandom;
+import asciiPanel.AsciiPanel;
+import maps.Map;
+import terminalOverflow.Vector2d;
 
-public class BattleController implements InputProviderListener {
-
-		private BattlePerso perso;
-		private BattleEnnemy ennemy;
-		private StateBasedGame game;
-		private Random random = new Random();
+public abstract class BattleController implements InputMethodListener {
+//implements ActionListeners
+	private Perso perso;
+	private Enemy ennemy;
+	//private StateBasedGame game;
+	SingleTonRandom  Instance;
+		
+	BattleCommand Command;
+	Map map;
+	Vector2d position;
+	private Object e;
 
 ///--- Constructor - 		
-	public BattleController(BattlePerso perso, BattleEnnemy ennemy,
-							StateBasedGame game) {
+	public BattleController(Perso perso, Enemy ennemy) {
+							
+			this.setPerso(perso);
+			this.setEnnemy(ennemy);
 			
-			this.perso = perso;
-			this.ennemy = ennemy;
-			this.game = game;
-		}
+	}
 
 		
-	@Override
-	public void controlPressed(Command command) {
+	public void controlPressed(AsciiPanel terminal) {
+		//--- Rappel des battleCommand - 
+		switch ((Command)) {
 			
-		switch ((BattleCommand) command) {
+			case ATTACK:
+					attack();
+					break;
 			
-		case ATTAQUE:
-				attack();
-				break;
-			
-		case DEFEND:
-				defend();
-				break;
-			
-		case FUIR:
-				fuire();
-				break;
+			case DEFEND:
+					defend();
+					break;
+		
+			case SORT:
+					//sort();
+					break;
 				
-		case SOIN:
-				heal();
-				break;
+			case FLEE:
+					flee();
+					break;
+				
+			case HEAL:
+					heal();
+					break;
 
 			default:
-				break;
+					break;
 			}
 		}
 
 	
-		@Override
-		public void controlReleased(Command command) {
-		}
-
-/**
-* Si le joueur attaque : Il inflige entre 7 et 10 points dÈg‚ts avec 10% de chance de faire un
-* critique (+50% de dÈg‚t) L'ennemi contre attaque en infligeant entre 5 et 9 dÈg‚ts.
-*/
-	private void attack() {
-			
-		int persoAttack = 7 + random.nextInt(4);
-			
-		if (random.nextDouble() < .1) {
-			persoAttack += persoAttack / 2;
-		}
-			
-		Enemy.setPtv(Enemy.getPtv() - persoAttack);
-			
-		if (Enemy.getPtv() <= 0) {
-				//game.enterState(MapGameState.ID);
-			
-		} else {
-			
-			int ennemyAttack = 5 + random.nextInt(5);
-			Perso.setPtv(Perso.getPtv() - ennemyAttack);
-				
-			if (Perso.getPtv() <= 0) {
-				//game.enterState(MainScreenGameState.ID);
-			}
-			
-		}
+	public void controlReleased(AsciiPanel terminal) {
 	}
 
 /**
- * Si le joueur dÈfend :
- * L'ennemi attaque et inflige entre 5 et 9 dÈg‚ts. Mais la moitiÈ des dÈg‚ts sont prÈvenu.</li>
- * Le joueur contre attaque en infligeant entre 7 et 10 points de dÈg‚ts sans possibilitÈ de
- * faire des critiques.
-*/
-	private void defend() {
+ * Perso attaque =  inflige entre 7 et0 points d√©g√¢ts avec 10% 
+ * de chance de faire un critique (+50% de d√©g√¢t) L'ennemi 
+ * contre attaque en infligeant entre 5 et 9 d√©g√¢ts.
+ * 
+*/private void attack () {
 			
-		int ennemyAttack = (5 + random.nextInt(5)) / 2;
+	int persoAttack = 7 + Instance.nextInt(4);
+			
+	if (Instance.nextDouble() < .1) {
+		persoAttack += persoAttack / 2;
+	}
+			
+	Enemy.setPtv(Enemy.getPtv() - persoAttack);
+			
+	if (Enemy.getPtv() <= 0) {
+		//game.enterState(MapGameState.ID);
+			
+	} else {
+			
+		int ennemyAttack = 5 + Instance.nextInt(5);
 		Perso.setPtv(Perso.getPtv() - ennemyAttack);
-			
-		if (Perso.getPtv() <= 0) {
-				//game.enterState(MainScreenGameState.ID);
-			
-		} else {
-				int playerAttack = 7 + random.nextInt(4);
-				Enemy.setPtv(Enemy.getPtv() - playerAttack);
 				
-				if (Enemy.getPtv() <= 0) {
-					//game.enterState(MapGameState.ID);
-				}
+		if (Perso.getPtv() <= 0) {
+			//game.enterState(MainScreenGameState.ID);
 		}
+			
 	}
+}
+
+
+/**
+ * Si le joueur d√©fend :
+ * L'ennemi attaque et inflige entre 5 et 9 d√©g√¢ts. Mais la moiti√© des d√©g√¢ts sont pr√©venu.</li>
+ * Le joueur contre attaque en infligeant entre 7 et 10 points de d√©g√¢ts sans possibilit√© de
+ * faire des critiques.
+*/private void defend() {
+			
+	int ennemyAttack = (5 + Instance.nextInt(5)) / 2;
+	Perso.setPtv(Perso.getPtv() - ennemyAttack);
+			
+	if (Perso.getPtv() <= 0) {
+		//game.enterState(MainScreenGameState.ID);
+			
+	} else {
+				
+		int playerAttack = 7 + Instance.nextInt(4);
+		Enemy.setPtv(Enemy.getPtv() - playerAttack);
+				
+		if (Enemy.getPtv() <= 0) {
+			//game.enterState(MapGameState.ID);
+		}
+		
+	}
+}
 
 		
 /**
- * Si le joueur fuit :
-* L'ennemi attaque et inflige entre 5 et 9 dÈg‚ts.
 * Le joueur quitte le combat.
-*/
-	private void fuire() {
+*/private void flee() {
 			
-		int ennemyAttack = 5 + random.nextInt(5);
+		int ennemyAttack = 5 + Instance.nextInt(5);
 			Perso.setPtv(Perso.getPtv() - ennemyAttack);
 			
 			if (Perso.getPtv() <= 0) {
@@ -125,9 +136,32 @@ public class BattleController implements InputProviderListener {
 			}
 		}
 	
-	private void heal() {
-		// TODO Auto-generated method stub
-		
+	
+/**
+ * Soin
+ */private void heal() {
+			
+	}
+
+
+//-- GETTER & SETTER - 	
+ 	public Perso getPerso() {
+		return perso;
+	}
+
+
+	public void setPerso(Perso perso) {
+		this.perso = perso;
+	}
+
+
+	public Enemy getEnnemy() {
+		return ennemy;
+	}
+
+
+	public void setEnnemy(Enemy ennemy) {
+		this.ennemy = ennemy;
 	}
 
 
