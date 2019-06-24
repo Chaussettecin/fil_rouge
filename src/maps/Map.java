@@ -28,7 +28,7 @@ public class Map {
 		
 		for (int i = 0 ; i<terminal.getWidthInCharacters()  ; i++) {
 			
-			for (int j = 0 ; j<terminal.getHeightInCharacters() ; j++) {
+			for (int j = 2 ; j<terminal.getHeightInCharacters() ; j++) {
 				
 				if ((j+jY) < hauteur && (i+iX) < largeur) {
 					
