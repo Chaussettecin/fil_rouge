@@ -2,15 +2,12 @@ package UI;
 
 import java.awt.event.KeyEvent;
 
-import Enemy.Enemy;
 import asciiPanel.AsciiPanel;
 import Serialization.Serialiser;
-
 
 /*
  * Screen interaction 
  */
-
 public class RencontreScreen implements Screen {
 	
 	PlayScreen screenBefore;
@@ -18,8 +15,9 @@ public class RencontreScreen implements Screen {
 	public RencontreScreen(PlayScreen before,int enn) {
 		
 		this.screenBefore=before;
-		screenBefore.map.map[screenBefore.bot.get(enn).position.dy][screenBefore.bot.get(enn).position.dx]=' ';;
-		screenBefore.bot.remove(enn);
+		screenBefore.map.map[screenBefore.botOther.get(enn).position.dy]
+				[screenBefore.botOther.get(enn).position.dx]=' ';
+		screenBefore.botOther.remove(enn);
 	
 	}
 	
@@ -43,7 +41,6 @@ public class RencontreScreen implements Screen {
 	public void displayOutput(AsciiPanel terminal) {
 		terminal.writeCenter("INTERACTION AVEC ", 14);
 		terminal.writeCenter("Vous avez rencontrer, Que voulez vous faire", 5);
-		
 	
 	}
 
