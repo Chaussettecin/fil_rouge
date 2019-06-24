@@ -7,15 +7,14 @@ public class BattleDisplay {
 
 /*
  * BLA BLA de combat -- 
+ * 
  */
-	public static String inputPrompt(Perso perso) {
-	        
-		return (perso + "'s tour \n Choix de l'action : \n1. "
-	        				+ "Attaquer | 2. Ne rien faire");
+	public static String choicePrompt(Perso perso) {
+		return (perso + "tour \n Choix de l'action : \n1."
+	        			+ "Attaquer | 2. Ne rien faire");
 	}
 
-	
-	public static String attackAction(Perso perso, int damage) {
+ 	public static String attackAction(Perso perso, int damage) {
 	    return (perso + " attaque, en faisant" + damage + "\n");
 	}
 
@@ -25,13 +24,13 @@ public class BattleDisplay {
 	}
 	
 //--- Introduction d'un combat --
-	public static void battleIntro(Perso perso, Enemy enemy) {
+	public static String battleIntro(Perso perso, Enemy enemy) {
 		        
-		System.out.println("L'enemi  [" + enemy + "apparait");
-		System.out.println("J'espère que ton équipe est prête !");
-		System.out.println();
-		System.out.println("");
-		System.out.println("Ton combat avec" + enemy + " commence.\n");
+		return enemy.getNom() + "apparait" +  
+				"J'espère que votre équipe est prête !" + 
+				"Ton combat avec " + enemy.getNom() + 
+				"commence.\n";
+
 	}
 		
 //-- Coup critique perso
