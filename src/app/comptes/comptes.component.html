@@ -1,0 +1,21 @@
+<h2>Comptes utilisateurs  </h2>
+  
+<div>
+  <label>Nom:
+    <input #compteName />
+  </label>
+  <button (click)="add(compteName.value); compteName.value=''">
+    add
+  </button>
+</div>
+ 
+<ul class="comptes">
+  <li *ngFor="let compte of comptes">
+    <a routerLink="/detail/{{compte.idCompte}}">
+      <span class="badge">{{compte.idCompte}}</span> {{compte.nameCompte}}
+    </a>
+    <button class="delete" title="delete compte"
+      (click)="delete(compte)">x</button>
+  </li>
+</ul>
+  

@@ -1,0 +1,12 @@
+<div *ngIf="quete">
+
+    <h2>{{quete.nameQuete | uppercase}} Details</h2>
+    <div><span>id: </span>{{quete.idQuete}}</div>
+    <div>
+      <label>Nom:
+        <input [(ngModel)]="quete.nameQuete" placeholder="nameQuete"/>
+      </label>
+    </div>
+    <button (click)="goBack()">Retour</button> 
+    <button (click)="save()">Enregistrer</button>   
+  </div>

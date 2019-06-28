@@ -1,0 +1,20 @@
+<h2>Liste des personnages  </h2>
+ 
+<div>
+  <label>Nom du personnage:
+    <input #personnageName />
+  </label>
+  <button (click)="add(personnageName.value); personnageName.value=''">
+    add
+  </button>
+</div>
+ 
+<ul class="personnages">
+  <li *ngFor="let personnage of personnages">
+    <a routerLink="/detail/{{personnage.idPersonnage}}">
+      <span class="badge">{{personnage.idPersonnage}}</span> {{personnage.namePersonnage}}
+    </a>
+    <button class="delete" title="delete personnage"
+      (click)="delete(personnage)">x</button>
+  </li>
+</ul>

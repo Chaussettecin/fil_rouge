@@ -1,0 +1,35 @@
+<TABLE BORDER>
+    <TR>
+      <TH>Id</TH>
+      <TH>Nom</TH>
+      <TH>Prénom</TH>
+      <TH>Login</TH>
+      <TH>Adresse mail</TH>
+      <TH>Compte actif</TH>
+      <TH>Date création</TH>
+    </TR>
+    <TR *ngFor="let compte of comptes">
+      <TD>
+         {{compte.idCompte}}
+      </TD>
+      <TD> 
+         {{compte.nameCompte}}
+      </TD> 
+      <TD>
+        {{compte.firstNameCompte}}
+      </TD>
+      <TD>
+        {{compte.loginCompte}}
+      </TD>
+      <TD>
+        {{compte.mailCompte}}
+      </TD>
+      <TD>
+        {{compte.actifCompte}}
+      </TD>
+      <TD>
+        {{compte.dateCreationCompte}}
+      </TD>
+    </TR>
+    
+  </TABLE>

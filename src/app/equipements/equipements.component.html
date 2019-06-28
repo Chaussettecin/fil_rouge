@@ -1,0 +1,21 @@
+<h2>Liste des équipements  </h2>
+
+<div>
+  <label>Nom de l'équipement:
+    <input #equipementName />
+  </label>
+  <button (click)="add(equipementName.value); equipementName.value=''">
+    add
+  </button>
+</div>
+ 
+<ul class="equipements">
+  <li *ngFor="let equipement of equipements">
+    <a routerLink="/detail/{{equipement.idEquipement}}">
+      <span class="badge">{{equipement.idEquipement}}</span> {{euipement.nameEquipement}}
+    </a>
+    <button class="delete" title="delete equipement"
+      (click)="delete(equipement)">x</button>
+  </li>
+</ul>
+ 

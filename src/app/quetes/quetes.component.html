@@ -1,0 +1,21 @@
+<h2>Liste des quêtes  </h2>
+ 
+<div>
+  <label>Nom de la quête:
+    <input #queteName />
+  </label>
+  <button (click)="add(queteName.value); queteName.value=''">
+    add
+  </button>
+</div>
+ 
+<ul class="quetes">
+  <li *ngFor="let quete of quetes">
+    <a routerLink="/detail/{{quete.idQuete}}">
+      <span class="badge">{{quete.idQuete}}</span> {{quete.nameQuete}}
+    </a>
+    <button class="delete" title="delete quete"
+      (click)="delete(quete)">x</button>
+  </li>
+</ul>
+ 

@@ -1,0 +1,21 @@
+<h2>Liste des ennemis  </h2>
+
+<div>
+  <label>Nom de l'ennemi:
+    <input #ennemiName />
+  </label>
+  <button (click)="add(ennemiName.value); ennemiName.value=''">
+    add
+  </button>
+</div>
+ 
+<ul class="ennemis">
+  <li *ngFor="let ennemi of ennemis">
+    <a routerLink="/detail/{{ennemi.idEnnemi}}">
+      <span class="badge">{{ennemi.idEnnemi}}</span> {{ennemi.nameEnnemi}}
+    </a>
+    <button class="delete" title="delete ennemi"
+      (click)="delete(ennemi)">x</button>
+  </li>
+</ul>
+ 
