@@ -1,6 +1,5 @@
-UI 
+Ui ou Screen 
 
-Tout les displays concernant le jeu... 
-A adapter... 
+Ecran d'affichage  qui sont sur le modéle Asciii panel.
 
-UI est classe qui permet d'avoir le menu de démérage du jeu
+(non fini)
