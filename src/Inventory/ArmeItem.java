@@ -5,13 +5,14 @@ import Inventory.ItemType;
 
 public class ArmeItem extends Item {
 
-	 protected Integer nivDexterite; // Precision 
-	 protected Integer nivBonusAttaque; // Bonnus attaque
+	 protected static Integer nivDexterite; // Precision 
+	 protected static Integer nivBonusAttaque; // Bonnus attaque
 	    
 	 
-	 public ArmeItem(Integer id, ItemType type, String nom, Integer prix) {
+	 public ArmeItem(Integer id, ItemType type, String nom, 
+			 		Integer prix, Integer nivDexterite, Integer nivBonusAttaque) {
 		 
-	        super(id, type, nom, prix);
+	        super(nivBonusAttaque, type, nom, nivBonusAttaque, nom);
 	        
 	        this.nivBonusAttaque = nivBonusAttaque;
 	        this.nivDexterite = nivDexterite;
@@ -26,9 +27,7 @@ public class ArmeItem extends Item {
 	        this.nivBonusAttaque = nivBonusAttaque;
 	 }
 
-	 public Integer getNivDexterite() {
-	        return nivDexterite;
-	 }
+	 public Integer getNivDexterite() { return nivDexterite; }
 
 	 public void setnivDexterite(Integer nivDexterite) {
 	        this.nivDexterite = nivDexterite;
@@ -41,6 +40,12 @@ public class ArmeItem extends Item {
 
 	public static void remove(ArmeItem item) {
 		// a voir 
+		
+	}
+
+
+	public static void add(ArmeItem item) {
+		// TODO Auto-generated method stub
 		
 	}
 }
