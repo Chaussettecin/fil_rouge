@@ -13,7 +13,8 @@ public class ArmesMelees extends ArmeItem{
 	public ArmesMelees( Integer id, String nom, Integer prix,
 						String descArmMel) {
 		
-		super(id, ItemType.ARME_MELEE, nom, prix);
+		super(id, ItemType.ARME_MELEE, nom, prix, nivDexterite, 
+			nivBonusAttaque);
 	}
 
 
