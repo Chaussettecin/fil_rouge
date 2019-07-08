@@ -2,47 +2,63 @@ package Inventory;
 
 import java.util.ArrayList;
 
-//inventaire est une collection d'objets disposés dans une grille.
-//agit comme 1 classe de collection et fonctionne pour implémenter la gestion des stocks
+//inventaire est une collection d'objets disposï¿½s dans une grille.
+//agit comme 1 classe de collection et fonctionne pour implï¿½menter la gestion des stocks
 
 public class Inventory {
 
-//-- Inventaire limitié à 24 objets
+	public Item[] items;
+	public Item[] getItems() { return items; }
+	public Item get(int i) { return items[i]; }
+
+//-- Inventaire limitiï¿½ ï¿½ 24 objets pour l'Ã©quipe
     public static final int NUM_SLOTS = 24;
-    public Item[] items;
+    
 
     public Inventory() {
         items = new Item[NUM_SLOTS];
     }
 
-
-// --- Retourne si un emplacement à un index est vide ou non --
-    public boolean isFreeSlot(int index) {
-        return items[index] == null;
-    }
-
+    public void add(Item item){
+		for (int i = 0; i < items.length; i++){
+			if (items[i] == null){
+				items[i] = item;
+				break;
+			}
+		}
+	}
     
- //-- Ramasse l'objet --  
-    public Item takeItem(int index) {
-        Item ret = null;
-        if (items[index] != null) {
-            ret = items[index];
-            items[index] = null;
-            return ret;
-        }
-        return null;
-    }
+	public void remove(Item item){
+		for (int i = 0; i < items.length; i++){
+			if (items[i] == item){
+				items[i] = null;
+				return;
+			}
+		}
+	}
 
-// -- Verifie si le sac à dos / inventaire du Joueur est complet --
-    public boolean isFull() {
-        for (int i = 0; i < NUM_SLOTS; i++) {
-            if (items[i] == null) return false;
-        }
-        return true;
-    }
-
+// -- Check si l'inventaire de l'ï¿½quipe est complet --
+    public boolean isFull(){
+		int size = 0;
+		for (int i = 0; i < items.length; i++){
+			if (items[i] != null)
+				size++;
+		}
+		return size == items.length;
+	}
+    
+	
+	public boolean contains(Item item) {
+		for (Item i : items){
+			if (i == item)
+				return true;
+		}
+		return false;
+	}
    
-    public void bidon() {
+    
+	
+	public void arrayRandomPotion() {
     	ArrayList<Item> ar = new ArrayList<Item>();
     	
     	Item popo = Potion.generateRandomPotion();
