@@ -1,50 +1,58 @@
 package Inventory;
 
-import java.util.HashMap;
+import Perso.Gold;
+import Perso.Perso;
 import java.util.Map;
-
-import Main.Game;
+import java.util.HashMap;
+import Utils.SingleTonRandom;
 
 
 public class Potion extends Item {
 	
-//-- ajoute des potion pour soigner les statuts 
-//-- ajouter une potion qui donne au perso un 
-	//coup de pouce temp (avec + de dégâts)
-
-	public static int 	svUtiliser = 0;
-	public static int 	svNiveau;
-	public static int 	svPrix;
+/*
+ * Class Potion fille de la classe Item
+ * ** Add potion qui permet de soigner le perso
+ * 			** Restau totale
+ * 			** Restau partielle
+ */
+	private static int 	potionRestau; //potion + 75% sant�
 	public static int 	restoUtiliser = 0;
 	public static int 	restNiveau;
 	public static int 	restPrix;
+
 	private static int 	potionSuvie; //potion + 25% sante
-	private static int 	potionRestau; //potion + 75% santé
+	public static int 	svUtiliser = 0;
+	public static int 	svNiveau;
+	public static int 	svPrix;
+
 
 	
-//-- Constructor --- 
-	 public Potion(Integer id, String nom, Integer prix, String description) {
+//-- Constructor --- 	
+	public Potion(Integer id, String nom, Integer prix, String description) {
 			 		
-		 super(id, ItemType.POTION, nom, prix);	
+		 super(id, ItemType.POTION, nom, prix, description);	
 	       
 	 }
 	   
+	
 
 
-	 /**
-	  * Choose a random potion among the available potions
-	  * @return a potion object randomly chosen
-	  */
+/**
+ 	* Choose a random potion among the available potions
+ 	* @return a potion object randomly chosen
+*/
 	 public static Item generateRandomPotion() {
-		return null;
-	    //int random = Game.RAND.nextInt(possiblePotions.size()); 
-	    //return possiblePotions.get(possiblePotions.keySet().toArray()[random]);
-	}
+		
+		 int random = SingleTonRandom.getRandom(possiblePotions.size()); 
+	    
+		 return possiblePotions.get(possiblePotions.keySet().toArray()[random]);
+	
+	 }
+	 
 	 
 	 private static Map<String,Potion> possiblePotions = new HashMap<String,Potion>();
 		
-	 	
-	 public void initPossiblePotions() {
+	 	 public void initPossiblePotions() {
 		 
 			possiblePotions.put("potVie", new Potion(0, "Potion", 15,"une petite fiole remplie d'un "
 	                + "liquide rouge translucide. Soigne 20 points de vie."));
@@ -53,18 +61,19 @@ public class Potion extends Item {
 		                + " flacon rempli d'un liquide bleu bouillonnant. Augmente les chances de critique"
 		                + "par 10%" ));
 			
-			possiblePotions.put("potTel", new Potion(0, "Potion", 50, "Potion utilisée"
-	                	+ "téléporter au début du donjon."));
-	 }
-
-	 
-	 @Override
-	 public String toString() {
-	     return id + "Nom Potion: " + nom + ", prix: " + prix + ", restauration Pts de vie: ";
-	 }
+			possiblePotions.put("potTel", new Potion(0, "Potion", 50, "Potion utilis�e"
+	                	+ "t�l�porter au d�but du donjon."));
+	 	 }
+	 	 
+	 	
+	 	 
+	
 	   
 
-//-- Recup les Prix des potions -
+/*
+ * getPrix
+ * Recup prix potion
+*/
 	 public static int getPrix(String trouver) {
 	    
 	  		switch (trouver.toLowerCase()) {
@@ -78,29 +87,37 @@ public class Potion extends Item {
 	}//recup prix 
 
 	 
-	/* public static void addPotion(int numDePotions, Perso Perso) {
+	public static void addPotion(int numPotions, Perso perso) {
 	        
-		 for (int i = 0; i < numDePotions; i++) {
+		 for (int i = 0; i < numPotions; i++) {
 			
-			 //Perso.getInventaire(desc).addItem(potion());
+			 //perso.getInventaire(desc).addItem(potion());
 		 }
-	 }*/
+	 }
+
+
 /*
-//---  objet Trouver 
-	 public static int getFoundItem(String trouver) {
+ * foundPotion
+ */
+	 public static int getFoundPotion(String trouver) {
 	     
-	    	switch (trouver.toLowerCase()) {
-	    		case "Survie":
+	    switch (trouver.toLowerCase()) {
+	    		
+	    	case "Survie":
 	    			return potionSuvie;
-	    		case "Restauration":
+	    		
+	    	case "Restauration":
 	    			return potionRestau;
-	    		default:
+	    		
+	    	default:
 	    			return 0; 
-	        }
-	 } // fin getTrouver
-*/
-	 /*
-	 public static void setFound(String trouver,int montant, boolean add) {
+	    }
+	} // fin getTrouver
+
+
+	 public static void setFoundPotion(String trouver,
+			 							int montant, 
+			 							boolean add) {
 	     
 		 switch (trouver.toLowerCase()) {
 	        
@@ -132,11 +149,12 @@ public class Potion extends Item {
 	     
 	    	}//fin switch
 	  }
-*/
-	 /*
 
-//-- potions qui ont été utilsées --
-	 public static void aUtiliser(String trouver) {
+	
+/*
+ * Potion à utiliser 	  
+*/
+	public static void aUtiliser(String trouver) {
 	      
 		switch (trouver.toLowerCase()) {
 	         
@@ -148,21 +166,23 @@ public class Potion extends Item {
 	    }
 		
 	}//fin aUtiliser()
-*/
-//--- achats potions --
-	/* public static void achat(String trouver) {
 
-	    int level = getLevel(trouver);
+
+/*
+ * Potion acheter  
+*/
+	public static void achatPotion(String trouver) {
+
+	    int level = Perso.getLevel();
 	    int prix = getPrix(trouver);
 
-	    if (perso.getLevel() < level) {
-	         System.out.println("Tu n'est pas encore prêt pour ça :" + level + "pour acheter ça!");
+	    if (Perso.getLevel() < level) {
+	         System.out.println("Tu n'est pas encore prêt pour ça :" 
+	        		 			+ level + "pour acheter ça!");
 	         
-	     } else if (prix <= gold.get()) {
+	     } else if (prix <= Gold.get()) {
 	    	 
-	    	 gold.set(-prix, true);
-	         Statistics.totalGoldepenserprSante += prix;
-	         setFound(trouver, 1, true);
+	    	 Gold.set(-prix, true);
 	         System.out.println("Merci pour ton achat. A bientôt! ");
 	        
 	     } else {
@@ -173,7 +193,6 @@ public class Potion extends Item {
 	 } // classe Trouver*/
 
 	
-
 //-- GETTER & SETTER	 
 	 public String getNom() {
 	        return nom;
@@ -183,8 +202,8 @@ public class Potion extends Item {
 	    return nom;
 	}
 
-	 public static void svUtiliser() {
-		return;
+	 public static int svUtiliser() {
+		return potionSuvie;
 	}
 
 	public static int getPotionSuvie() {
