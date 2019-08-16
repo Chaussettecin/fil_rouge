@@ -1,75 +1,57 @@
 package Battle;
 
-import Enemy.Enemy;
+import java.util.ArrayList;
+
+import Enemy.Cultiste;
+import Npc.Npc;
 import Perso.Perso;
+import Perso.PersoStats;
 
-/*
- * Classe principale des Battle
- */
-public class BattleFight implements BattleAction {
+public class BattleFight {
 
-	int input;  
-	String Text;
-	Enemy enemy;
+	static Npc randNpc;
+	static Perso equipePerso;
+	static Cultiste randCultist;
 	
-	private ArrayList<Perso> persoArray;
-	private BattleAction persoAction;
-
-// -- Constructor - 
-	public BattleFight(int input, ArrayList<Perso> persoArray, Enemy enemy, 
-			 BattleAction persoAction) {
+	private static boolean isAdventureOver;
 	
-		this.persoArray = persoArray; 
-		this.enemy = enemy; 
-		this.setPersoAction(persoAction);
-	}
-
-/*
- * Methode de la BattleAction
- */
-	@Override
-	public String attack() {
+	public BattleFight(ArrayList<Perso> persoArray, Cultiste cult) {
 		
-		enemy.getDegat();
-		return Text = (persoArray + " frappe pour : " + input + "\n" 
-					+ enemy.getNom() + " a pour santé :" + 
-					Enemy.getPtv()+ "\n");
 	}
 
-	@Override
-	public String flee() {
-		 Text = (persoArray + " ont parés l'attaque..." + msgBattle.noAction(null));
-			return null;
-	}
+	public static void fight(){
 
-	@Override
-	public String sort() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		while (!isAdventureOver){
+        
+			equipePerso.recoitDegat(randCultist.getDegat());
+			randCultist.receiveDamage(equipePerso.getStats().getStrength());
 
-	@Override
-	public String heal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getResult() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	public BattleAction getPersoAction() {
-		return persoAction;
-	}
-
-	
-	public void setPersoAction(BattleAction persoAction) {
-		this.persoAction = persoAction;
+			System.out.println(equipePerso.getNom() + " deals " + PersoStats.getStats().getStrength() + " damage!");
+			System.out.println(randCultist.getNom() + " deals " + randCultist.getDegat() + " damage back at you!");
+			System.out.println("Health of " + equipePerso.getNom()  + PersoStats.getStats().getCurrentHealth() + ". "
+                + randCultist.getNom() + " 's Health: " + randCultist.getDegat());
+        
+			try {
+				Thread.sleep(500);
+       
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+        
+			}
+        
+			isAdventureOver = !randCultist.isAlive();
+			
+			}
+		
+		equipePerso.addXP(randCultist.getXpRecup(), "");
+		equipePerso.addMoney(randCultist.getGoldRecup());
+		
+		//System.out.println("The Battle has ended. " + equipPerso.getNom() + " Wins!");
+		//System.out.println("Gold Looted: " + randEnemy.getGoldRecup() + ", Earned XP: " + randEnemy.getXpRecup() );
 	}
 	
-	
+	public void doAdventure(){
+		isAdventureOver = false;
+		
+	}
 }
