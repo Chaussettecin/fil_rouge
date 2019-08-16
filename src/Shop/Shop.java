@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import Inventory.ArmeItem;
-import Inventory.ArmesDistance;
-import Inventory.ArmesMelees;
-import Inventory.Sort;
-import Inventory.Armure;
 import Inventory.Item;
-import Inventory.ItemType;
+import Inventory.Sort;
 import Inventory.Potion;
+import Inventory.Armure;
+import Inventory.ItemType;
+import Inventory.ArmeItem;
+import Inventory.ArmesMelees;
+import Inventory.ArmesDistance;
+
 import Util.JSON.Json;
 import Util.JSON.JsonArray;
 import Util.JSON.JsonObject;
@@ -20,27 +21,29 @@ import Util.JSON.JsonObject;
 
 //--- Boutique -
 public class Shop {
-
-	private static final String descArmMel = null;
-	private static final String Description = null;
-	private List<Item> shopItems;
-	private String descArmDist;
 	
-//   POTIONS / ARMES / ARMURES // SORTS
-	private static List<ArmesDistance> armeDistItems = new ArrayList<>();
-	private static List<ArmesMelees> armeMelItems = new ArrayList<>();
+	private List<Item> shopItems;
+	private static String descArmDist;
+	private static final String descArmMel = null;
+	private static final String description = null;
+	
+	
+//---  POTIONS / ARMES / ARMURES // SORTS  ---
 	private static List<Sort> armeSortsItems = new ArrayList<>();
   	private static List<Armure> armureItems = new ArrayList<>();
   	private static List<Potion> potionItems = new ArrayList<>();
-  
+  	
+	private static List<ArmesDistance> armeDistItems = new ArrayList<>();
+	private static List<ArmesMelees> armeMelItems = new ArrayList<>();
   	private static HashMap<Integer, Item> allItemsById = new HashMap<>();
   
-  public Shop() {
+  	public Shop() {
       initItemList();
-  }
+  	}
   
-  private void initItemList(){
-      Scanner scanner = new Scanner(getClass().getResourceAsStream("/Resources/Items.json"));
+  	private void initItemList(){
+      
+	  Scanner scanner = new Scanner(getClass().getResourceAsStream("/Resources/Items.json"));
       scanner.useDelimiter("\\A");
 
       if (!scanner.hasNext()) {
@@ -53,11 +56,12 @@ public class Shop {
       JsonArray items = (JsonArray) Json.parse(jsonText);
 
       for (int i = 0; i < items.size(); ++i) {
-          JsonObject currentItemData = (JsonObject) items.get(i);
+          
+    	  JsonObject currentItemData = (JsonObject) items.get(i);
 
           String itemType = currentItemData.get("type").asString();
-
           int id = currentItemData.get("id").asInt();
+          
           String nom = currentItemData.get("nom").asString();
           int prix = currentItemData.get("prix").asInt();
 
@@ -65,18 +69,19 @@ public class Shop {
           boolean siArme = false;
 
           switch (itemType) {
+          
               case "armeMelee": // Je ne comprend pas le probleme :s a voir
             	  actuelItem = new ArmesMelees(id, nom, prix, descArmMel);
             	  siArme = true;
                   break;
              
               case "armeDistance":
-            	  actuelItem = new ArmesDistance(id, nom, prix, descArmDist);
+            	  actuelItem = new ArmesDistance(id, nom, prix, descArmDist, null);
             	  siArme = true;
                   break;
               
               case "potion":
-            	  actuelItem = new Potion(id, nom, prix,Description);
+            	  actuelItem = new Potion(id, nom, prix,description, null);
                   break;
           }
 
@@ -87,7 +92,7 @@ public class Shop {
               //itemArme.setRequiredStrength(weaponData.get("requiredstrength").asInt());
               //itemArme.setRequiredDexterity(weaponData.get("requireddexterity").asInt());
 
-              actuelItem.add(itemArme);
+              //actuelItem.add(itemArme);
           }
           else {
               potionItems.add((Potion) actuelItem);
@@ -97,11 +102,12 @@ public class Shop {
       }
   }
 
-  public static Item getItemById(int id) {
-      return allItemsById.get(id);
-  }
+  public static Item getItemById(int id) { return allItemsById.get(id);}
   
-  public static void showItemList(){
+/*
+ * Montre les objets dans une liste --  
+ */
+  public static String showItemList(){
 	  
       StringBuilder sb = new StringBuilder();
       
@@ -117,9 +123,9 @@ public class Shop {
           sb.append(armeDistItems.get(i).toString()).append("\n");
       }
       
-      /*sb.append("#### SORTS ####\n");
+      sb.append("#### SORTS ####\n");
       
-      for (int i = 0; i < Sort(); i++) {
+     /* for (int i = 0; i < Sort.; i++) {
           sb.append(Sort.get(i).toString()).append("\n");
       }*/
       
@@ -130,9 +136,12 @@ public class Shop {
       }
       
       System.out.println(sb.toString());
+	return descArmDist;
   } 
   
-//--- Vente des objets => Permet au joueur de vendre des objets pour des golds
+/*
+ * Vente des objets => qui permet � l'equipe de se faire de l'argent 
+ */
   public static void sellItem(Item item){
 	  
       if ( item.getType() == ItemType.ARME_DISTANCE || 
@@ -149,6 +158,8 @@ public class Shop {
       allItemsById.remove(item.getID(), item);
       
   }
+  
+
   
 //--- Achat des objets --- 
   public static void buyItem(Item item){
@@ -169,30 +180,26 @@ public class Shop {
   }
   
 //-- Sauvegarde en Json  des objets
-  public void saveToJSON(JsonObject json) { }
+  	public void saveToJSON(JsonObject json) { }
 
-public static List<Sort> getArmeSortsItems() {
-	return armeSortsItems;
-}
+  	public static List<Sort> getArmeSortsItems() {return armeSortsItems;}
 
-public static void setArmeSortsItems(List<Sort> armeSortsItems) {
-	Shop.armeSortsItems = armeSortsItems;
-}
+  	public static void setArmeSortsItems(List<Sort> armeSortsItems) {
+	 Shop.armeSortsItems = armeSortsItems;
+  	}
 
-public static List<Armure> getArmureItems() {
-	return armureItems;
-}
+  	public static List<Armure> getArmureItems() {return armureItems;}
+	
+  	
+  	public static void setArmureItems(List<Armure> armureItems) {
+	  Shop.armureItems = armureItems;
+  	}
 
-public static void setArmureItems(List<Armure> armureItems) {
-	Shop.armureItems = armureItems;
-}
+  	public List<Item> getShopItems() { return shopItems; }
 
-public List<Item> getShopItems() {
-	return shopItems;
-}
-
-public void setShopItems(List<Item> shopItems) {
-	this.shopItems = shopItems;
-}      
+  	public void setShopItems(List<Item> shopItems) {
+  		this.shopItems = shopItems;
+  	}      
       
+
 }
