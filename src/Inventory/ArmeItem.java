@@ -12,7 +12,7 @@ public class ArmeItem extends Item {
 	 public ArmeItem(Integer id, ItemType type, String nom, 
 			 		Integer prix, Integer nivDexterite, Integer nivBonusAttaque) {
 		 
-	        super(nivBonusAttaque, type, nom, nivBonusAttaque, nom);
+	        super(nivBonusAttaque, type, nom, nivBonusAttaque, color, desc);
 	        
 	        this.nivBonusAttaque = nivBonusAttaque;
 	        this.nivDexterite = nivDexterite;
