@@ -4,20 +4,27 @@ import Perso.PersoStats;
 import Util.JSON.Json;
 import Util.JSON.JsonObject;
 
-public class PersoStats {
+public class PersoStats extends Perso{
+	
+public static int totalGoldDepenser;
+	/*
+ * Class qui r�cup�re les stats du perso ou equipe -
+ */
+	 private int maxHealth;
+	 private int currentHealth;
+	 private int strength;
+	 private int dexterity;
 
-	 private int MaxHealth;
-	 private int CurrentHealth;
-	 private int Strength;
-	 private int Dexterity;
-
-//--- Constructor  // avec les valeurs par defaut 
+//--- Constructor  
+	 // avec les valeurs par defaut 
 	 public PersoStats() {
+		 
+		 super(nom, race);
 	        
-		 MaxHealth = 100;
-	     CurrentHealth = MaxHealth;
-	     Strength = 1;
-	     Dexterity = 0;
+		 maxHealth = 100;
+	     currentHealth = maxHealth;
+	     strength = 1;
+	     dexterity = 0;
 	 }
 
 	    
@@ -26,16 +33,16 @@ public class PersoStats {
 		 PersoStats stats = new PersoStats();
 
 	        if (json.contains("maxhealth"))
-	            stats.MaxHealth = json.get("maxhealth").asInt();
+	            stats.maxHealth = json.get("maxhealth").asInt();
 
 	        if (json.contains("currenthealth"))
-	            stats.CurrentHealth = json.get("currenthealth").asInt();
+	            stats.currentHealth = json.get("currenthealth").asInt();
 
 	        if (json.contains("strength"))
-	            stats.Strength = json.get("strength").asInt();
+	            stats.strength = json.get("strength").asInt();
 
 	        if (json.contains("dexterity"))
-	            stats.Dexterity = json.get("dexterity").asInt();
+	            stats.dexterity = json.get("dexterity").asInt();
 
 	        return stats;
 	 }
@@ -45,15 +52,15 @@ public class PersoStats {
 	        
 	    	JsonObject characterStats = Json.object();
 	        json.add("stats", characterStats);
-	        characterStats.add("maxhealth", MaxHealth);
-	        characterStats.add("currenthealth", CurrentHealth);
-	        characterStats.add("strength", Strength);
-	        characterStats.add("dexterity", Dexterity);
+	        characterStats.add("maxhealth", maxHealth);
+	        characterStats.add("currenthealth", currentHealth);
+	        characterStats.add("strength", strength);
+	        characterStats.add("dexterity", dexterity);
 	 }
 
 	    
 	 public int getMaxHealth() {
-	     return MaxHealth;
+	     return maxHealth;
 	 }
 
 	 public void setMaxHealth(int value) {
@@ -61,25 +68,25 @@ public class PersoStats {
 		 if (value < 1)
 	        value = 1;
 
-	        MaxHealth = value;
+	        maxHealth = value;
 	 }
 
 	 public int getCurrentHealth() {
-	    return CurrentHealth;
+	    return currentHealth;
 	 }
 
 	    
 	 public void setCurrentHealth(int value) {
 	        
-		 if (value > MaxHealth)
-	         value = MaxHealth;
+		 if (value > maxHealth)
+	         value = maxHealth;
 
-	        CurrentHealth = value;
+	        currentHealth = value;
 	 }
 
 	    
 	 public int getStrength() {
-	        return Strength;
+	        return strength;
 	 }
 
 	    
@@ -88,12 +95,12 @@ public class PersoStats {
 		 if (value < 0)
 	         value = 0;
 
-	        Strength = value;
+	        strength = value;
 	 }
 
 	    
 	 public int getDexterity() {
-	        return Dexterity;
+	        return dexterity;
 	 }
 
 	 public void setDexterity(int value) {
@@ -101,6 +108,6 @@ public class PersoStats {
 		 if (value < 0)
 	         value = 0;
 
-	        Dexterity = value;
+	        dexterity = value;
 	}
 }
