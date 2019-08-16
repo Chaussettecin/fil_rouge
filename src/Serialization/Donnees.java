@@ -1,46 +1,37 @@
 package Serialization;
 
-import java.util.ArrayList;
-
-import UI.PlayScreen;
-import terminalOverflow.Vector2d;
+import Perso.Perso;
+import Main.PlayScreen;
+import Mouvement.Vector2d;
 
 public class Donnees {
 	
-	private String nom;
-	private boolean isValide=true;
+	private Perso nom;
 	private Vector2d pos;
-//	private ArrayList ennemie;
-//	private int imap,jmap;
-	
-	
+	private boolean isValide=true;
+
 	public Donnees() {}
 		
-	
 	public Donnees(PlayScreen screen) {
-		this.pos=screen.j.position;
-		this.nom=screen.j.getNom();
-//		
-//		this.imap=screen.map.iX;
-//		this.jmap=screen.map.jY;
-		
+		this.pos=screen.persD.position;
+		this.nom=screen.persD.getPerso();
 	}
+	
 	public Vector2d getPos() {
 		return pos;
 	}
 	
-	public String getNom() {
+	public Perso getNom() {
 		return this.nom;
 	}
+
+	public boolean isValide() {
+		return isValide;
+	}
+
+	public void setValide(boolean isValide) {
+		this.isValide = isValide;
+	}
 	
-//	public ArrayList getEnnemie() {
-//		return ennemie;
-//	}
-//	public int getImap() {
-//		return imap;
-//	}
-//	public int getJmap() {
-//		return jmap;
-//	}
 
 }
