@@ -2,5 +2,9 @@ package Inventory;
 
 public enum ItemType {
 	
-    POTION, ARME_DISTANCE, ARME_MELEE, SORT, ARMURE,
+    POTION, 
+    ARME_DISTANCE, 
+    ARME_MELEE, 
+    SORT, 
+    ARMURE,
 }
