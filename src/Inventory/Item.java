@@ -4,50 +4,58 @@ import java.awt.Color;
 import java.util.List;
 import java.util.ArrayList;
 
-import Battle.Sort;
 import Battle.Effect;
+import Inventory.Sort;
 import Inventory.ItemType;
 
 
 
 public class Item {
 	
-	protected static Integer id;
-	protected static String nom;
+	private Integer id;
+	
+	protected String nom;
+	static String desc;
+
+	private int defValeur;
+	private int foodValeur;
+	private int attaqueValeur;
+
+	private String apparence;
+	private Effect quaffEffect;
+	
+	protected static Color color;
 	protected static Integer prix;
 	
-	protected Color color;
-	private int foodValue;
-	private int attackValue;
-	private int defenseValue;
-	private String appearance;
-	private Effect quaffEffect;
-	 
-	private int attaqueDistanceVal;
 	private int attaqueMeleeVal;
+	private int attaqueDistanceVal;
+	
 	private List<Sort> writtenSpells;
 	 
 	 
 //--- Constructor --    
-	public Item(Integer id,ItemType armeDistance, String nom, 
-				Integer prix, String nivDexterite) {
+	public Item(Integer id,ItemType type, String nom,  
+				Integer prix, Color color, String desc) {
 		
-		 Item.id = id;
-		 nom = nom;
-	     this.color = color;
-	     Item.prix = prix;
-	     nivDexterite =nivDexterite;
+		 this.id = id;
+		 this.nom = nom;
+		 this.desc = desc;
+	     Item.color = color;
+	     this.prix = prix;
 	     this.attaqueDistanceVal = 1;
-	     this.appearance = appearance == null ? nivDexterite : appearance;
+	     
+	     this.apparence = apparence == null ? nom : apparence;
+	     
 	     this.writtenSpells = new ArrayList<Sort>();
+	
 	}
 
 
 	public  String details() {
 			String details = "";
 		
-		if (attackValue != 0)
-			details += "Attaque:" + attackValue;
+		if (attaqueValeur != 0)
+			details += "Attaque:" + attaqueValeur;
 
 		if (attaqueDistanceVal != 1)
 			details += "Lancer :" + attaqueDistanceVal;
@@ -55,31 +63,31 @@ public class Item {
 		if (attaqueMeleeVal > 0)
 			details += "Distance:" + attaqueMeleeVal;
 		
-		if (defenseValue != 0)
-			details += "Defence:" + defenseValue;
+		if (defValeur != 0)
+			details += "Defence:" + defValeur;
 
-		if (foodValue != 0)
-			details += "Aliment:" + foodValue;
+		if (foodValeur != 0)
+			details += "Aliment:" + foodValeur;
 		
 		return details;
 	}
 	
 	
-	public Color color() { return color; }
+	public Color color() { return getColor(); }
 	
-	public String appearance() { return appearance; }
+	public String apparence() { return apparence; }
 	
 
-	public int foodValue() { return foodValue; }
-	public void modifyFoodValue(int amount) { foodValue += amount; }
+	public int valeurFood() { return foodValeur; }
+	public void modifValeurFood(int amount) { foodValeur += amount; }
 
 	
-	public int attackValue() { return attackValue; }
-	public void modifyAttackValue(int amount) { attackValue += amount; }
+	public int valAttaque() { return attaqueValeur; }
+	public void modifValAttaque(int amount) { attaqueValeur += amount; }
 
 
-	public int defenseValue() { return defenseValue; }
-	public void modifyDefenseValue(int amount) { defenseValue += amount; }
+	public int valDefence() { return defValeur; }
+	public void modifValDef(int amount) { defValeur += amount; }
 		
 	public int thrownAttackValue() { return attaqueDistanceVal; }
 	public void modifyThrownAttackValue(int amount) { attaqueDistanceVal += amount; }
@@ -96,25 +104,24 @@ public class Item {
 	public List<Sort> writtenSpells() { return writtenSpells; }
 	
 	public void addWrittenSpell(String name, int manaCost, Effect effect){
-		writtenSpells.add(new Sort(manaCost, name, manaCost, name, effect, manaCost));
+		writtenSpells.add(new Sort(manaCost, name, name, effect, manaCost));
 	}	
 	
 
-//--- SETTER & GETTER Nom	
+//--- SETTER & GETTER -- 	
+	
+	public Integer getID() { return id; }
+	
 	public String getNom() { return nom; }
-
 	public void setNom(String nom) { this.nom = nom; }
-  
-
-//--- SETTER & GETTER Prix
-	public Integer getPrix() { return prix; }
-
-	public void setPrix(Integer prix) { this.prix = prix; }
-
 	
 	public ItemType getType() { return getType(); }
+  
+	public Integer getPrix() { return prix; }
+	public void setPrix(Integer prix) { this.prix = prix; }
 
-	public Integer getID() { return id; }
+	public Color getColor() { return color;}
+	public void setColor(Color color) { this.color = color; }
 	     
 
 }
