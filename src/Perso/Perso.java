@@ -1,216 +1,219 @@
 package Perso;
 
-import java.io.File;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
-import Battle.battleAction;
-import Effect.effect;
-import Effect.statusEffect;
 import Enemy.Enemy;
-import Inventory.ArmeItem;
-import Inventory.ArmesMelees;
+
+import Battle.BattleFight;
+import Battle.Effect;
+import Battle.StatusEffect;
+
 import Inventory.Item;
+import Inventory.Armure;
 import Inventory.ItemType;
+import Inventory.Potion;
+import Mouvement.Vector2d;
+import Inventory.ArmeItem;
+import Inventory.Inventory;
+
 import Perso.Perso;
 import Perso.PersoItems;
 import Perso.PersoStats;
 
 
 public class Perso {
-	
-	//private static Player CurrentCharacter = null;
-	protected static Race ClassesPerso; // Liste des races des perso -- 
-	protected static PersoStats Stats;
-	protected static PersoItems Items;
-	protected Enemy meetEnemy;
-	protected static File deleteFile; // Sauvegarde
-    
-	protected static String Nom;
-	protected static int Level; 
-	protected static int XP;
-	protected static int Gold;
-	protected static int ptv;// ------pts de vie de base
-	protected static int ptvMin; 
-  	
-  	protected static boolean dead = false; //----Verif s'il est est vivant ou pas
 
-//-- Degats --- 
+	protected static String nom;
+	protected static Race race; // Liste des races des perso -- 
+	protected static int level; 
+	private char glyph;
+	private String causeKO;
+	protected static int xp;
+	protected static int Gold;
+
+// -----------------  Niveau de vie ------------	
+	protected static int ptv;
+	protected static int ptvMin; 
+	protected static int ptvMax;
+	
+	protected static PersoStats Stats;
+	
+// -----------------  Item & Conso ------------
+ 	
+	private int food;
+	private int maxFood;
+  	private Armure armure;
+  	private ArmeItem weapon;
+	private Inventory inventory;
+	protected static PersoItems Items;
+          
+// -----------------  Battle ------------ 
+	//-- Degats --- 
+	private int mana;
+	private int maxMana;
+  	static int degat= 0;
+    	private int soin = 0;
+    private int regenManaCooldown;
+    private int regenManaPer1000;
+    
+    BattleFight BattleAction;
+   
+    protected static int defence; 
+    protected static int justesse; // Justesse de l'attaque
+  	protected static int attaque ;
+  	
     protected static int minDegat; 
     protected static int maxDegat;
-    static int degat= 0;
-    protected int soin = 0;
-   
-  	protected static int attaque ;     
-  	protected static int bonusAttaque ; //addition des differents bonus d'equipement
-    protected static int defense; 
-    protected static int accuracy; // Justesse de l'attaque
-    protected static int bonusDefense; //addition des differents bonus d'equipement
-
-    protected Map<Character, Integer> capacites;
-   
-//-- Si le joueur à une armure --
-    protected static boolean presenceArmure;          
-    protected static boolean  mainlibre; // savoir si le perso à les mains libres ou pas
-
-//-- Battle status effets --
-    public static statusEffect statusEffects;
-	private static Object CurrentCharacter;
-    battleAction BattleAction;
-
+  
+    protected static int bonusAttaque; //addition des differents bonus d'equipement
+    protected static int bonusDefense; 
+    protected static boolean  mainlibre;
     
-//--- Dialogue avec un PNJ --
-    private boolean tileInteraction = false;
+    protected static boolean dead = false;
+    protected static boolean presenceArmure; 
     
+    public static StatusEffect statusEffects;
 
+       
 //-- Constructor --- 
-    public Perso (String nom, Race ClassesPerso) {
+    public Perso (String nom, Race race) {
         
-    	Nom = nom;
-    	Perso.ClassesPerso = ClassesPerso;
-        Level = 1; // niv de base
-        XP = 5; // niv xp à modifier peut être
+    	nom = nom;
+    	race = race;
+        level = 1; // niv de base
+        xp = 5; // niv xp � modifier peut �tre
         Gold = 30; // pareil pour les golds
         ptv = 10;
         ptvMin = 5;
         minDegat = 5;
         maxDegat = 10; 
         degat = 0; 
-        presenceArmure = false; //-- Pas d'armure au debut jeu ?
+        this.maxMana = 5;
         mainlibre = true;
-
-        Stats = new PersoStats();
-        Items = new PersoItems();
-    
-    }
-    
-    public Perso (String nom, Race ClassesPerso, PersoStats Stats,
-    		PersoItems Items,int Level, int XP, int Gold,int ptv, int ptvMin,
-    		int minDegat,int maxDegat,int degat,int attaque, int bonusAttaque,
-    		int defense, int accuracy, int bonusDefense,boolean presenceArmure, 
-    		boolean  mainslibre,statusEffect statusEffects) {
-        
-    	Nom = nom;
-    	Perso.ClassesPerso = ClassesPerso;
-        Level = 1; // niv de base
-        XP = 5; // niv xp à modifier peut être
-        Gold = 30; // pareil pour les golds
-        ptv = 10;
-        ptvMin = 5;
-        minDegat = 5;
-        maxDegat = 10; 
-        degat = 0; 
+        this.maxFood = 1000;
+        this.attaque = attaque;
+      	this.defence = defence;
         presenceArmure = false; //-- Pas d'armure au debut jeu ?
-        mainslibre = true;
-        Stats = new PersoStats();
-        Items = new PersoItems();
-    
+		this.food = maxFood / 3 * 2;
+	
+		Stats = new PersoStats();
+	    Items = new PersoItems();
+		this.inventory = new Inventory();
+		//this.statusEffects = new ArrayList<Effect>();
+      
     }
  	   
-
-   public void attaquePerso(int degat) {
-        Perso.degat = degat;
-   }
     
-   public static Perso getCurrentCharacter() {
-       return getCurrentCharacter();
-   }
+//--- Point de vie  --- 
+    public int ptv() { return ptv; }
+	
+    public int maxPtv() { return ptvMax; }
+	
+    public void modifPtv(int valeur, String string) { ptvMax += valeur; }
+	
+    public static int getPtv() { return ptv; }
+    
+    public static int setPtv(int i, String string) { return ptv; }
+   
 
-   //public static Perso setCurrentCharacter(Object character) {
-       //CurrentCharacter = character;
-   //}
+//--- LEVEL --
+   public static int getLevel() { return level; }
+   
+   //--- Exp pour passer au niveau suivant 10 * level^2
+   public int getExperienceForNextLevel() { return 10 * level * level;}
+   
+   //--- Recup Xp pour voir s'il Level Up --
+  	private void levelUpIfNeeded() {
+     
+	   int requiredXP;
 
-   public String getNom() {
-       return Nom;
-   }
+      while (	xp >= (requiredXP = getExperienceForNextLevel())) {
+   	   		xp -= requiredXP;
+   	   		++level;
+      }
+  
+  	}
 
-   public static int getMoney() {
-       return Gold;
-   }
 
-   public void addMoney(int montant) {
-       if (montant < 0)
-           return;
+//--- XP --
+   public int getXp() { return xp; }
 
-       Gold += montant;
-   }
-
-   public boolean verifSiMoney(int montant) {
-       return Gold >= montant;
-   }
-
-   public boolean UseMoney(int montant) {
-       
-	   if (montant < 0)
-           return false;
-
-       if (!verifSiMoney(montant)) // verif si le perso à des sousous
-           return false;
-
-       Gold -= montant;
-       return true;
-   }
-
-   public int getLevel() {
-       return Level;
-   }
-
-   public int getXp() {
-       return XP;
-   }
-
-   public void addXP(int xp) {
+   public void addXP(int xp, String string) {
        
 	   if (xp < 0)
            return;
 
-       XP += xp;
+       xp += xp;
 
        levelUpIfNeeded();
    }
 
-// Exp pour passer au niveau suivant 10 * level^2
-   public int getExperienceForNextLevel() {
-       return 10 * Level * Level;
-   }
+   public void modifXp(int amount) { 
+		
+	   xp += amount;
+		
+		//notify("You %s %d xp.", amount < 0 ? "lose" : "gain", amount);
+		
+		while (xp > (int)(Math.pow(level, 1.75) * 25)) {
+			level++;
+			//doAction("advance to level %d", level);
+			//ai.onGainLevel();
+			modifPtv(level * 2, "Died from having a negative level?");
+		}
+	}
 
-   private void levelUpIfNeeded() {
-      
-	   int requiredXP;
 
-       while (XP >= (requiredXP = getExperienceForNextLevel())) {
-          
-    	   XP -= requiredXP;
-           ++Level;
-           
-       }
-   }
 
-   private void die() {
-       
-	   deleteFile.delete();
-       
-       System.out.println("Le personnage " + Nom + "est mort.");
-       System.out.println("Oupss.... pas de chance");
-       System.out.println("Game Over...");
-       System.out.print("Presse sur une touche pour revenir");
-       Scanner scan = new Scanner(System.in);
-       scan.nextLine();
-       System.exit(0);
-   }
+//---- Mana ---- 
+    public int mana() { return mana; }
+	
+   	public void modifMana(int montant) { 
+	   mana = Math.max(0, Math.min(mana+montant, maxMana)); 
+	}
+   	
+   	
+//---- Attaque  ---- 
+   public void modifAttaque(int valeur) { attaque += valeur; }
+	
+   public int attaqueValeur() { 	
+		return attaque + (weapon == null ? 0 : weapon.getNivBonusAttaque());
+   	}	
 
-   public void recoitDegat(int dmg) {
-       
-	   if (dmg < 0)
-           return;
 
-       Stats.setCurrentHealth(Stats.getCurrentHealth() - dmg);
+//---- Défence  ---- 
+	public void modifDefValeur(int valeur) { defence += valeur; }
+	
+	
+	public int defValeur() { 
+		
+		return defence
+			+ (weapon == null ? 0 : weapon.valDefence())
+			+ (getArmure() == null ? 0 : getArmure().valDefence());
+	}
+	
+  
+	public void recoitDegat(int dmg) {
+	       
+		   if (dmg < 0)
+	       return;
 
-       if (Stats.getCurrentHealth() <= 0)
-           die();
-   }
-
+	       Stats.setCurrentHealth(Stats.getCurrentHealth() - dmg);
+	       if (Stats.getCurrentHealth() <= 0);
+	          
+	}
+	
+	
+	public String causeKO() { return causeKO; }
+   
+   
+	public char glyph() { return glyph; } 
+	
+   
+	
+//--- Use potion de restau --
    public void restauSante(int ptv) {
        
 	   if (ptv < 0)
@@ -218,267 +221,315 @@ public class Perso {
 
        Stats.setCurrentHealth(Stats.getCurrentHealth() + ptv);
    }
+   
+   
+//---  Soin -- 
+   public int heal(Item item) { return soin; }
+     
+   public static PersoStats getStats() { return Stats; }
 
-   public PersoStats getStats() {
-       return Stats;
-   }
-
-   public static PersoItems getItemData() { 
-       return Items; 
-   }
-
-//-- Return vrai si les achats ont réussis, sinon Faux
+   public static PersoItems getItemData() { return Items; }
+  
+//--- Return vrai si les achats ont réussis, sinon Faux
+   
+   public Inventory inventaire() { return inventory; } 
+   
+   public Item arme() { return weapon; }
+	
+   public Item armure() { return armure; } 
+   
    public boolean buyItem(Item newItem) {
       
-   	if (!verifSiMoney(newItem.getPrix()))
-           return false;
-  // Armure // Armes Distances // Armes melees // Sorts --     
-   	if (newItem.getType() == ItemType.ARME_DISTANCE || 
-   		newItem.getType() == ItemType.ARME_MELEE ||
-   		newItem.getType() == ItemType.ARMURE || 
-   		newItem.getType() == ItemType.SORT) {
+   	
+	   if (!verifSiMoney(newItem.getPrix()))
+       return false;
+  
+	   // Armure // Armes Distances // Armes melees // Sorts --     
+   		if (newItem.getType() == ItemType.ARME_DISTANCE || 
+   			newItem.getType() == ItemType.ARME_MELEE ||
+   			newItem.getType() == ItemType.ARMURE || 
+   			newItem.getType() == ItemType.SORT) {
            
-   		ArmeItem itemAsWeapon = (ArmeItem) newItem;
+   			ArmeItem itemAsWeapon = (ArmeItem) newItem;
    		
-        if (itemAsWeapon.getNivDexterite() > getStats().getDexterity() ||
-            itemAsWeapon.getNivBonusAttaque() > getStats().getStrength())
+   			if (itemAsWeapon.getNivDexterite() > getStats().getDexterity() ||
+   					itemAsWeapon.getNivBonusAttaque() > getStats().getStrength())
                
-        	return false;
+   				return false;	
        }
 
        if (!Items.storeNewItem(newItem))
            return false;
 
-       UseMoney(newItem.getPrix());
+       useMoney(newItem.getPrix());
        return true;
+  
    }
 
-   public void VendItem(Item item) {
+   public void vendItem(Item item) {
        
-   	for (int i = 0; i < PersoItems.MaxInventorySize; ++i) {
+   		for (int i = 0; i < PersoItems.MaxInventorySize; ++i) {
            
-   		Item currentItem = Items.getInventoryItem(i);
+   			Item currentItem = Items.getInventoryItem(i);
 
-           if (currentItem == item) {
+   			if (currentItem == item) {
                
         	   Items.removeInventoryItem(i);
                addMoney(item.getPrix());
                return;
            }
-       }
+       
+   		}
    }
-
-//-- Perso defent --- 
-    /*public int defend(enemy ennemi) {
-        
-    	int incomingAttack = ennemi.attaque();
-        int random = Game.RAND.nextInt(99) + 1;
-        
-        if (random <= ennemi.attaque()) {
-            
-        	incomingAttack = incomingAttack * 2;
-            UI.monsterCrit(); 
-        }
-        
-        UI.persoAttaqueMsg(incomingAttack, ennemi);
-        
-        attaque = (attaque * defense > incomingAttack)
-                ? attaque - incomingAttack : 0;
-        return attaque;
-    }*/
-    
    
-//-- Soin -- 
-   /* public int heal(Item item) {
-        return soin = item;
-    }*/
-
-    public void addEffect(effect effets){
-        //this.effets.add(effets);
-    }
-    
-   //execute les effets
-    public void lancerEffets(int i){
-        
-    }
-    
-
-//--- Paramètre bouclier -- 
-//--Application des degats en fonction des attaques précédentes -
-   /* public void applyDamage(armes_bouclier tempName, boolean hasShield) {
+ 
+//--- Update  Santé / Mana / Effet   
+   public void update(){
+		
+	   modifyFood(-1);
+	   regenerationSante();
+	   regenerationMana();
+	   updateEffects();
+	  
+   }
+	
+	
+   private void updateEffects(){
+		
+		List<Effect> udpateEff = new ArrayList<Effect>();
+		
+		//for (Effect effect == effect){
+			
+		statusEffects.update(this);
+			if (statusEffects.isDone()) {
+				
+				statusEffects.end(this);
+				udpateEff.add(statusEffects);
+			}
+	
+			//statusEffects.removeAll(udpateEff);
+   }
+		
     	
-    	//-- Avec un bouclier (defene) les degats sont appliqués d'abord pour diminuer la def
-        if (hasShield) {
-            if (degat == 0) {
-                hasShield = false;
-                return;
-            }
+   private void regenerationSante(){
+		
+		regenManaCooldown -= regenManaPer1000;
+		
+		if (regenManaCooldown < 0){
+			
+			if (xp < maxPtv()){
+				modifPtv(1, "Tu es KO! Tu veux te refaire une santé ?");
+				modifyFood(-1);
+			}
+			
+			regenManaCooldown += 1000;
+		}
+	}
+	
+   
+   private void regenerationMana(){
+		
+		regenManaCooldown -= regenManaPer1000;
+		
+		if (regenManaCooldown < 0){
+		
+			if (mana < maxMana) {
+				modifMana(1);
+				modifXp(-1);
+			}
+			
+			regenManaCooldown += 1000;
+		}
+	} 
+
   
-            moveUsed = prevMoveUsed;
-            prevMoveUsed = -1;
 
-            //-- Si les degats casse le shield (bouclier) le joueur connait des degats
-            if (hasShield = true) {
-               degat - ptv = ;
-                hasShield = true;
-                damageHp();
-            }
-            // damage breaks through the entire shield but does not damage hp bar
-            else if (hasShield - degat == 0) {
-                hasShield = 0;
-            }
-            // damage damages the shield
-            else {
-                hasShield -= degat;
-                degat = 0;
-            }
+//--- Gestion des GOLDS --
+	  
+	public void addMoney(int montant) {
+	       
+		if (montant < 0)
+	         return;
 
-        }
-        else {
-            moveUsed = prevMoveUsed;
-            prevMoveUsed = -1;
-            damageHp();
-        }
-    }*/
+	     Gold += montant;
+	   
+	}
+
+	public boolean verifSiMoney(int montant) { return Gold >= montant; }
+
+	public boolean useMoney(int montant) {
+	       
+		 if (montant < 0)
+	         return false;
+
+	       if (!verifSiMoney(montant)) // verif si le perso des sousous
+	           return false;
+
+	       Gold -= montant;
+	       return true;
+	}
+	   
+	public static int getMoney() { return Gold; }
+
+
+// ---- ITEMS  ------- 
+	
+   public void pickup(Vector2d v){
+		
+		Item item =1;
+		
+		if (inventory.isFull() || item == null){
+			//doAction("grab at the ground");
+		
+		} else {
+			//doAction("pickup a %s", item.getNom());
+			//Map.remove(item);
+			inventory.add(item);
+		
+		}
+	}
+	
+	
+   // Ramasser un objet --
+   public void drop(Item item){
+		
+	//doAction("drop a " + item.getNom());
+	   inventory.remove(item);
+	   noEquip(item);
+		
+	}
     
-//--  GETTER ET SETTER  Equipements - 
-	public ArrayList<ArmesMelees> getArmure() {
-		return null;
-	}
-
-	public ArrayList<Enemy> getutiliserArmesDistance() {
-		return null;
-	}
-
-	public ArrayList<Enemy> getUtiliserArMelee() {
-		return null;
-	}
-
-
-//-- GETTER ET SETTER  Point de vie - 
-	public void setKO(boolean dead) { Perso.dead = dead; }
 	
-	public static boolean isKO() { return dead; }
+   public void modifyFood(int montantFood) { 
+		
+	   food += montantFood;
+		
+		if (food > maxFood) {
+			
+			maxFood = (maxFood + food) / 2;
+			food = maxFood;
+			//notify("You can't belive your stomach can hold that much!", null);
+			modifPtv(-1, "Killed by overeating.");
+		
+		} else if (food < 1) {
+			modifPtv(-1000, "Starved to death.");
+		
+		}
+	}
+ 
 	
-	public static int getPtv() {
-		return ptv;
-	}
-
-	public static void setPtv(int ptv) {
-		Perso.ptv = ptv;
-	}
+  
 	
-	public int getPtvMin() {
-		return ptvMin;
-	}
-
-	public void setPtvMin(int item) {
-		this.ptvMin = item;
-	}
 	
-//-- GETTER ET SETTER  Race - 
-	public Race getRace() {
-		return ClassesPerso;
-	}
-
-	public void setRace(Race race) {
-		Perso.ClassesPerso = race;
-	}
-
-	
-//-- GETTER ET SETTER  Attaque --- 
-	public int getAttaque(Enemy enemy) {
-		return attaque;
-	}
-
-	public void setAttaque(int attaque) {
-		Perso.attaque = attaque;
-	}
-	
-	public int getBonusDefense() {
-		return bonusDefense;
-	}
-
-	public void setBonusDefense(int bonusDefense) {
-		Perso.bonusDefense = bonusDefense;
-	}
-
-	public int getBonusAttaque() {
-		return bonusAttaque;
-	}
-
-	public void setBonusAttaque(int bonusAttaque) {
-		Perso.bonusAttaque = bonusAttaque;
-	}
-	
-
-//--- Justesse de l'attaque -- 
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
-    }
-    
-    public int getJustesse() { return accuracy; }
-    
-
-//-- GETTER ET SETTER  Degat--- 
-    public int getDegat() {
-    	return degat;
-    }
-    
-    public int setDegat() {
-    	return degat;
-    }
-	
-    public int getMinDegat() { return minDegat; }
-
-    public int getMaxDegat() { return maxDegat; }
-
-    public void setMinDegat(int minDegat) {
-        Perso.minDegat = minDegat;
-    }
-
-    public void setMaxDamage(int maxDegat) {
-        Perso.maxDegat = maxDegat;
-    }
-
-//-- GETTER & SETTER Rencontre avec un ennemi
-	public Enemy getMeetEnnemi() {
-		return meetEnemy;
-	}
-
-	public void setMeetEnemy(Enemy meetEnemy) {
-		this.meetEnemy = meetEnemy;
-	}
-
-	public void takeTurn(battleAction playerAction, Enemy enemie) {
+   public void consoPotionf(Potion potion){
+		//doAction("Avaler:  " + item.getNom());
+		consume(potion + potion.getNom());
 	}
 	
 	
-//--- GETTER ET SETTER interaction PNJ	
-	public boolean isTileInteraction() {
-		return tileInteraction;
-	}
+   private void consume(Item item){
+		
+	   if (item.valeurFood() < 0)
+		//notify("Gross!");
+		addEffect(item.quaffEffect());
+		
+		modifyFood(item.valeurFood());
+		supObj(item);
+	
+   }
+	
+   public boolean siMainslivre() { return siMainslivre(); }
 
-	public void setTileInteraction(boolean tileInteraction) {
-		this.tileInteraction = tileInteraction;
+   private void addEffect(Effect effect){
+		
+	   if (effect == null)
+			return;
+		
+		effect.start(this);
+		
 	}
-
-//-- GETTER & SETTER Rencontre avec un ennemi 
-	boolean siPresenceArmure() {
-		return presenceArmure;
+	
+   private void supObj(Item item){
+		inventory.remove(item);
+		noEquip(item);
+	
+   }
+	
+	public void equiper(Item item){
+		
+		if (!inventory.contains(item)) {
+			
+			if (inventory.isFull()) {
+				//notify("Can't equip %s since you're holding too much stuff.", item.getNom());
+				return;
+			
+			} else {
+				//map.remove(item);s
+				inventory.add(item);
+			
+			}
+		}
+		
+		if (item.valAttaque() == 0 && item.rangedAttackValue() == 0 && item.valDefence() == 0)
+			return;
+		
+		if (item.valAttaque() + item.rangedAttackValue() >= item.valDefence()){
+			noEquip(weapon);
+			doAction("wield a " + item.getNom());
+			weapon = (ArmeItem) item;
+		
+		} else {
+			noEquip(getArmure());
+			doAction("put on a " + item.getNom());
+			setArmure(item);
+		}
 	}
-
-	public void setPresenceArmure(boolean presenceArmure) {
-		this.presenceArmure = presenceArmure;
+	
+	
+   public void noEquip (Item item){
+		
+	   if (item == null)
+		return;
+		
+		if (item == getArmure()){
+			
+			if (ptv > 0)
+				doAction("Supprimer l'objet:" + item.getNom());
+				setArmure(null);
+		
+		} else if (item == weapon) {
+			
+			if (ptv > 0) 
+				doAction("Ranger l'objet" + item.getNom());
+				weapon = null;
+		
+		}
 	}
-
-	/*public boolean siMainslivre() {
-		return mainslivre;
+	
+	
+   public void setPresenceArmure(boolean presenceArmure) {
+		Perso.presenceArmure = presenceArmure;
+	}
+   
+	/*private int detectCreatures;
+	public void modifyDetectCreatures(int amount) { setDetectCreatures(getDetectCreatures() + amount); }
+	public int getDetectCreatures() { return detectCreatures; }
+	public void setDetectCreatures(int detectCreatures) {
+		this.detectCreatures = detectCreatures;
 	}*/
-
-	/*public void setMainslivre(boolean mainslivre) {
-		this.mainslivre = mainslivre;
-	}*/
-
 	
+
+//-- GETTER & SETTER 
+	
+	public static String getNom() { return nom;}
+	
+	boolean siPresenceArmure() { return presenceArmure; }
+
+	public void setMainslivre(boolean mainslivre) { Perso.mainlibre = mainslivre;}
+
+	public Armure getArmure() { return armure; }
+
+	public void setArmure(Armure armure) { this.armure = armure; }
+
+
 }
