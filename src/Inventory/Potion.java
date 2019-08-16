@@ -3,8 +3,17 @@ package Inventory;
 import Perso.Gold;
 import Perso.Perso;
 import java.util.Map;
+
+import Battle.Effect;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
 import Utils.SingleTonRandom;
+import asciiPanel.AsciiPanel;
 
 
 public class Potion extends Item {
@@ -25,17 +34,24 @@ public class Potion extends Item {
 	public static int 	svNiveau;
 	public static int 	svPrix;
 
-
+	Map map;
 	
-//-- Constructor --- 	
-	public Potion(Integer id, String nom, Integer prix, String description) {
+	private Map<String, Color> potionColors;
+	private List<String> potionAppearances;
+	
+	
+// --- Constructor -- 		
+	public Potion(Integer id, String nom, Integer prix, String description, Map map) {
 			 		
-		 super(id, ItemType.POTION, nom, prix, description);	
-	       
-	 }
-	   
-	
+		 super(id, ItemType.POTION, nom, prix, color, description);	
+	     
+		 this.map = map;
+		
+		 setUpPotionAppearances();
+	}
+	 
 
+	  
 
 /**
  	* Choose a random potion among the available potions
@@ -55,45 +71,108 @@ public class Potion extends Item {
 	 	 public void initPossiblePotions() {
 		 
 			possiblePotions.put("potVie", new Potion(0, "Potion", 15,"une petite fiole remplie d'un "
-	                + "liquide rouge translucide. Soigne 20 points de vie."));
+	                + "liquide rouge translucide. Soigne 20 points de vie.", map));
 			
 			possiblePotions.put("potCrit", new Potion(0, "Potion", 30, "une petite forme ovale"
 		                + " flacon rempli d'un liquide bleu bouillonnant. Augmente les chances de critique"
-		                + "par 10%" ));
+		                + "par 10%", map ));
 			
 			possiblePotions.put("potTel", new Potion(0, "Potion", 50, "Potion utilis�e"
-	                	+ "t�l�porter au d�but du donjon."));
+	                	+ "t�l�porter au d�but du donjon.", map));
 	 	 }
 	 	 
 	 	
-	 	 
+	 private void setUpPotionAppearances(){
+			
+		 potionColors = new HashMap<String, Color>();
+		 potionColors.put("red potion", AsciiPanel.brightRed);
+		 potionColors.put("bleu potion", AsciiPanel.blue);
+		 potionColors.put("green potion", AsciiPanel.brightGreen);
+			
+		 potionAppearances = new ArrayList<String>(potionColors.keySet());
+		 Collections.shuffle(potionAppearances);
+		
+	 }
+		
+	
+	 public Item newPotionDeSante(){
+		
+		String appearance = potionAppearances.get(0);
+		
+		final Item item = new Item(0,ItemType.POTION,"", 20, potionColors.get(appearance), "Potion de sante");
+				item.setQuaffEffect(new Effect(1){
+
+					public void start(Perso perso){
+						
+						if (Perso.getPtv() == Perso.setPtv(valeurFood(), desc));
+							return;
+					}
+				}
+			);
+				
+			//world.addAtEmptyLocation(item, depth);
+			return item;
+	}
+			
+			
+	public Item newPotionDeMana(){
+				
+		String appearance = potionAppearances.get(1);
+		final Item item = new Item(1, ItemType.POTION,"", 50, potionColors.get(appearance), "Potion restau");
+				item.setQuaffEffect(new Effect(2){
+					
+				public void start(Perso perso){
+						
+					if (perso.mana() == perso.mana())
+						return;
+						
+					perso.modifMana(10);
+					//perso.doAction(item, "look restored");
+				}
+			}
+		);
+				
+		//world.addAtEmptyLocation(item, depth);
+		return item;
+	}
+		
+		  
+	public Item randomPotion(){
+				
+		switch ((int)(Math.random() * 9)){
+				
+			 	case 0: return newPotionDeMana();
+				case 1: return newPotionDeSante();
+				
+		}
+			 
+		return newPotionDeSante();
+	}
+
 	
 	   
-
-/*
- * getPrix
- * Recup prix potion
-*/
-	 public static int getPrix(String trouver) {
+	public static int getPrix(String trouver) {
 	    
-	  		switch (trouver.toLowerCase()) {
-	  			case "Survie":
-	  				return svPrix;
-	  			case "restauration":
-	  				return restPrix;
-	  			default:
-	  				return 0; 
-	  		}
+	  switch (trouver.toLowerCase()) {
+	  			
+	  		case "Survie":
+	  			return svPrix;
+	  			
+	  		case "restauration":
+	  			return restPrix;
+	  		default:
+	  			return 0; 
+	  }
 	}//recup prix 
 
 	 
-	public static void addPotion(int numPotions, Perso perso) {
+	/*public static void addPotion(int numPotions, Perso perso) {
 	        
 		 for (int i = 0; i < numPotions; i++) {
 			
-			 //perso.getInventaire(desc).addItem(potion());
+			 perso.getInventaire(desc).addItem(potion());
 		 }
-	 }
+	 }*/
 
 
 /*
@@ -115,10 +194,8 @@ public class Potion extends Item {
 	} // fin getTrouver
 
 
-	 public static void setFoundPotion(String trouver,
-			 							int montant, 
-			 							boolean add) {
-	     
+	 public static void setFoundPotion(String trouver,int montant, boolean add) {
+			 							 
 		 switch (trouver.toLowerCase()) {
 	        
 		 	case "survie":
@@ -128,9 +205,11 @@ public class Potion extends Item {
 	            
 				} else {
 						potionSuvie += montant;
+						
 						if (potionSuvie < 0) potionSuvie = 0;
 	            
 				}
+				
 			break;
 	        
 		 	case "Restauration":
@@ -194,34 +273,23 @@ public class Potion extends Item {
 
 	
 //-- GETTER & SETTER	 
-	 public String getNom() {
-	        return nom;
-	}
+	 public String getNom() { return nom;}
 
-	 public String getDescription() {
-	    return nom;
-	}
+	public String getDescription() { return nom;}
 
-	 public static int svUtiliser() {
-		return potionSuvie;
-	}
+	public static int svUtiliser() { return potionSuvie; }
 
-	public static int getPotionSuvie() {
-		return potionSuvie;
-	}
+	public static int getPotionSuvie() { return potionSuvie; }
 
 	public static void setPotionSuvie(int potionSuvie) {
 		Potion.potionSuvie = potionSuvie;
 	}
 
-	public static int getPotionRestau() {
-		return potionRestau;
-	}
+	public static int getPotionRestau() {return potionRestau; }
 
 	public static void setPotionRestau(int potionRestau) {
 		Potion.potionRestau = potionRestau;
 	}
-	 
-	
+
 	    
 }
