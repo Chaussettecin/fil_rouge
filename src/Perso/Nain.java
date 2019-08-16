@@ -6,14 +6,7 @@ public abstract class Nain extends Perso {
 	private String description;
 
 	public Nain( String description) {
-		
-		
-		super(Nom, ClassesPerso, Stats, Items, Level, XP, 
-				Gold, ptv, ptvMin, minDegat, maxDegat, degat, 
-				attaque, bonusAttaque, defense, accuracy, 
-				bonusDefense, presenceArmure, mainlibre , 
-				statusEffects);
-	
+		super(nom, race);
 	
 	}
 
@@ -21,7 +14,7 @@ public abstract class Nain extends Perso {
 	public String descriptionJissi() {
 		return "Il faut toujours se méfier des petites tailles" +
 			"Suffit de voir son cahier de chasse, elle est la plus grande Assassin du monde."
-			+ "Son nom est sur toute les lèvres dans les tavernes.";
+			+ "Son nom est sur toute les lévres dans les tavernes.";
 	}
 
 
@@ -37,13 +30,12 @@ public abstract class Nain extends Perso {
 	}
 
 
-	public String getDescription() {
-		return description;
-	}
+	public String getDescription() { return description; }
 
 
 	public void setDescription(String description) {
 		this.description = description;
 	}	
+
 
 }
