@@ -33,12 +33,13 @@ public class ArmesMelees extends ArmeItem{
 	                + "Attention aux reflex" ));
 	 }
 
+	 /*
 	@Override
 	 public String toString() {
 	     return id + "Nom de l'arme: " + nom + ", prix: " + prix + "Gold"
 	    		 + descArmMel;
 	 }
-	
+	*/
 	
 // Methode pour voir si le perso possede deja ou peut utiliser l'arme
 	
