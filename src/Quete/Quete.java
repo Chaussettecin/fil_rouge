@@ -2,61 +2,69 @@ package Quete;
 
 import java.util.ArrayList;
 
-import Inventory.ArmesDistance;
-import Inventory.ArmesMelees;
+import Npc.Npc;
+
+import Perso.Perso; 
+
 import Inventory.Sort;
 import Inventory.Potion;
-import Adventure.Npc;
-import Perso.Perso;
+import Inventory.ArmesDistance;
+import Inventory.ArmesMelees;
 
+//--- Classe Quetes -- 
 
 public class Quete {
+	
+    Npc npc;
 
 //-- arrayList des quêtes  --- 
 	private static final ArrayList<Quete> QuetesList = new ArrayList<>();
    
+//-- ArrayList  = Potion ---
+    private final ArrayList<Potion> recompensesPotions = new ArrayList<>();
+	
 //-- ArrayList  = Armes et Armures ---
+	private final ArrayList<Sort> recompensesSorts = new ArrayList<>();
     private final ArrayList<ArmesDistance> recompensesArmures = new ArrayList<>();
     private final ArrayList<ArmesMelees> recompensesArmes = new ArrayList<>();
-    private final ArrayList<Sort> recompensesSorts = new ArrayList<>();
-    
-  //-- ArrayList  = Potion ---
-    private final ArrayList<Potion> recompensesPotions = new ArrayList<>();
-    
-    Npc npc;
-    
-    //-- Recompenses --
-    private int goldRecompenseMin;
-    private int goldRecompenseMax;
-    private int xpRecompenseMin;
-    private int xpRecompenseMax;
-    private int santeRecompenseMin;
-    private int santeRecompenseMax;
-    //Prerequis
+       
+//-- Prerequis
     private int minLevelReq;
     private boolean complete;
     private boolean disponible;
-
-    public Quete(Npc npc, int goldMin, int goldMax, int xpMin,
-    			 int xpMax, int santeMin, int santeMax, 
-    			 int minLevel, boolean complete, boolean dispo ) {
-                 
-
+    
+ //-- Recompenses --
+    private int xpRecompenseMin;
+    private int xpRecompenseMax;
+    private int goldRecompenseMin;
+    private int goldRecompenseMax;
+    private int santeRecompenseMin;
+    public static int santeRecompenseMax;
+   
+    public Quete (	Npc npc, int goldMin, int goldMax, 
+    				int xpMin, int xpMax, int santeMin,
+    				int santeMax, int minLevel, 
+    				boolean complete, boolean dispo ) {
+    				
+               
         	this.npc = npc;
+        	this.disponible = dispo;
+        	this.complete = complete;
+        	this.minLevelReq = minLevel;
+        	this.setSanteRecompenseMax(santeMax);
         	this.setGoldRecompenseMin(goldMin);
         	this.setGoldRecompenseMax(goldMax);
         	this.setXpRecompenseMin(xpMin);
         	this.setXpRecompenseMax(xpMax);
         	this.setSanteRecompenseMin(santeMin);
-        	this.setSanteRecompenseMax(santeMax);
-        	this.minLevelReq = minLevel;
-        	this.complete = complete;
-        	this.disponible = dispo;
+        	
         	QuetesList.add(this);
     }
     
     
-//--- Quêtes des PNJ --     
+ /*
+  * Check Quetes données par les NPC
+  */    
     public static boolean checkQuetePrNPC(Npc npc, Perso level) {
         
     	boolean check = false;
@@ -64,7 +72,7 @@ public class Quete {
         
         do {
             
-        	if (QuetesList.get(i)) {
+        	if (QuetesList.get(i) != null) {
                 
         		if (QuetesList.get(i).getMinLevelReq() <= level.getLevel()) {
                     
@@ -82,52 +90,38 @@ public class Quete {
 
     
 //--- GETTER & SETTER - 
-    public int getMinLevelReq() {
-        return minLevelReq;
-    }
+    
+    public int getMinLevelReq() { return minLevelReq;}
 
-    public boolean getComplete() {
-        return complete;
-    }
+    public boolean getComplete() { return complete; }
 
     public boolean getDisponible() {
         return disponible;
     }
 
-
 	public ArrayList<Potion> getRecompensesPotions() {
 		return recompensesPotions;
 	}
-
 
 	public ArrayList<Sort> getRecompensesSorts() {
 		return recompensesSorts;
 	}
 
-
 	public ArrayList<ArmesMelees> getRecompensesArmes() {
 		return recompensesArmes;
 	}
-
 
 	public ArrayList<ArmesDistance> getRecompensesArmures() {
 		return recompensesArmures;
 	}
 
-
-	public int getGoldRecompenseMin() {
-		return goldRecompenseMin;
-	}
-
+	public int getGoldRecompenseMin() { return goldRecompenseMin; }
 
 	public void setGoldRecompenseMin(int goldRecompenseMin) {
 		this.goldRecompenseMin = goldRecompenseMin;
 	}
 
-
-	public int getGoldRecompenseMax() {
-		return goldRecompenseMax;
-	}
+	public int getGoldRecompenseMax() {return goldRecompenseMax;}
 
 
 	public void setGoldRecompenseMax(int goldRecompenseMax) {
@@ -135,9 +129,7 @@ public class Quete {
 	}
 
 
-	public int getXpRecompenseMin() {
-		return xpRecompenseMin;
-	}
+	public int getXpRecompenseMin() { return xpRecompenseMin; }
 
 
 	public void setXpRecompenseMin(int xpRecompenseMin) {
@@ -145,9 +137,7 @@ public class Quete {
 	}
 
 
-	public int getSanteRecompenseMin() {
-		return santeRecompenseMin;
-	}
+	public int getSanteRecompenseMin() { return santeRecompenseMin;}
 
 
 	public void setSanteRecompenseMin(int santeRecompenseMin) {
@@ -155,9 +145,7 @@ public class Quete {
 	}
 
 
-	public int getXpRecompenseMax() {
-		return xpRecompenseMax;
-	}
+	public int getXpRecompenseMax() { return xpRecompenseMax;}
 
 
 	public void setXpRecompenseMax(int xpRecompenseMax) {
@@ -165,9 +153,7 @@ public class Quete {
 	}
 
 
-	public int getSanteRecompenseMax() {
-		return santeRecompenseMax;
-	}
+	public int getSanteRecompenseMax() { return santeRecompenseMax;}
 
 
 	public void setSanteRecompenseMax(int santeRecompenseMax) {
