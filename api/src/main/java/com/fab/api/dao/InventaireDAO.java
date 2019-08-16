@@ -1,0 +1,20 @@
+package com.fab.api.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.fab.api.model.Equipement;
+import com.fab.api.model.Inventaire;
+import com.fab.api.model.Player;
+import com.fab.api.model.Utilisateur;
+
+
+public interface InventaireDAO extends JpaRepository<Inventaire, Integer>{
+
+	Iterable<Inventaire> findAllByPlayer(Player player);
+
+	
+	
+
+}

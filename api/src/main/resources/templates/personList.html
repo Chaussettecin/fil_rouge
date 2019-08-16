@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Person List</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/Style.css}"/>
+   </head>
+   <body>
+      <h1>Person List</h1>
+      <a href="addPerson">Add Person</a>
+      <br/><br/>
+<!--       <div> -->
+<!--          <table border="1"> -->
+<!--             <tr> -->
+<!--                <th>First Name</th> -->
+<!--                <th>Last Name</th> -->
+<!--             </tr> -->
+<!--             <tr th:each ="person : ${persons}"> -->
+<!--                <td th:utext="${person.login}">...</td> -->
+<!--                <td th:utext="${person.mdp}">...</td> -->
+<!--             </tr> -->
+<!--          </table> -->
+<!--       </div> -->
+      
+      <div>
+      
+    
+        <section class="tableau">
+            <table border = 1>
+                <tr>
+                	<th>Login</th>
+                    <th>Nom</th>
+                    <th>Mail</th>
+                    <th>Id</th>
+                    <th>Admin</th>
+					
+					<th>Modifier Mot de pass</th>
+					<th>Supprimer utilisateur</th>
+                </tr>
+                <tr th:each ="person : ${persons}">
+               		<td th:utext="${person.login}">...</td>
+               		<td th:utext="${person.nom}">...</td>
+               		<td th:utext="${person.mail}">...</td>
+               		<td th:utext="${person.id_utilisateur}">...</td>
+               		<td th:utext="${person.manager}? 'OUI' : 'NON'">...</td>
+               		<td><form action="user/changepass" method="POST">
+               	      	<input type="hidden" name="mail" th:attr="value=${person.mail}"/>
+               			<input type="text" name="mdp" />
+					    <input type="submit" name="userAction" value="Modifier"/>
+						</form> </td>
+               		<td><form action="user/del" method="POST">
+               			<input type="hidden" name="mail" th:attr="value=${person.mail}"/>
+					    <input type="submit" name="userAction" value="Supprimer"/>
+						</form> </td>
+      	      	</tr>
+            </table>
+        </section>
+      
+      </div>
+      
+      
+      
+   </body>
+</html>

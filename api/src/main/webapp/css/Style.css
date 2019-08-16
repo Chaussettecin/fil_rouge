@@ -1,0 +1,63 @@
+body    
+    {
+        font-family: 'Sérif';
+        margin: 0px;
+        background: url("FondEcranDodo.jpg") fixed no-repeat;
+        height: 100%;
+        width: 100%;
+    }
+
+.ajout 
+	{
+		display: flex;
+        justify-content: center;
+		margin-top: 80px;
+	}
+.retour 
+	{
+		display: flex;
+        justify-content: center;
+		
+		margin-top:80px;
+	}
+	
+.tableau
+    {
+        display: flex;
+        justify-content: center;
+		margin-top:10px;
+    }
+
+#formulaire
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+		margin-top: 10px;
+    }
+
+h1 
+    {
+        font-size: 80px;
+        margin: 0px;
+        height: 100px;
+    }
+
+h2
+    {
+        font-size: 30px;
+    }
+	
+	
+table
+    {
+        background-color: rgba(0,0,0,0.4);
+    }
+
+th, td
+    {
+        color: white;
+        font-size: 25px;
+        text-align: center;
+    }	
