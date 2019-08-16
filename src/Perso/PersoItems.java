@@ -14,7 +14,7 @@ import Inventory.Item;
 
 public class PersoItems {
 
-    // Peut-être null 
+//-- Peut-Ãªtre null 
     ArmeItem Arme;
 
     public static final int MaxInventorySize = 8;
