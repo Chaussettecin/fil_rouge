@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+
+
+    android:background="@drawable/backgroundshape"
+
+
+
+>
+
+    <TextView
+        android:id="@+id/titre"
+        style="@style/Titre"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        android:paddingTop="20dp"
+        android:text="Azatoth Quest"
+        android:textAlignment="center"
+        android:textAppearance="@style/Titre" />
+
+
+
+
+    <EditText
+        android:paddingTop="300dp"
+        android:id="@+id/login"
+        android:layout_width="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+
+
+         />
+    <TextView
+        android:paddingTop="300dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/login"
+        android:textAlignment="textEnd"
+        android:text="Login" />
+    <TextView
+        android:paddingTop="15dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/mdp"
+        android:layout_below="@+id/login"
+        android:textAlignment="textEnd"
+        android:text="Mot De Pass" />
+
+
+    <EditText
+        android:id="@+id/mdp"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:layout_centerHorizontal="true"
+        android:inputType="textPassword"
+
+      />
+
+
+    <TextView
+        android:id="@+id/noexist"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Utilisateur non inscrit"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="30dp"
+        android:layout_below="@id/mdp" />
+
+    <Button
+        android:id="@+id/btnConn"
+
+        android:text="Connexion"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_below="@id/titre"
+        android:layout_margin="40dp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#AFA8A8"
+        android:layout_centerHorizontal="true"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+       />
+
+
+
+
+
+</RelativeLayout>
